@@ -129,8 +129,14 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="Create Brand" xml:space="preserve">
+    <value>Создать бренд</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Описание</value>
+  </data>
+  <data name="Edit Brand" xml:space="preserve">
+    <value>Редактировать бренд</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>

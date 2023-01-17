@@ -34,6 +34,12 @@
                     @L["Brands"]
                 </MudNavLink>
             }
+            @if (_canViewRuralGovs)
+            {
+                <MudNavLink Href="/catalog/ruralgovs" Icon="@Icons.Filled.LocationCity" Class="fsh-nav-child">
+                    @L["Rural goverment"]
+                </MudNavLink>
+            }
         </MudNavGroup>
     }
     @if (CanViewAdministrationGroup)

@@ -120,10 +120,70 @@
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
-  <data name="InfoFormat" xml:space="preserve">
-    <value>{first_item}-{last_item} of {all_items}</value>
+  <data name="Add Rural goverment" xml:space="preserve">
+    <value>Add Rural goverment</value>
   </data>
-  <data name="RowsPerPageString" xml:space="preserve">
-    <value>Rows per page:</value>
+  <data name="Bordered" xml:space="preserve">
+    <value>Bordered</value>
+  </data>
+  <data name="Coordinate" xml:space="preserve">
+    <value>Coordinate</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Delete Content" xml:space="preserve">
+    <value>Delete Content</value>
+  </data>
+  <data name="Dense" xml:space="preserve">
+    <value>Dense</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Filtered Rural goverments  exported" xml:space="preserve">
+    <value>Filtered Rural goverments  exported</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Manage Rural goverments" xml:space="preserve">
+    <value>Manage Rural goverments.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="No Allowed Actions" xml:space="preserve">
+    <value>No Allowed Actions</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="Rural goverments" xml:space="preserve">
+    <value>Rural goverments</value>
+  </data>
+  <data name="Rural goverments  exported" xml:space="preserve">
+    <value>Rural goverments  exported</value>
+  </data>
+  <data name="Search for" xml:space="preserve">
+    <value>Search for</value>
+  </data>
+  <data name="Striped" xml:space="preserve">
+    <value>Striped</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Tax</value>
   </data>
 </root>

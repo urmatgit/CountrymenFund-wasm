@@ -1,0 +1,28 @@
+﻿@page "/catalog/ruralgovs"
+@attribute [MustHavePermission(FSHAction.View,FSHResource.RuralGovs)]
+
+@inject IStringLocalizer<RuralGovs> L
+
+
+
+<FshTitle Title="@L["Rural goverments"]" Description="@L["Manage rural goverments"]"/>
+<EntityTable TEntity="RuralGovDto" TId="Guid" TRequest="UpdateRuralGovRequest" Context="@Context">
+    <EditFormContent >
+        @if (!Context.AddEditModal.IsCreate)
+        {
+            <MudItem xs="12" md="6">
+                <MudTextField Value="context.Id" ReadOnly DisableUnderLine Label="@L[$"Id"]"/>
+            </MudItem>
+        }
+        <MudItem xs="12" md="6">
+            <MudTextField T="string" For="@(()=>context.Name)" @bind-Value="context.Name" Label="@L["Name"]"/>
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField T="string" For="@(()=>context.Coordinate)" @bind-Value="context.Coordinate" Label="@L["Coordinate"]"/>
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField For="@(() => context.Description)" @bind-Value="context.Description"
+                          Label="@L["Description"]" />
+        </MudItem>
+    </EditFormContent>
+</EntityTable>

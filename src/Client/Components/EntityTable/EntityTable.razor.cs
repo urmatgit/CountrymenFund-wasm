@@ -313,9 +313,9 @@ public partial class EntityTable<TEntity, TId, TRequest>
 
             await ApiHelper.ExecuteCallGuardedAsync(
                 () => Context.DeleteFunc(id),
-                Snackbar);
+                Snackbar,successMessage:L["Deleted"]);
 
             await ReloadDataAsync();
-        }
+        } 
     }
 }

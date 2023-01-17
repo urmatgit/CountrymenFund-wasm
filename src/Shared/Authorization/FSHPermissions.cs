@@ -26,6 +26,7 @@ public static class FSHResource
     public const string RoleClaims = nameof(RoleClaims);
     public const string Products = nameof(Products);
     public const string Brands = nameof(Brands);
+    public const string RuralGovs=nameof(RuralGovs);
 }
 
 public static class FSHPermissions
@@ -61,6 +62,13 @@ public static class FSHPermissions
         new("Delete Brands", FSHAction.Delete, FSHResource.Brands),
         new("Generate Brands", FSHAction.Generate, FSHResource.Brands),
         new("Clean Brands", FSHAction.Clean, FSHResource.Brands),
+
+        new("View RuralGovs", FSHAction.View, FSHResource.RuralGovs, IsBasic: true),
+        new("Search RuralGovs", FSHAction.Search, FSHResource.RuralGovs, IsBasic: true),
+        new("Create RuralGovs", FSHAction.Create, FSHResource.RuralGovs),
+        new("Update RuralGovs", FSHAction.Update, FSHResource.RuralGovs),
+        new("Delete RuralGovs", FSHAction.Delete, FSHResource.RuralGovs),
+        new("Clean RuralGovs", FSHAction.Clean, FSHResource.RuralGovs),
         new("View Tenants", FSHAction.View, FSHResource.Tenants, IsRoot: true),
         new("Create Tenants", FSHAction.Create, FSHResource.Tenants, IsRoot: true),
         new("Update Tenants", FSHAction.Update, FSHResource.Tenants, IsRoot: true),

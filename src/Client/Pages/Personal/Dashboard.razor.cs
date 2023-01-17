@@ -11,6 +11,8 @@ namespace FSH.BlazorWebAssembly.Client.Pages.Personal;
 public partial class Dashboard
 {
     [Parameter]
+    public int RuralGovCount { get; set; }
+    [Parameter]
     public int ProductCount { get; set; }
     [Parameter]
     public int BrandCount { get; set; }
@@ -18,6 +20,7 @@ public partial class Dashboard
     public int UserCount { get; set; }
     [Parameter]
     public int RoleCount { get; set; }
+
 
     [Inject]
     private IDashboardClient DashboardClient { get; set; } = default!;
@@ -48,10 +51,12 @@ public partial class Dashboard
                 Snackbar)
             is StatsDto statsDto)
         {
+            RuralGovCount = statsDto.RuralGovCount;
             ProductCount = statsDto.ProductCount;
             BrandCount = statsDto.BrandCount;
             UserCount = statsDto.UserCount;
             RoleCount = statsDto.RoleCount;
+
             foreach (var item in statsDto.DataEnterBarChart)
             {
                 _dataEnterBarChartSeries

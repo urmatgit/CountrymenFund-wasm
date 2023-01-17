@@ -120,7 +120,7 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
+  <data name="CONFIRM" xml:space="preserve">
     <value>Подтвердить</value>
   </data>
   <data name="Delete Confirmation" xml:space="preserve">

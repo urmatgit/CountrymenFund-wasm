@@ -118,12 +118,75 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Actions" xml:space="preserve">
-    <value>Actions</value>
+    <value>Действия</value>
   </data>
-  <data name="InfoFormat" xml:space="preserve">
-    <value>{first_item}-{last_item} of {all_items}</value>
+  <data name="Add Rural goverment" xml:space="preserve">
+    <value>Добавить селькое управление </value>
   </data>
-  <data name="RowsPerPageString" xml:space="preserve">
-    <value>Rows per page:</value>
+  <data name="Bordered" xml:space="preserve">
+    <value>Обрамлённый</value>
+  </data>
+  <data name="Coordinate" xml:space="preserve">
+    <value>Координаты</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Delete Content" xml:space="preserve">
+    <value>Удалить контент</value>
+  </data>
+  <data name="Dense" xml:space="preserve">
+    <value>Компактный</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Экспорт в Excel</value>
+  </data>
+  <data name="Filtered Brands exported" xml:space="preserve">
+    <value>Отфильтрованные Селькие управления экспортированы</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Импорт</value>
+  </data>
+  <data name="Manage rural goverments" xml:space="preserve">
+    <value>Управление Селькими управлениями</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="No Allowed Actions" xml:space="preserve">
+    <value>Нет доступных действий</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Перезагрузить</value>
+  </data>
+  <data name="Rural goverment" xml:space="preserve">
+    <value>Селькое управление</value>
+  </data>
+  <data name="Rural goverments" xml:space="preserve">
+    <value>Селькие управления</value>
+  </data>
+  <data name="RuralGovs  exported" xml:space="preserve">
+    <value>Селькие управления экспортированы</value>
+  </data>
+  <data name="Search for" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Striped" xml:space="preserve">
+    <value>Чередующийся</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Сбор</value>
   </data>
 </root>

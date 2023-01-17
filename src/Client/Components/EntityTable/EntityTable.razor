@@ -77,6 +77,7 @@
                 {
                     foreach (var field in Context.Fields)
                     {
+                        @if (field.DisplayName!="Id"){
                         <MudTh>
                             @if (Context.IsClientContext)
                             {
@@ -84,9 +85,10 @@
                             }
                             else
                             {
-                                <MudTableSortLabel T="TEntity" SortLabel="@field.SortLabel">@field.DisplayName</MudTableSortLabel>
+                                <MudTableSortLabel T="TEntity"  SortLabel="@field.SortLabel">@field.DisplayName</MudTableSortLabel>
                             }
                         </MudTh>
+                        }
                     }
                 }
                 <MudTh Style="text-align:right">@L["Actions"]</MudTh>
@@ -95,6 +97,10 @@
             <RowTemplate>
                 @foreach (var field in Context.Fields)
                 {
+                    @if (field.DisplayName == "Id")
+                    {
+                        continue;
+                    }
                     <MudTd DataLabel="@field.DisplayName">
                         @if (field.Template is not null)
                         {
@@ -122,11 +128,11 @@
                             OffsetX="true">
                             @if (CanUpdateEntity(context))
                             {
-                                <MudMenuItem @onclick="@(() => InvokeModal(context))">@L["Edit"]</MudMenuItem>
+                                <MudMenuItem @ontouchstart="@(() => InvokeModal(context))" @onclick="@(() => InvokeModal(context))">@L["Edit"]</MudMenuItem>
                             }
                             @if (CanDeleteEntity(context))
                             {
-                                <MudMenuItem Style="color:red!important" @onclick="@(() => Delete(context))">@L["Delete"]</MudMenuItem>
+                                <MudMenuItem Style="color:red!important" @ontouchstart="@(() =>  Delete(context))" @onclick="@(() => Delete(context))">@L["Delete"]</MudMenuItem>
                             }
                             @if (ExtraActions is not null)
                             {
