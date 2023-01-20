@@ -37,7 +37,13 @@
             @if (_canViewRuralGovs)
             {
                 <MudNavLink Href="/catalog/ruralgovs" Icon="@Icons.Filled.LocationCity" Class="fsh-nav-child">
-                    @L["Rural goverment"]
+                    @L["Rural government"]
+                </MudNavLink>
+            }
+            @if (_canViewNatives)
+            {
+                <MudNavLink Href="/catalog/natives" Icon="@Icons.Filled.PeopleAlt" Class="fsh-nav-child">
+                    @L["Natives"]
                 </MudNavLink>
             }
         </MudNavGroup>

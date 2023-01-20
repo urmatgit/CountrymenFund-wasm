@@ -27,6 +27,7 @@ public static class FSHResource
     public const string Products = nameof(Products);
     public const string Brands = nameof(Brands);
     public const string RuralGovs=nameof(RuralGovs);
+    public const string Natives=nameof(Natives);
 }
 
 public static class FSHPermissions
@@ -49,12 +50,14 @@ public static class FSHPermissions
         new("Delete Roles", FSHAction.Delete, FSHResource.Roles),
         new("View RoleClaims", FSHAction.View, FSHResource.RoleClaims),
         new("Update RoleClaims", FSHAction.Update, FSHResource.RoleClaims),
+
         new("View Products", FSHAction.View, FSHResource.Products, IsBasic: true),
         new("Search Products", FSHAction.Search, FSHResource.Products, IsBasic: true),
         new("Create Products", FSHAction.Create, FSHResource.Products),
         new("Update Products", FSHAction.Update, FSHResource.Products),
         new("Delete Products", FSHAction.Delete, FSHResource.Products),
         new("Export Products", FSHAction.Export, FSHResource.Products),
+
         new("View Brands", FSHAction.View, FSHResource.Brands, IsBasic: true),
         new("Search Brands", FSHAction.Search, FSHResource.Brands, IsBasic: true),
         new("Create Brands", FSHAction.Create, FSHResource.Brands),
@@ -69,6 +72,15 @@ public static class FSHPermissions
         new("Update RuralGovs", FSHAction.Update, FSHResource.RuralGovs),
         new("Delete RuralGovs", FSHAction.Delete, FSHResource.RuralGovs),
         new("Clean RuralGovs", FSHAction.Clean, FSHResource.RuralGovs),
+
+         new("View Natives", FSHAction.View, FSHResource.Natives, IsBasic: true),
+        new("Search Natives", FSHAction.Search, FSHResource.Natives, IsBasic: true),
+        new("Create Natives", FSHAction.Create, FSHResource.Natives),
+        new("Update Natives", FSHAction.Update, FSHResource.Natives),
+        new("Delete Natives", FSHAction.Delete, FSHResource.Natives),
+        new("Export Natives", FSHAction.Export, FSHResource.Natives),
+
+
         new("View Tenants", FSHAction.View, FSHResource.Tenants, IsRoot: true),
         new("Create Tenants", FSHAction.Create, FSHResource.Tenants, IsRoot: true),
         new("Update Tenants", FSHAction.Update, FSHResource.Tenants, IsRoot: true),

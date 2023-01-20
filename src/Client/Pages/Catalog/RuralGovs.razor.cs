@@ -18,8 +18,8 @@ public partial class RuralGovs
 
         base.OnInitialized();
         Context = new EntityServerTableContext<RuralGovDto, Guid, UpdateRuralGovRequest>(
-            entityName: L["Rural goverment"],
-            entityNamePlural: L["Rural goverments"],
+            entityName: L["Rural government"],
+            entityNamePlural: L["Rural governments"],
             entityResource: FSHResource.RuralGovs,
             fields: new List<EntityField<RuralGovDto>>()
                 {

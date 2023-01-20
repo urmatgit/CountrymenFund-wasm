@@ -117,76 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Аккаунт</value>
+  <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
   </data>
-  <data name="Administrator" xml:space="preserve">
-    <value>Администрирование</value>
+  <data name="Barcode" xml:space="preserve">
+    <value>Баркод</value>
   </data>
-  <data name="Audit Trails" xml:space="preserve">
-    <value>Журналы аудита</value>
+  <data name="Bordered" xml:space="preserve">
+    <value>Обрамлённый</value>
   </data>
-  <data name="Brands" xml:space="preserve">
-    <value>Бренды</value>
+  <data name="Brand" xml:space="preserve">
+    <value>Бренд</value>
   </data>
-  <data name="Catalog Management" xml:space="preserve">
-    <value>Управление каталогом</value>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
   </data>
-  <data name="Chat" xml:space="preserve">
-    <value>Чат</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
   </data>
-  <data name="Communication" xml:space="preserve">
-    <value>Коммуникации</value>
+  <data name="Delete Content" xml:space="preserve">
+    <value>Удалить контент</value>
   </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
+  <data name="Dense" xml:space="preserve">
+    <value>Компактный</value>
   </data>
-  <data name="Document Management" xml:space="preserve">
-    <value>Управление документами</value>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
   </data>
-  <data name="Document Store" xml:space="preserve">
-    <value>Хранилище документов</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
   </data>
-  <data name="Document Types" xml:space="preserve">
-    <value>Типы документов</value>
+  <data name="Export" xml:space="preserve">
+    <value>Экспорт в Excel</value>
   </data>
-  <data name="FAQs" xml:space="preserve">
-    <value>FAQ</value>
+  <data name="Filtered Products exported" xml:space="preserve">
+    <value>Отфильтрованные продукты экспортированы</value>
   </data>
-  <data name="Features" xml:space="preserve">
-    <value>Функции</value>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Домашняя</value>
+  <data name="Manage Natives." xml:space="preserve">
+    <value>Управление уроженцами.</value>
   </data>
-  <data name="Mail" xml:space="preserve">
-    <value>Почта</value>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Отчество</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Наименование</value>
   </data>
   <data name="Natives" xml:space="preserve">
     <value>Уроженцы</value>
   </data>
-  <data name="Personal" xml:space="preserve">
-    <value>Персональные данные</value>
+  <data name="No Allowed Actions" xml:space="preserve">
+    <value>Нет доступных действий</value>
   </data>
   <data name="Products" xml:space="preserve">
     <value>Продукты</value>
   </data>
-  <data name="Quick Start Guide" xml:space="preserve">
-    <value>Краткое руководство пользователя</value>
+  <data name="Products exported" xml:space="preserve">
+    <value>Продукты экспортированы</value>
   </data>
-  <data name="Resources" xml:space="preserve">
-    <value>Ресурсы</value>
+  <data name="Rate" xml:space="preserve">
+    <value>Рейтинг</value>
   </data>
-  <data name="Roles" xml:space="preserve">
-    <value>Роли</value>
+  <data name="Reload" xml:space="preserve">
+    <value>Перезагрузить</value>
   </data>
   <data name="Rural government" xml:space="preserve">
     <value>Сельское самоуправление</value>
   </data>
-  <data name="Swagger" xml:space="preserve">
-    <value>Swagger</value>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск продуктов...</value>
   </data>
-  <data name="Users" xml:space="preserve">
-    <value>Пользователи</value>
+  <data name="Striped" xml:space="preserve">
+    <value>Чередующийся</value>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Фамилия</value>
   </data>
 </root>

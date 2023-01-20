@@ -120,8 +120,8 @@
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
-  <data name="Add Rural goverment" xml:space="preserve">
-    <value>Add Rural goverment</value>
+  <data name="Add Rural government" xml:space="preserve">
+    <value>Add Rural government</value>
   </data>
   <data name="Bordered" xml:space="preserve">
     <value>Bordered</value>
@@ -150,8 +150,8 @@
   <data name="Export" xml:space="preserve">
     <value>Export</value>
   </data>
-  <data name="Filtered Rural goverments  exported" xml:space="preserve">
-    <value>Filtered Rural goverments  exported</value>
+  <data name="Filtered Rural governments  exported" xml:space="preserve">
+    <value>Filtered Rural governments  exported</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>
@@ -159,8 +159,8 @@
   <data name="Import" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="Manage Rural goverments" xml:space="preserve">
-    <value>Manage Rural goverments.</value>
+  <data name="Manage Rural governments" xml:space="preserve">
+    <value>Manage Rural governments.</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -171,11 +171,11 @@
   <data name="Reload" xml:space="preserve">
     <value>Reload</value>
   </data>
-  <data name="Rural goverments" xml:space="preserve">
-    <value>Rural goverments</value>
+  <data name="Rural governments" xml:space="preserve">
+    <value>Rural governments</value>
   </data>
-  <data name="Rural goverments  exported" xml:space="preserve">
-    <value>Rural goverments  exported</value>
+  <data name="Rural governments  exported" xml:space="preserve">
+    <value>Rural governments  exported</value>
   </data>
   <data name="Search for" xml:space="preserve">
     <value>Search for</value>

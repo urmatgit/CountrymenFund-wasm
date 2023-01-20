@@ -120,7 +120,7 @@
   <data name="Actions" xml:space="preserve">
     <value>Действия</value>
   </data>
-  <data name="Add Rural goverment" xml:space="preserve">
+  <data name="Add Rural government" xml:space="preserve">
     <value>Добавить селькое управление </value>
   </data>
   <data name="Bordered" xml:space="preserve">
@@ -159,7 +159,7 @@
   <data name="Import" xml:space="preserve">
     <value>Импорт</value>
   </data>
-  <data name="Manage rural goverments" xml:space="preserve">
+  <data name="Manage rural governments" xml:space="preserve">
     <value>Управление Селькими управлениями</value>
   </data>
   <data name="Name" xml:space="preserve">
@@ -171,10 +171,10 @@
   <data name="Reload" xml:space="preserve">
     <value>Перезагрузить</value>
   </data>
-  <data name="Rural goverment" xml:space="preserve">
+  <data name="Rural government" xml:space="preserve">
     <value>Селькое управление</value>
   </data>
-  <data name="Rural goverments" xml:space="preserve">
+  <data name="Rural governments" xml:space="preserve">
     <value>Селькие управления</value>
   </data>
   <data name="RuralGovs  exported" xml:space="preserve">

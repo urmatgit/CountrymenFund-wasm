@@ -23,6 +23,7 @@ public partial class NavMenu
     private bool _canViewBrands;
     private bool _canViewTenants;
     private bool _canViewRuralGovs;
+    private bool _canViewNatives;
     private bool CanViewAdministrationGroup => _canViewUsers || _canViewRoles || _canViewTenants;
 
     protected override async Task OnParametersSetAsync()
@@ -37,5 +38,6 @@ public partial class NavMenu
         _canViewBrands = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Brands);
         _canViewTenants = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Tenants);
         _canViewRuralGovs = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.RuralGovs);
+        _canViewNatives = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Natives);
     }
 }
