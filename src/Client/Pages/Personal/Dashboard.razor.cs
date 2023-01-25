@@ -21,6 +21,8 @@ public partial class Dashboard
     [Parameter]
     public int RoleCount { get; set; }
 
+    [Parameter]
+    public int NativeCount { get; set; }
 
     [Inject]
     private IDashboardClient DashboardClient { get; set; } = default!;
@@ -56,7 +58,7 @@ public partial class Dashboard
             BrandCount = statsDto.BrandCount;
             UserCount = statsDto.UserCount;
             RoleCount = statsDto.RoleCount;
-
+            NativeCount= statsDto.NativeCount;
             foreach (var item in statsDto.DataEnterBarChart)
             {
                 _dataEnterBarChartSeries

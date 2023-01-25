@@ -31,7 +31,7 @@ public partial class Natives
                 new(prod => prod.Name, L["Name"], "Name"),
                 new(prod => prod.Name, L["Surname"], "Surname"),
                 new(prod => prod.Name, L["MiddleName"], "MiddleName"),
-                new(prod => prod.RuralGovName, L["RuralGov"], "RuralGov.Name"),
+                new(prod => prod.RuralGovName, L["RuralGov"], "RuralGovName"),
                 new(prod => prod.Description, L["Description"], "Description"),
                 new(prod => prod.Rate, L["Rate"], "Rate")
             },
@@ -42,7 +42,8 @@ public partial class Natives
                 var productFilter = filter.Adapt<SearchNativesRequest>();
 
                 productFilter.RuralGovId = SearchRuralGovId == default ? null : SearchRuralGovId;
-                
+                productFilter.MinimumRate = SearchMinimumRate;
+                productFilter.MaximumRate = SearchMaximumRate;
 
                 var result = await NativesClient.SearchAsync(productFilter);
                 return result.Adapt<PaginationResponse<NativeDto>>();
@@ -73,7 +74,8 @@ public partial class Natives
                 var exportFilter = filter.Adapt<ExportNativesRequest>();
 
                 exportFilter.RuralGovId = SearchRuralGovId == default ? null : SearchRuralGovId;
-                
+                exportFilter.MinimumRate = SearchMinimumRate;
+                exportFilter.MaximumRate = SearchMaximumRate;
 
                 return await NativesClient.ExportAsync(exportFilter);
             },

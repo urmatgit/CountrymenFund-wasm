@@ -1,0 +1,51 @@
+﻿@page "/catalog/contributions"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.Contributions)]
+
+
+    <FshTitle Title="@L["Contributions"]" Description="@L["Manage Contributions."]" />
+
+    <EntityTable @ref="_table" TEntity="ContributionDto" TId="Guid" TRequest="UpdateContributionRequest" Context="@Context">
+
+        <AdvancedSearchContent>
+            <YearGovAutocomplete @bind-Value="SearchYearId" />
+
+        </AdvancedSearchContent>
+
+        <EditFormContent>
+            @*@if (!Context.AddEditModal.IsCreate)
+            {
+            <MudItem xs="12" md="6">
+            <MudTextField Value="context.Id" ReadOnly DisableUnderLine Label="@L[$"Contribution Id"]" />
+            </MudItem>
+            }*@
+            <MudItem xs="12" md="6">
+                <YearGovAutocomplete For="@(() => context.YearId)" @bind-Value="context.YearId" OffsetY="true" />
+            </MudItem>
+
+            <MudItem xs="12" md="6">
+                <NativeAutocomplete For="@(() => context.NativeId)" @bind-Value="context.NativeId" OffsetY="true" />
+            </MudItem>
+            <MudItem xs="12" md="6">
+                <MudSelect @bind-Value="context.Month" Label="@L["Month"]" HelperText="Enum" OpenIcon="@Icons.Material.Filled.LocalDrink" AdornmentColor="Color.Secondary">
+                    @foreach (Months item in Enum.GetValues(typeof(Months)))
+                    {
+                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" md="6">
+                <MudDatePicker Label="@L["Date"]" For="@(() => context.Date)" @bind-Value="context.Date" />
+            </MudItem>
+            <MudItem xs="12" md="6">
+                <MudTextField T="decimal" Label="@L["Summa"]" For="@(() => context.Summa)" @bind-Value="context.Summa" />
+            </MudItem>
+            <MudItem xs="12" md="6">
+                <MudTextField Label="@L["Description"]" For="@(() => context.Description)"
+                              @bind-Value="context.Description" />
+            </MudItem>
+
+
+
+        </EditFormContent>
+
+    </EntityTable>

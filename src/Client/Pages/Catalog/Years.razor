@@ -1,0 +1,55 @@
+﻿@page "/catalog/years"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.Years)]
+
+@inject IStringLocalizer<Years> L
+@inject IStringLocalizer<SharedResource> LS
+@inject IYearsClient YearsClient
+
+<FshTitle Title="@LS["Years"]" Description="@LS["Manage Years."]" />
+
+<EntityTable TEntity="YearDto" TId="Guid" TRequest="UpdateYearRequest" Context="@Context">
+
+    <EditFormContent>
+        @*@if (!Context.AddEditModal.IsCreate)
+        {
+            <MudItem xs="12" md="6">
+                <MudTextField Value="context.Id" ReadOnly DisableUnderLine Label="@L[$"Year Id"]" />
+            </MudItem>
+        }*@
+        <MudItem xs="12" md="6">
+            <MudTextField T="int" For="@(() => context.Year)" @bind-Value="context.Year" Label="@LS["Year"]" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField For="@(() => context.Description)" @bind-Value="context.Description"
+                          Label="@LS["Description"]" />
+        </MudItem>
+    </EditFormContent>
+
+</EntityTable>
+
+@code
+{
+    protected EntityServerTableContext<YearDto, Guid, UpdateYearRequest> Context { get; set; } = default!;
+
+    protected override void OnInitialized() =>
+        Context = new(
+            entityName: LS["Year"],
+            entityNamePlural: LS["Years"],
+            entityResource: FSHResource.Years,
+            fields: new()
+                {
+                new(year => year.Id, L["Id"], "Id"),
+                new(year => year.Year, LS["Year"], "Year"),
+                new(year => year.Description, LS["Description"], "Description"),
+                },
+            idFunc: year => year.Id,
+            searchFunc: async filter => (await YearsClient
+                .SearchAsync(filter.Adapt<SearchYearsRequest>()))
+                .Adapt<PaginationResponse<YearDto>>(),
+            createFunc: async year => await YearsClient.CreateAsync(year.Adapt<CreateYearRequest>()),
+            updateFunc: async (id, year) => await YearsClient.UpdateAsync(id, year),
+            deleteFunc: async id => await YearsClient.DeleteAsync(id),
+            exportAction: string.Empty);
+}
+
+ 

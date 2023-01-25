@@ -28,6 +28,8 @@ public static class FSHResource
     public const string Brands = nameof(Brands);
     public const string RuralGovs=nameof(RuralGovs);
     public const string Natives=nameof(Natives);
+    public const string Years = nameof(Years);
+    public const string Contributions = nameof(Contributions);
 }
 
 public static class FSHPermissions
@@ -79,6 +81,20 @@ public static class FSHPermissions
         new("Update Natives", FSHAction.Update, FSHResource.Natives),
         new("Delete Natives", FSHAction.Delete, FSHResource.Natives),
         new("Export Natives", FSHAction.Export, FSHResource.Natives),
+
+        new("View Years", FSHAction.View, FSHResource.Years, IsBasic: true),
+        new("Search Years", FSHAction.Search, FSHResource.Years, IsBasic: true),
+        new("Create Years", FSHAction.Create, FSHResource.Years),
+        new("Update Years", FSHAction.Update, FSHResource.Years),
+        new("Delete Years", FSHAction.Delete, FSHResource.Years),
+        new("Export Years", FSHAction.Export, FSHResource.Years),
+
+        new("View Contributions", FSHAction.View, FSHResource.Contributions, IsBasic: true),
+        new("Search Contributions", FSHAction.Search, FSHResource.Contributions, IsBasic: true),
+        new("Create Contributions", FSHAction.Create, FSHResource.Contributions),
+        new("Update Contributions", FSHAction.Update, FSHResource.Contributions),
+        new("Delete Contributions", FSHAction.Delete, FSHResource.Contributions),
+        new("Export Contributions", FSHAction.Export, FSHResource.Contributions),
 
 
         new("View Tenants", FSHAction.View, FSHResource.Tenants, IsRoot: true),

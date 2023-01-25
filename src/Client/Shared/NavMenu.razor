@@ -1,5 +1,5 @@
 ﻿@inject IStringLocalizer<NavMenu> L
-
+@inject IStringLocalizer<SharedResource> LS
 <PersonCard
     Style="background-color: var(--mud-palette-drawer-background);color: var(--mud-palette-drawer-text); margin-bottom:0px!important" />
 <MudNavMenu>
@@ -40,10 +40,25 @@
                     @L["Rural government"]
                 </MudNavLink>
             }
+            @{
+                Console.WriteLine($"_canViewYears:  {_canViewYears}");
+            }
+            @if (_canViewYears)
+            {
+                <MudNavLink Href="/catalog/years" Icon="@Icons.Filled.DateRange" Class="fsh-nav-child">
+                    @LS["Years"]
+                </MudNavLink>
+            }
             @if (_canViewNatives)
             {
                 <MudNavLink Href="/catalog/natives" Icon="@Icons.Filled.PeopleAlt" Class="fsh-nav-child">
                     @L["Natives"]
+                </MudNavLink>
+            }
+            @if (_canViewContributions)
+            {
+                <MudNavLink Href="/catalog/contributions" Icon="@Icons.Filled.DateRange" Class="fsh-nav-child">
+                    @LS["Contributions"]
                 </MudNavLink>
             }
         </MudNavGroup>
