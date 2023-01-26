@@ -30,7 +30,11 @@
             <MudTextField Label="@L["MiddleName"]" For="@(() => context.MiddleName)" @bind-Value="context.MiddleName" />
         </MudItem>
         <MudItem xs="12" md="6">
-            <MudDatePicker  Label="@L["BirthDate"]" For="@(() => context.BirthDate)" @bind-Value="context.BirthDate" />
+            <MudDatePicker  Label="@L["BirthDate"]" For="@(() => context.BirthDate)" @bind-Date="context.BirthDate" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField Label="@L["Village"]" For="@(() => context.Village)"
+                          @bind-Value="context.Village" />
         </MudItem>
         <MudItem xs="12" md="6">
             <MudTextField Label="@L["Description"]" For="@(() => context.Description)"

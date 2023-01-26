@@ -17,7 +17,7 @@
             </MudItem>
         }*@
         <MudItem xs="12" md="6">
-            <MudTextField T="int" For="@(() => context.Year)" @bind-Value="context.Year" Label="@LS["Year"]" />
+            <MudTextField T="int" For="@(() => context.year)" @bind-Value="context.year" Label="@LS["Year"]" />
         </MudItem>
         <MudItem xs="12" md="6">
             <MudTextField For="@(() => context.Description)" @bind-Value="context.Description"
@@ -39,7 +39,7 @@
             fields: new()
                 {
                 new(year => year.Id, L["Id"], "Id"),
-                new(year => year.Year, LS["Year"], "Year"),
+                new(year => year.year, LS["Year"], "Year"),
                 new(year => year.Description, LS["Description"], "Description"),
                 },
             idFunc: year => year.Id,

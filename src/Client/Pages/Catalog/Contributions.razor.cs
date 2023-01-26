@@ -33,7 +33,7 @@ public partial class Contributions
                 new(prod => prod.Id, L["Id"], "Id"),
                 new(prod => prod.Year, L["Year"], "Year"),
                 new(prod => prod.NativeFIO, L["FIO"], "NativeFIO"),
-                new(prod => prod.Month, L["Month"], "Month"),
+                new(prod =>SH.GetString(prod.Month.ToString()), L["Month"], "Month"),
                 new(prod => prod.Summa, L["Summa"], "Summa"),
                 new(prod => prod.Date, L["Date"], "Date"),
                 new(prod => prod.Description, L["Description"], "Description"),

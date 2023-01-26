@@ -1,6 +1,7 @@
 ﻿@page "/catalog/contributions"
 @attribute [MustHavePermission(FSHAction.View, FSHResource.Contributions)]
 
+@inject IStringLocalizer<SharedResource> SH
 
     <FshTitle Title="@L["Contributions"]" Description="@L["Manage Contributions."]" />
 
@@ -29,13 +30,15 @@
                 <MudSelect @bind-Value="context.Month" Label="@L["Month"]" HelperText="Enum" OpenIcon="@Icons.Material.Filled.LocalDrink" AdornmentColor="Color.Secondary">
                     @foreach (Months item in Enum.GetValues(typeof(Months)))
                     {
-                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                    <MudSelectItem Value="@item">@SH.GetString(item.ToString()) </MudSelectItem>
                     }
                 </MudSelect>
             </MudItem>
+        
             <MudItem xs="12" md="6">
-                <MudDatePicker Label="@L["Date"]" For="@(() => context.Date)" @bind-Value="context.Date" />
+                <MudDatePicker Label="@L["Date"]" For="@(() => context.Date)" @bind-Date="context.Date" />
             </MudItem>
+        
             <MudItem xs="12" md="6">
                 <MudTextField T="decimal" Label="@L["Summa"]" For="@(() => context.Summa)" @bind-Value="context.Summa" />
             </MudItem>

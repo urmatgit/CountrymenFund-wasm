@@ -40,7 +40,7 @@ public class YearGovAutocomplete : MudAutocomplete<Guid>
         
     }
     private string GetRuralGovName(Guid arg)
-    => _ruralGovs.Find(b => b.Id == arg)?.Year!.ToString() ?? string.Empty;
+    => _ruralGovs.Find(b => b.Id == arg)?.year!.ToString() ?? string.Empty;
 
     private async Task<IEnumerable<Guid>> SearchRuralGovs(string arg)
     {

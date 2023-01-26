@@ -29,11 +29,14 @@ public partial class Natives
             {
                // new(prod => prod.Id, L["Id"], "Id"),
                 new(prod => prod.Name, L["Name"], "Name"),
-                new(prod => prod.Name, L["Surname"], "Surname"),
-                new(prod => prod.Name, L["MiddleName"], "MiddleName"),
+                new(prod => prod.Surname, L["Surname"], "Surname"),
+                new(prod => prod.MiddleName, L["MiddleName"], "MiddleName"),
+                new(prod => prod.BirthDate!.Value.ToString("MMM dd, yyyy"), L["BirthDate"], "BirthDate"),
+                new(prod => prod.Village, L["Village"], "Village"),
                 new(prod => prod.RuralGovName, L["RuralGov"], "RuralGovName"),
-                new(prod => prod.Description, L["Description"], "Description"),
-                new(prod => prod.Rate, L["Rate"], "Rate")
+                new(prod => prod.Rate, L["Rate"], "Rate"),
+                new(prod => prod.Description, L["Description"], "Description")
+                
             },
             enableAdvancedSearch: true,
             idFunc: prod => prod.Id,
