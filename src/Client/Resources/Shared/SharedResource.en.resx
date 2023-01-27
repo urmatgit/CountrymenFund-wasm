@@ -123,6 +123,9 @@
   <data name="Advanced Search" xml:space="preserve">
     <value>Advanced Search</value>
   </data>
+  <data name="All Columns" xml:space="preserve">
+    <value>All Columns</value>
+  </data>
   <data name="Brand" xml:space="preserve">
     <value>Brand</value>
   </data>

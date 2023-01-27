@@ -123,6 +123,9 @@
   <data name="Advanced Search" xml:space="preserve">
     <value>Расширенный поиск</value>
   </data>
+  <data name="All Columns" xml:space="preserve">
+    <value>Все поля</value>
+  </data>
   <data name="April" xml:space="preserve">
     <value>Апрель</value>
   </data>
@@ -166,7 +169,7 @@
     <value>Редактировать</value>
   </data>
   <data name="February" xml:space="preserve">
-    <value>Фебраль</value>
+    <value>Февраль</value>
   </data>
   <data name="January" xml:space="preserve">
     <value>Январь</value>

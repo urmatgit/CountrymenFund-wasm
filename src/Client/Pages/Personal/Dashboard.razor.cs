@@ -23,6 +23,10 @@ public partial class Dashboard
 
     [Parameter]
     public int NativeCount { get; set; }
+    [Parameter]
+    public int ContributionCount { get; set; }
+    [Parameter]
+    public decimal ContributionSumma { get; set; }
 
     [Inject]
     private IDashboardClient DashboardClient { get; set; } = default!;
@@ -31,6 +35,7 @@ public partial class Dashboard
 
     private readonly string[] _dataEnterBarChartXAxisLabels = DateTimeFormatInfo.CurrentInfo.AbbreviatedMonthNames;
     private readonly List<MudBlazor.ChartSeries> _dataEnterBarChartSeries = new();
+    private readonly List<MudBlazor.ChartSeries> _dataEnterSumBarChartSeries = new();
     private bool _loaded;
 
     protected override async Task OnInitializedAsync()
@@ -59,11 +64,20 @@ public partial class Dashboard
             UserCount = statsDto.UserCount;
             RoleCount = statsDto.RoleCount;
             NativeCount= statsDto.NativeCount;
+            ContributionCount = statsDto.ContributionsCount;
+            ContributionSumma = statsDto.ContributionSumma;
             foreach (var item in statsDto.DataEnterBarChart)
             {
                 _dataEnterBarChartSeries
                     .RemoveAll(x => x.Name.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
                 _dataEnterBarChartSeries.Add(new MudBlazor.ChartSeries { Name = item.Name, Data = item.Data?.ToArray() });
+            }
+
+            foreach (var item in statsDto.DataEnterSumBarChart)
+            {
+                _dataEnterSumBarChartSeries
+                    .RemoveAll(x => x.Name.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
+                _dataEnterSumBarChartSeries.Add(new MudBlazor.ChartSeries { Name = item.Name, Data = item.Data?.ToArray() });
             }
         }
     }

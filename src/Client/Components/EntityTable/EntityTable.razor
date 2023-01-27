@@ -27,7 +27,7 @@
                 @if (Context.AdvancedSearchEnabled)
                 {
                     <div style="margin-top:10px!important">
-                        <MudCheckBox Label="All Columns" T="bool" Checked="Context.AllColumnsChecked"
+                        <MudCheckBox Label="@L["All Columns"]" T="bool" Checked="Context.AllColumnsChecked"
                             CheckedChanged="Context.AllColumnsCheckChanged"></MudCheckBox>
                         @foreach (var field in Context.Fields)
                         {

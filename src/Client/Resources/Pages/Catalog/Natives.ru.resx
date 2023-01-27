@@ -123,6 +123,9 @@
   <data name="Barcode" xml:space="preserve">
     <value>Баркод</value>
   </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Дата рождения</value>
+  </data>
   <data name="Bordered" xml:space="preserve">
     <value>Обрамлённый</value>
   </data>
@@ -159,8 +162,14 @@
   <data name="Manage Natives." xml:space="preserve">
     <value>Управление уроженцами.</value>
   </data>
+  <data name="Maximum rate" xml:space="preserve">
+    <value>Макс. рейтинг</value>
+  </data>
   <data name="MiddleName" xml:space="preserve">
     <value>Отчество</value>
+  </data>
+  <data name="Minimum rate" xml:space="preserve">
+    <value>Мин. рейтинг</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Наименование</value>
@@ -184,6 +193,9 @@
     <value>Перезагрузить</value>
   </data>
   <data name="Rural government" xml:space="preserve">
+    <value>Сельское самоуправление</value>
+  </data>
+  <data name="RuralGov" xml:space="preserve">
     <value>Сельское самоуправление</value>
   </data>
   <data name="Search" xml:space="preserve">

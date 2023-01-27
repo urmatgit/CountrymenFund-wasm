@@ -9,6 +9,6 @@ public partial class YearDto
 {
     public YearDto()
     {
-        this.year = DateTime.Now.Year;
+        this.Year = DateTime.Now.Year;
     }
 }

@@ -10,7 +10,7 @@ namespace FSH.BlazorWebAssembly.Client.Pages.Catalog;
 public class RuralGovAutocomplete: MudAutocomplete<Guid>
 {
     [Inject]
-    private IStringLocalizer<RuralGovAutocomplete> L { get; set; } = default!;
+    private IStringLocalizer<RuralGovs> L { get; set; } = default!;
     [Inject]
     private IRuralGovsClient RuralGovsClient { get; set; } = default!;
     [Inject]

@@ -108,7 +108,7 @@ public partial class Natives
         }
     }
 
-    private decimal _searchMaximumRate = 9999;
+    private decimal _searchMaximumRate = 10;
     private decimal SearchMaximumRate
     {
         get => _searchMaximumRate;

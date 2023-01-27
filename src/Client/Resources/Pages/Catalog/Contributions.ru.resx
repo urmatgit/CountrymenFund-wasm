@@ -120,7 +120,31 @@
   <data name="Contribution" xml:space="preserve">
     <value>Взнос</value>
   </data>
+  <data name="Contributions" xml:space="preserve">
+    <value>Всносы</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="FIO" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
   <data name="Manage Contributions." xml:space="preserve">
     <value>Управление взносами.</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Рейтинг</value>
+  </data>
+  <data name="Summa" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Год</value>
   </data>
 </root>

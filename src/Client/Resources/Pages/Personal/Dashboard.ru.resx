@@ -129,8 +129,11 @@
   <data name="Charts comming soon ish..." xml:space="preserve">
     <value>Графики скоро появятся ...</value>
   </data>
+  <data name="Contributions" xml:space="preserve">
+    <value>Взносы</value>
+  </data>
   <data name="Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
+    <value>Информационная панель</value>
   </data>
   <data name="Dec" xml:space="preserve">
     <value>Дек</value>
@@ -162,6 +165,9 @@
   <data name="May" xml:space="preserve">
     <value>Май</value>
   </data>
+  <data name="Natives" xml:space="preserve">
+    <value>Ураженсы</value>
+  </data>
   <data name="Nov" xml:space="preserve">
     <value>Ноя</value>
   </data>
@@ -182,6 +188,9 @@
   </data>
   <data name="Registered Users" xml:space="preserve">
     <value>Пользователей</value>
+  </data>
+  <data name="Rural governments" xml:space="preserve">
+    <value>Селькое самоуправление</value>
   </data>
   <data name="Sep" xml:space="preserve">
     <value>Сен</value>

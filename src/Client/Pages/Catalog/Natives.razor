@@ -3,14 +3,15 @@
 
 @inject IStringLocalizer<Natives> L
 
+
 <FshTitle Title="@L["Natives"]" Description="@L["Manage Natives."]" />
 
 <EntityTable @ref="_table" TEntity="NativeDto" TId="Guid" TRequest="NativeViewModel" Context="@Context">
 
     <AdvancedSearchContent>
         <RuralGovAutocomplete @bind-Value="SearchRuralGovId" />
-        <MudSlider T="decimal" @bind-value="SearchMinimumRate" Min="0" Max="10" Step="1">@L["minimum rate"]: @_searchMinimumRate.ToString()</MudSlider>
-        <MudSlider T="decimal" @bind-value="SearchMaximumRate" Min="0" Max="10" Step="1">@L["maximum rate"]: @_searchMaximumRate.ToString()</MudSlider>
+        <MudSlider T="decimal" @bind-value="SearchMinimumRate" Min="0" Max="10" Step="1">@L["Minimum rate"]: @_searchMinimumRate.ToString()</MudSlider>
+        <MudSlider T="decimal" @bind-value="SearchMaximumRate" Min="0" Max="10" Step="1">@L["Maximum rate"]: @_searchMaximumRate.ToString()</MudSlider>
     </AdvancedSearchContent>
 
     <EditFormContent>

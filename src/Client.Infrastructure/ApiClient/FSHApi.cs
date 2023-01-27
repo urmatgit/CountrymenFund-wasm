@@ -9326,8 +9326,17 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         [Newtonsoft.Json.JsonProperty("nativeCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int NativeCount { get; set; } = default!;
 
+        [Newtonsoft.Json.JsonProperty("contributionsCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int ContributionsCount { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("contributionSumma", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public decimal ContributionSumma { get; set; } = default!;
+
         [Newtonsoft.Json.JsonProperty("dataEnterBarChart", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<ChartSeries> DataEnterBarChart { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("dataEnterSumBarChart", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<ChartSeries> DataEnterSumBarChart { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("productByBrandTypePieChart", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.IDictionary<string, double>? ProductByBrandTypePieChart { get; set; } = default!;
@@ -9714,9 +9723,9 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string? Description { get; set; } = default!;
 
-        [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(1, 10)]
-        public int? Rate { get; set; } = default!;
+        public int Rate { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("ruralGovId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid RuralGovId { get; set; } = default!;
@@ -9752,9 +9761,9 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; } = default!;
 
-        [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(1, 10)]
-        public int? Rate { get; set; } = default!;
+        public int Rate { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("ruralGovId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid RuralGovId { get; set; } = default!;
@@ -10058,7 +10067,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         public System.Guid Id { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int year { get; set; } = default!;
+        public int Year { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string? Description { get; set; } = default!;
