@@ -63,6 +63,11 @@ public class NativeAutocomplete : MudAutocomplete<Guid>
         return _natives.Select(x => x.Id);
     }
 
-    private string GetNativeName(Guid id) =>
-        _natives.Find(b => b.Id == id)?.Name ?? string.Empty;
+    private string GetNativeName(Guid id)
+    {
+        var finded = _natives.Find(b => b.Id == id);
+        if (finded is not null)
+            return $"{finded.Name} {finded.Surname} {finded.MiddleName}";
+        else return string.Empty;
+    }
 }

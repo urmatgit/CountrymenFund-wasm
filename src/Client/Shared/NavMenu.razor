@@ -22,7 +22,7 @@
     {
         <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="ml-4 my-3">@L["Management"]</MudText>
         <MudNavGroup Title="@L["Catalog"]" Expanded Icon="@Icons.Filled.AddBox">
-            @if (_canViewProducts)
+         @*   @if (_canViewProducts)
             {
                 <MudNavLink Href="/catalog/products" Icon="@Icons.Filled.ShoppingBag" Class="fsh-nav-child">
                     @L["Products"]
@@ -33,7 +33,7 @@
                 <MudNavLink Href="/catalog/brands" Icon="@Icons.Filled.ShoppingBag" Class="fsh-nav-child">
                     @L["Brands"]
                 </MudNavLink>
-            }
+            }*@
             @if (_canViewRuralGovs)
             {
                 <MudNavLink Href="/catalog/ruralgovs" Icon="@Icons.Filled.LocationCity" Class="fsh-nav-child">

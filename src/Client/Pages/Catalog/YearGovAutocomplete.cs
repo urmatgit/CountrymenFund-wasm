@@ -17,6 +17,15 @@ public class YearGovAutocomplete : MudAutocomplete<Guid>
     private ISnackbar Snackbar { get; set; } = default!;
     private List<YearDto> _ruralGovs = new();
 
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        
+        base.OnInitializedAsync();
+        
+
+    }
     public override Task SetParametersAsync(ParameterView parameters)
     {
         Label = L["Year"];
@@ -55,5 +64,11 @@ public class YearGovAutocomplete : MudAutocomplete<Guid>
             _ruralGovs = response.Data.ToList();
         }
         return _ruralGovs.Select(r => r.Id);
+    }
+    public Guid? GetCurrentYearId()
+    {
+        if (_ruralGovs is null || _ruralGovs.Count()== 0) return null;
+        return _ruralGovs.Find(y => y.Year == DateTime.Now.Year)?.Id;
+            
     }
 }

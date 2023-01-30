@@ -23,7 +23,8 @@ public partial class Contributions
 
     private EntityTable<ContributionDto, Guid, UpdateContributionRequest> _table = default!;
 
-    protected override void OnInitialized() =>
+    protected override void OnInitialized()
+    {
         Context = new(
             entityName: L["Contribution"],
             entityNamePlural: L["Contributions"],
@@ -46,35 +47,49 @@ public partial class Contributions
                 var contributionFilter = filter.Adapt<SearchContributionsRequest>();
 
                 contributionFilter.YearId = SearchYearId == default ? null : SearchYearId;
-                
+
 
                 var result = await ContributionsClient.SearchAsync(contributionFilter);
                 return result.Adapt<PaginationResponse<ContributionDto>>();
             },
             createFunc: async prod =>
             {
-                 
+
 
                 await ContributionsClient.CreateAsync(prod.Adapt<CreateContributionRequest>());
-                
+
             },
             updateFunc: async (id, prod) =>
             {
-                 
+
                 await ContributionsClient.UpdateAsync(id, prod.Adapt<UpdateContributionRequest>());
-                
+
             },
             //exportFunc: async filter =>
             //{
             //    var exportFilter = filter.Adapt<ExportContributionsRequest>();
 
             //    exportFilter.YearId = SearchYearId == default ? null : SearchYearId;
-             
+
 
             //    return await ContributionsClient.ExportAsync(exportFilter);
             //},
-            deleteFunc: async id => await ContributionsClient.DeleteAsync(id));
-
+            deleteFunc: async id => await ContributionsClient.DeleteAsync(id)
+            , getDefaultsFunc: async () =>
+            {
+            
+                var yearDefault = await ContributionsClient.GetDefaultAsync();
+                Console.Write($"Default year is {yearDefault.Id}");
+                return new UpdateContributionRequest()
+                {
+                    Month=yearDefault.Month,
+                    Date=yearDefault.Date,
+                    YearId=yearDefault.YearId,
+                };
+            } );
+         
+    }
+            
     // Advanced Search
 
     private Guid _searchYearId;
