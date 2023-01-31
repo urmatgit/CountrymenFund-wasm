@@ -11,6 +11,8 @@ public class NativeAutocomplete : MudAutocomplete<Guid>
     [Inject]
     private IStringLocalizer<NativeAutocomplete> L { get; set; } = default!;
     [Inject]
+    private IStringLocalizer<SharedResource> SL { get; set; } = default!;
+    [Inject]
     private INativesClient NativesClient { get; set; } = default!;
     [Inject]
     private ISnackbar Snackbar { get; set; } = default!;
@@ -20,7 +22,7 @@ public class NativeAutocomplete : MudAutocomplete<Guid>
     // supply default parameters, but leave the possibility to override them
     public override Task SetParametersAsync(ParameterView parameters)
     {
-        Label = L["Native"];
+        Label = SL["Native"];
         Variant = Variant.Filled;
         Dense = true;
         Margin = Margin.Dense;

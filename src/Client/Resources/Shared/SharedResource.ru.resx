@@ -132,6 +132,9 @@
   <data name="August" xml:space="preserve">
     <value>Август</value>
   </data>
+  <data name="Between" xml:space="preserve">
+    <value>Между</value>
+  </data>
   <data name="Brand" xml:space="preserve">
     <value>Brand</value>
   </data>
@@ -188,6 +191,12 @@
   </data>
   <data name="May" xml:space="preserve">
     <value>Май</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="Native" xml:space="preserve">
+    <value>Уроженец</value>
   </data>
   <data name="November" xml:space="preserve">
     <value>Ноябрь</value>

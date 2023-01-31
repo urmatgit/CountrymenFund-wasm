@@ -141,6 +141,9 @@
   <data name="Rate" xml:space="preserve">
     <value>Рейтинг</value>
   </data>
+  <data name="RuralGov" xml:space="preserve">
+    <value>Сельское самоуправление</value>
+  </data>
   <data name="Summa" xml:space="preserve">
     <value>Сумма</value>
   </data>

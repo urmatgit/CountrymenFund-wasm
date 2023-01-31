@@ -9,7 +9,7 @@ public partial class ContributionDto
 {
     public ContributionDto()
     {
-        Date = DateTime.Now;
-        Month = (Months)DateTime.Now.Month;
+        //Date = DateTime.Now;
+        //Month = (Months)DateTime.Now.Month;
     } 
 }

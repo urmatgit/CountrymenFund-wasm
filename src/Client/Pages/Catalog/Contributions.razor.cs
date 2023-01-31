@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
 using Mapster;
+using MudBlazor;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.Catalog;
 
@@ -32,6 +33,7 @@ public partial class Contributions
             fields: new()
             {
                 new(prod => prod.Id, L["Id"], "Id"),
+                new(prod => prod.RuralGovName, L["RuralGov"], "RuralGovName"),
                 new(prod => prod.Year, L["Year"], "Year"),
                 new(prod => prod.NativeFIO, L["FIO"], "NativeFIO"),
                 new(prod =>SH.GetString(prod.Month.ToString()), L["Month"], "Month"),
@@ -40,15 +42,18 @@ public partial class Contributions
                 new(prod => prod.Description, L["Description"], "Description"),
                 new(prod => prod.Rate, L["Rate"], "Rate")
             },
-            enableAdvancedSearch: true,
+            enableAdvancedSearch: false,
             idFunc: prod => prod.Id,
             searchFunc: async filter =>
             {
                 var contributionFilter = filter.Adapt<SearchContributionsRequest>();
 
                 contributionFilter.YearId = SearchYearId == default ? null : SearchYearId;
-
-
+                contributionFilter.NativeId = SearchNativeId == default ? null : SearchNativeId;
+                contributionFilter.Month=SearchMonth== default ? null : SearchMonth;
+                contributionFilter.DateStart = SearchDateRange == default ? null : SearchDateRange.Start;
+                contributionFilter.DateEnd= SearchDateRange == default ? null : SearchDateRange.End;
+                contributionFilter.RuralGovId = SearchRuralGovId == default ? null : SearchRuralGovId;
                 var result = await ContributionsClient.SearchAsync(contributionFilter);
                 return result.Adapt<PaginationResponse<ContributionDto>>();
             },
@@ -79,7 +84,7 @@ public partial class Contributions
             {
             
                 var yearDefault = await ContributionsClient.GetDefaultAsync();
-                Console.Write($"Default year is {yearDefault.Id}");
+                Console.WriteLine($"Default year is {yearDefault.Id}");
                 return new UpdateContributionRequest()
                 {
                     Month=yearDefault.Month,
@@ -89,9 +94,41 @@ public partial class Contributions
             } );
          
     }
-            
-    // Advanced Search
 
+    // Advanced Search
+    private Guid _ruralGovId;
+    private Guid SearchRuralGovId {
+        get => _ruralGovId;
+        set
+        {
+            _ruralGovId= value;
+            _ = _table.ReloadDataAsync();
+        }
+    }
+
+    private DateRange _dateRange = null; // new DateRange(DateTime.Now.Date, DateTime.Now.AddDays(5).Date);
+    private MudDateRangePicker _searchPicker;
+    private DateRange SearchDateRange
+    {
+        get => _dateRange;
+        set
+        {
+            _dateRange = value;
+            _ = _table.ReloadDataAsync();
+        }
+    }
+    private Months _searchMonth;
+    private Months SearchMonth
+    {
+        get => _searchMonth;
+        set
+        {
+            _searchMonth= value;
+            _ = _table.ReloadDataAsync();
+        }
+    }
+        
+    
     private Guid _searchYearId;
     private Guid SearchYearId
     {
@@ -103,6 +140,16 @@ public partial class Contributions
         }
     }
 
-     
+    private Guid _searchNativeId;
+    private Guid SearchNativeId
+    {
+        get => _searchNativeId;
+        set
+        {
+            _searchNativeId = value;
+            _ = _table.ReloadDataAsync();
+        }
+    }
+
 
 }

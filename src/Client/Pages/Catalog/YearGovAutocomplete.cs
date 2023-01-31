@@ -12,23 +12,18 @@ public class YearGovAutocomplete : MudAutocomplete<Guid>
     [Inject]
     private IStringLocalizer<YearGovAutocomplete> L { get; set; } = default!;
     [Inject]
+    private IStringLocalizer<SharedResource> SL { get; set; } = default!;
+    [Inject]
     private IYearsClient YearsClient { get; set; } = default!;
     [Inject]
     private ISnackbar Snackbar { get; set; } = default!;
     private List<YearDto> _ruralGovs = new();
 
 
-    protected override async Task OnInitializedAsync()
-    {
-
-        
-        base.OnInitializedAsync();
-        
-
-    }
+   
     public override Task SetParametersAsync(ParameterView parameters)
     {
-        Label = L["Year"];
+        Label = SL["Year"];
         Variant = Variant.Filled;
         Dense = true;
         Margin = Margin.Dense;
