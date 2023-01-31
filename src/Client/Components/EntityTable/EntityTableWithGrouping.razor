@@ -1,0 +1,186 @@
+﻿@typeparam TEntity
+@typeparam TId
+@typeparam TRequest
+
+@inject IJSRuntime JS
+@inject IStringLocalizer<SharedResource> L
+
+<style>
+    .mud-table-container {
+        overflow: auto;
+    }
+
+    .mud-table-cell-custom-group {
+        font-weight: 500;
+    }
+
+    .mud-table-cell-custom-group-footer {
+        padding-bottom: 50px;
+        text-align: right;
+    }
+</style>
+
+<ErrorBoundary>
+    <ChildContent>
+
+        @if (_canSearch && (Context.AdvancedSearchEnabled || AdvancedSearchContent is not null))
+        {
+            <MudExpansionPanel @bind-IsExpanded="_advancedSearchExpanded"
+                           Style="padding:10px!important; margin-bottom:10px!important;border-radius: var(--mud-default-borderradius) !important;"
+                           Class="mud-elevation-25" Text="@L["Advanced Search"]">
+                <MudTextField @bind-Value="SearchString" Immediate="true"
+                          Placeholder="@($"{L["Search for"]} {Context.EntityNamePlural}")" Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"
+                          Style="flex:none!important;margin:0px!important" TextChanged="OnSearchStringChanged">
+                </MudTextField>
+                @if (Context.AdvancedSearchEnabled)
+                {
+                    <div style="margin-top:10px!important">
+                        <MudCheckBox Label="@L["All Columns"]" T="bool" Checked="Context.AllColumnsChecked"
+                             CheckedChanged="Context.AllColumnsCheckChanged"></MudCheckBox>
+                        @foreach (var field in Context.Fields)
+                        {
+                            <MudCheckBox @bind-Checked="@field.CheckedForSearch" Label="@(field.DisplayName)"></MudCheckBox>
+                        }
+                    </div>
+                }
+                @AdvancedSearchContent
+
+            </MudExpansionPanel>
+        }
+
+        <FshTable @ref="_table" Elevation="25" ServerData="@ServerReloadFunc" Items="@_entityList" Filter="LocalSearch"
+                  Loading="@Loading" LoadingProgressColor="@Color.Secondary" ChildRowContent="@ChildRowContent"
+                  GroupBy="@Context._groupDefinition"
+                  GroupHeaderStyle="background-color:var(--mud-palette-background-grey)"
+                  GroupFooterClass="mb-4">
+
+            <ToolBarContent>
+                <div class="justify-center mud-text-align-center">
+                    @if (_canCreate)
+                    {
+                        <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Primary"
+                               OnClick="(() => InvokeModal())" StartIcon="@Icons.Material.Filled.Add"
+                               IconColor="Color.Surface">@L["Create"]</MudButton>
+                    }
+                    @if (_canExport)
+                    {
+                        <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Tertiary"
+                               OnClick="(() => ExportAsync())" StartIcon="@Icons.Material.Filled.ImportExport"
+                               Style="margin-left: 5px;" IconColor="Color.Surface">@L["Export"]</MudButton>
+                    }
+                    <MudButton DisableElevation Variant="Variant.Filled" OnClick="ReloadDataAsync"
+                               StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface" Color="Color.Secondary"
+                               Style="margin-left: 5px;">@L["Reload"]</MudButton>
+                </div>
+                <MudSpacer />
+                @if (_canSearch && !_advancedSearchExpanded)
+                {
+                    <MudTextField @bind-Value="SearchString" Immediate="true" FullWidth="false"
+                              Placeholder="@($"{L["Search for"]} {Context.EntityNamePlural}")" Adornment="Adornment.End"
+                              AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0 mb-3"
+                              TextChanged="OnSearchStringChanged">
+                    </MudTextField>
+                }
+            </ToolBarContent>
+            <ColGroup>
+                  <col style="width: 10px;" />
+                foreach (var field in Context.Fields)
+                {
+                    <col />
+                }
+
+            </ColGroup>
+            <HeaderContent>
+                @if (Context.Fields is not null)
+                {
+                    foreach (var field in Context.Fields)
+                    {
+                        @if (field.DisplayName != "Id")
+                        {
+                            <MudTh>
+                                @if (Context.IsClientContext)
+                                {
+                                    <MudTableSortLabel SortBy="@field.ValueFunc">@field.DisplayName</MudTableSortLabel>
+                                }
+                                else
+                                {
+                                    <MudTableSortLabel T="TEntity" SortLabel="@field.SortLabel">@field.DisplayName</MudTableSortLabel>
+                                }
+                            </MudTh>
+                        }
+                    }
+                }
+                <MudTh Style="text-align:right">@L["Actions"]</MudTh>
+            </HeaderContent>
+            <GroupHeaderTemplate>
+                <MudTh Class="mud-table-cell-custom-group" colspan="5">@($"{context.GroupName}: {context.Key}")</MudTh>
+            </GroupHeaderTemplate>
+            <RowTemplate>
+                @foreach (var field in Context.Fields)
+                {
+                    @if (field.DisplayName == "Id")
+                    {
+                        continue;
+                    }
+                    <MudTd DataLabel="@field.DisplayName">
+                        @if (field.Template is not null)
+                        {
+                            @field.Template(context)
+                        }
+                        else if (field.Type == typeof(bool))
+                        {
+                            <MudCheckBox Checked="@field.ValueFunc(context)" ReadOnly Color="Color.Secondary"></MudCheckBox>
+                        }
+                        else
+                        {
+                            <MudHighlighter Text="@field.ValueFunc(context)?.ToString()" HighlightedText="@SearchString" />
+                        }
+                    </MudTd>
+                }
+                <MudTd DataLabel="Actions" Style="text-align: right">
+                    @if (ActionsContent is not null)
+                    {
+                        @ActionsContent(context)
+                    }
+                    else if (HasActions)
+                    {
+                        <MudMenu Label="@L["Actions"]" Variant="Variant.Filled" DisableElevation="true"
+                             EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left"
+                             OffsetX="true">
+                            @if (CanUpdateEntity(context))
+                            {
+                                <MudMenuItem @ontouchstart="@(() => InvokeModal(context))" @onclick="@(() => InvokeModal(context))">@L["Edit"]</MudMenuItem>
+                            }
+                            @if (CanDeleteEntity(context))
+                            {
+                                <MudMenuItem Style="color:red!important" @ontouchstart="@(() =>  Delete(context))" @onclick="@(() => Delete(context))">@L["Delete"]</MudMenuItem>
+                            }
+                            @if (ExtraActions is not null)
+                            {
+                                @ExtraActions(context)
+                            }
+                        </MudMenu>
+                    }
+                    else
+                    {
+                        <MudButton Variant="Variant.Filled" DisableElevation="true"
+                               StartIcon="@Icons.Material.Filled.DoNotTouch" IconColor="Color.Secondary" Size="Size.Small"
+                               Color="Color.Surface">
+                            @L["No Allowed Actions"]
+                        </MudButton>
+                    }
+                </MudTd>
+            </RowTemplate>
+
+            <PagerContent>
+                <TablePager />
+            </PagerContent>
+
+        </FshTable>
+
+    </ChildContent>
+    <ErrorContent>
+        <FshCustomError />
+    </ErrorContent>
+</ErrorBoundary>

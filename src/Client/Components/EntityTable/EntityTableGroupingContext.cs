@@ -1,32 +1,16 @@
 ﻿using FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient;
+using MudBlazor;
+using static MudBlazor.CategoryTypes;
 
 namespace FSH.BlazorWebAssembly.Client.Components.EntityTable;
 
-/// <summary>
-/// Initialization Context for the EntityTable Component.
-/// Use this one if you want to use Server Paging, Sorting and Filtering.
-/// </summary>
-public class EntityServerTableContext<TEntity, TId, TRequest>
-    : EntityTableGroupingContext<TEntity, TId, TRequest>
+public class EntityTableGroupingContext<TEntity, TId, TRequest>
+    : EntityTableContext<TEntity, TId, TRequest>
 {
-    /// <summary>
-    /// A function that loads the specified page from the api with the specified search criteria
-    /// and returns a PaginatedResult of TEntity.
-    /// </summary>
-    public Func<PaginationFilter, Task<PaginationResponse<TEntity>>> SearchFunc { get; }
-
-    /// <summary>
-    /// A function that exports the specified data from the API.
-    /// </summary>
-    public Func<BaseFilter, Task<FileResponse>>? ExportFunc { get; }
-
-    public bool EnableAdvancedSearch { get; }
-
-    public EntityServerTableContext(
+    public TableGroupDefinition<TEntity> _groupDefinition = default!;
+    
+    public EntityTableGroupingContext(
         List<EntityField<TEntity>> fields,
-        Func<PaginationFilter, Task<PaginationResponse<TEntity>>> searchFunc,
-        Func<BaseFilter, Task<FileResponse>>? exportFunc = null,
-        bool enableAdvancedSearch = false,
         Func<TEntity, TId>? idFunc = null,
         Func<Task<TRequest>>? getDefaultsFunc = null,
         Func<TRequest, Task>? createFunc = null,
@@ -46,7 +30,7 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
         Func<TEntity, bool>? canUpdateEntityFunc = null,
         Func<TEntity, bool>? canDeleteEntityFunc = null,
         
-        Func<TEntity, object>? GroupSeletor = null)
+        Func<TEntity, object>? GroupSeletor=null)
         : base(
             fields,
             idFunc,
@@ -66,12 +50,16 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
             editFormInitializedFunc,
             hasExtraActionsFunc,
             canUpdateEntityFunc,
-            canDeleteEntityFunc,
-            
-            GroupSeletor)
+            canDeleteEntityFunc)
     {
-        SearchFunc = searchFunc;
-        ExportFunc = exportFunc;
-        EnableAdvancedSearch = enableAdvancedSearch;
-    }
+     
+          _groupDefinition = new()
+        {
+            GroupName = "",
+            Indentation = false,
+            Expandable = true,
+            IsInitiallyExpanded = true,
+            Selector = GroupSeletor
+        };
+}
 }

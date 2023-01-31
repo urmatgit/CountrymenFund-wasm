@@ -22,7 +22,7 @@ public partial class Contributions
 
     protected EntityServerTableContext<ContributionDto, Guid, UpdateContributionRequest> Context { get; set; } = default!;
 
-    private EntityTable<ContributionDto, Guid, UpdateContributionRequest> _table = default!;
+    private EntityTableWithGrouping<ContributionDto, Guid, UpdateContributionRequest> _table = default!;
 
     protected override void OnInitialized()
     {
@@ -91,7 +91,9 @@ public partial class Contributions
                     Date=yearDefault.Date,
                     YearId=yearDefault.YearId,
                 };
-            } );
+            },
+           
+            GroupSeletor: (x)=>x.RuralGovName);
          
     }
 
