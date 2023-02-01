@@ -6,6 +6,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using Mapster;
 using MudBlazor;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.Catalog;
 
@@ -93,7 +94,8 @@ public partial class Contributions
                 };
             },
            
-            GroupSeletor: (x)=>x.RuralGovName);
+            GroupSeletor: (x)=>x.RuralGovName,
+            groupSumSeletor:(x)=>x.Summa);
          
     }
 

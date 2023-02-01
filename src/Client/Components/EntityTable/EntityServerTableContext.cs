@@ -46,7 +46,8 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
         Func<TEntity, bool>? canUpdateEntityFunc = null,
         Func<TEntity, bool>? canDeleteEntityFunc = null,
         
-        Func<TEntity, object>? GroupSeletor = null)
+        Func<TEntity, object>? GroupSeletor = null,
+        Func<TEntity, decimal>? groupSumSeletor = null)
         : base(
             fields,
             idFunc,
@@ -68,7 +69,8 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
             canUpdateEntityFunc,
             canDeleteEntityFunc,
             
-            GroupSeletor)
+            GroupSeletor,
+            groupSumSeletor)
     {
         SearchFunc = searchFunc;
         ExportFunc = exportFunc;

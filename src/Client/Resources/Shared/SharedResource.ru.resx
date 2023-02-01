@@ -219,6 +219,9 @@
   <data name="September" xml:space="preserve">
     <value>Сентябрь</value>
   </data>
+  <data name="Total Mass" xml:space="preserve">
+    <value>Итого</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>Обновить</value>
   </data>

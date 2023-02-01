@@ -8,7 +8,9 @@ public class EntityTableGroupingContext<TEntity, TId, TRequest>
     : EntityTableContext<TEntity, TId, TRequest>
 {
     public TableGroupDefinition<TEntity> _groupDefinition = default!;
-    
+    public Func<TEntity, decimal>? GroupSumSeletor = default!;
+
+
     public EntityTableGroupingContext(
         List<EntityField<TEntity>> fields,
         Func<TEntity, TId>? idFunc = null,
@@ -30,7 +32,9 @@ public class EntityTableGroupingContext<TEntity, TId, TRequest>
         Func<TEntity, bool>? canUpdateEntityFunc = null,
         Func<TEntity, bool>? canDeleteEntityFunc = null,
         
-        Func<TEntity, object>? GroupSeletor=null)
+        Func<TEntity, object>? GroupSeletor=null,
+        Func<TEntity, decimal>? groupSumSeletor = null
+        )
         : base(
             fields,
             idFunc,
@@ -52,7 +56,8 @@ public class EntityTableGroupingContext<TEntity, TId, TRequest>
             canUpdateEntityFunc,
             canDeleteEntityFunc)
     {
-     
+
+        GroupSumSeletor = groupSumSeletor;
           _groupDefinition = new()
         {
             GroupName = "",
