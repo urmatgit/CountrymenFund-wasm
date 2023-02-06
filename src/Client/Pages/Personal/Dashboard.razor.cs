@@ -12,10 +12,10 @@ public partial class Dashboard
 {
     [Parameter]
     public int RuralGovCount { get; set; }
-    [Parameter]
-    public int ProductCount { get; set; }
-    [Parameter]
-    public int BrandCount { get; set; }
+    //[Parameter]
+    //public int ProductCount { get; set; }
+    //[Parameter]
+    //public int BrandCount { get; set; }
     [Parameter]
     public int UserCount { get; set; }
     [Parameter]
@@ -59,8 +59,8 @@ public partial class Dashboard
             is StatsDto statsDto)
         {
             RuralGovCount = statsDto.RuralGovCount;
-            ProductCount = statsDto.ProductCount;
-            BrandCount = statsDto.BrandCount;
+            //ProductCount = statsDto.ProductCount;
+            //BrandCount = statsDto.BrandCount;
             UserCount = statsDto.UserCount;
             RoleCount = statsDto.RoleCount;
             NativeCount= statsDto.NativeCount;

@@ -18,7 +18,19 @@ public class NativeAutocomplete : MudAutocomplete<Guid>
     private ISnackbar Snackbar { get; set; } = default!;
 
     private List<NativeDto> _natives = new();
+    private bool _finded;
+    [Parameter]
 
+    public bool Finded { get => _finded;
+            set
+        {
+            //if (_finded == value) return;
+            _finded = value;
+             BindingValueChanged.InvokeAsync(value);
+           // InvokeAsync(()=>  StateHasChanged());
+        } }
+    [Parameter]
+    public EventCallback<bool> BindingValueChanged { get; set; }
     // supply default parameters, but leave the possibility to override them
     public override Task SetParametersAsync(ParameterView parameters)
     {
@@ -60,8 +72,10 @@ public class NativeAutocomplete : MudAutocomplete<Guid>
             is PaginationResponseOfNativeDto response)
         {
             _natives = response.Data.ToList();
-        }
-
+            Finded = _natives.Count()>0;
+            
+        }else Finded= false;
+        Console.WriteLine($"Finded: {Finded}");
         return _natives.Select(x => x.Id);
     }
 
@@ -69,7 +83,7 @@ public class NativeAutocomplete : MudAutocomplete<Guid>
     {
         var finded = _natives.Find(b => b.Id == id);
         if (finded is not null)
-            return $"{finded.Name} {finded.Surname} {finded.MiddleName}";
+            return $"{finded.Name} {finded.Surname} {finded.MiddleName} ({finded.RuralGovName})";
         else return string.Empty;
     }
 }

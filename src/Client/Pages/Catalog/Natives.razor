@@ -48,16 +48,7 @@
             <MudTextField Label="@L["Rate"]" For="@(() => context.Rate)" @bind-Value="context.Rate" />
         </MudItem>
         <MudItem xs="12" md="12">
-            <MudItem>
-                @if(!string.IsNullOrEmpty(context.ImageInBytes))
-                {
-                    <MudAvatar Image ="@context.ImageInBytes" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
-                }
-                else
-                {
-                    <MudAvatar Image="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
-                }
-            </MudItem>
+            
             <MudItem>
                 <div>
                     <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small"
@@ -85,6 +76,16 @@
                     }
                 </div>
                 <InputFile id="fileInput" hidden OnChange="UploadFiles" />
+            </MudItem>
+            <MudItem>
+                @if(!string.IsNullOrEmpty(context.ImageInBytes))
+                {
+                    <MudAvatar Image ="@context.ImageInBytes" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                }
+                else
+                {
+                    <MudAvatar Image="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                }
             </MudItem>
         </MudItem>
     </EditFormContent>

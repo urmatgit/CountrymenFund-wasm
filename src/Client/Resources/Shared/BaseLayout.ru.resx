@@ -117,67 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Аккаунт</value>
-  </data>
-  <data name="Buy Me A Coffee!" xml:space="preserve">
-    <value>Купить мне кофе!</value>
-  </data>
-  <data name="Chat?" xml:space="preserve">
-    <value>К чату?</value>
-  </data>
-  <data name="Community" xml:space="preserve">
-    <value>Сообщество</value>
-  </data>
-  <data name="Facebook Group" xml:space="preserve">
-    <value>Группа Facebook</value>
-  </data>
-  <data name="Facebook Page" xml:space="preserve">
-    <value>Страница Facebook</value>
-  </data>
-  <data name="Fork Repository" xml:space="preserve">
-    <value>Репозиторий</value>
-  </data>
-  <data name="Kara-Kulzha Fund" xml:space="preserve">
-    <value>Фонд Кара-Кулжа</value>
-  </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Выйти</value>
-  </data>
-  <data name="Logout Confirmation" xml:space="preserve">
-    <value>Подтверждение выхода</value>
-  </data>
-  <data name="MudBlazor Documentation" xml:space="preserve">
-    <value>Документация MudBlazor</value>
-  </data>
-  <data name="Quick-Start Guide" xml:space="preserve">
-    <value>Краткое руководство пользователя</value>
-  </data>
-  <data name="Refreshed Token." xml:space="preserve">
-    <value>Токен обновлён.</value>
-  </data>
-  <data name="Resources" xml:space="preserve">
-    <value>Ресурсы</value>
-  </data>
-  <data name="Support" xml:space="preserve">
-    <value>Поддержка</value>
-  </data>
-  <data name="Toggle Dark Mode" xml:space="preserve">
-    <value>Переключить Тёмный режим</value>
-  </data>
-  <data name="Toggle right-to-left/left-to-right" xml:space="preserve">
-    <value>Переключить справа-на-лево/слева-на-право</value>
-  </data>
-  <data name="Welcome {0}" xml:space="preserve">
-    <value>Добро пожаловать {0}</value>
-  </data>
-  <data name="You are logged out because the Permissions of one of your Roles have been updated." xml:space="preserve">
-    <value>Вы вышли из системы, потому что были обновлены разрешения одной из ваших ролей.</value>
-  </data>
-  <data name="You are logged out because the user with your Token has been deleted." xml:space="preserve">
-    <value>Вы вышли из системы, потому что пользователь с вашим токеном был удален.</value>
-  </data>
-  <data name="You are Logged Out." xml:space="preserve">
-    <value>Вы вышли из системы.</value>
+  <data name="Login" xml:space="preserve">
+    <value>Логин</value>
   </data>
 </root>

@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-
+@inject IStringLocalizer<BaseLayout> L
 <MudRTLProvider RightToLeft="@_rightToLeft">
     <MudThemeProvider Theme="_currentTheme" />
     <MudDialogProvider />
@@ -10,9 +10,14 @@
                 <ThemeDrawer @bind-ThemeDrawerOpen="_themeDrawerOpen" ThemePreference="_themePreference"
                     ThemePreferenceChanged="ThemePreferenceChanged" />
                 <ThemeButton OnClick="@(() => _themeDrawerOpen = true)" />
+                <MudSpacer />
+                <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Secondary"
+                           Link="/Login" Target="_self" StartIcon="@Icons.Material.Filled.Person">
+                    @L["Login"]
+                </MudButton>
             </MudAppBar>
-            <MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 100vh;">
-                <MudPaper Elevation="25" Class="pa-8"> 
+            <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex align-center" Style="height: 100vh;">
+                <MudPaper Elevation="25" Class="align-center pa-12"> 
                     @Body
                 </MudPaper>
             </MudContainer>
