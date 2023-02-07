@@ -89,3 +89,10 @@
     </EditFormContent>
 
 </EntityTableWithGrouping>
+@code {
+    private RenderFragment<ContributionDto> RateFieldTemplate => rate => __builder =>
+        {
+            <MudRating SelectedValue="@Convert.ToInt32(rate.Rate)" MaxValue="5"  ReadOnly="true"/>
+        };
+
+}

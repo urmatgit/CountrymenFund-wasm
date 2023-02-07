@@ -110,6 +110,10 @@
                         {
                             <MudCheckBox Checked="@field.ValueFunc(context)" ReadOnly Color="Color.Secondary"></MudCheckBox>
                         }
+                        @*else if (field. DisplayName.ToLower() == "rate")
+                        {
+                            <MudRating SelectedValue="@Convert.ToInt32(@field.ValueFunc(context))" MaxValue="10" />
+                        }*@
                         else
                         {
                             <MudHighlighter Text="@field.ValueFunc(context)?.ToString()" HighlightedText="@SearchString" />

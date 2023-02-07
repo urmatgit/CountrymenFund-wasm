@@ -59,7 +59,7 @@ public partial class Contributions
                 new(prod => prod.Summa, L["Summa"], "Summa"),
                 new(prod => prod.Date, L["Date"], "Date"),
                 new(prod => prod.Description, L["Description"], "Description"),
-                new(prod => prod.Rate, L["Rate"], "Rate")
+                new(prod => prod.Rate, L["Rate"], "Rate",Template: RateFieldTemplate)
             },
             enableAdvancedSearch: false,
             idFunc: prod => prod.Id,
