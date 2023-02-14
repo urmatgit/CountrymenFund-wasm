@@ -47,7 +47,7 @@
                 <div class="justify-center mud-text-align-center">
                     @if (_canCreate)
                     {
-                        <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Primary"
+                        <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Primary" @ref="createButton"
                             OnClick="(() => InvokeModal())" StartIcon="@Icons.Material.Filled.Add"
                             IconColor="Color.Surface">@L["Create"]</MudButton>
                     }

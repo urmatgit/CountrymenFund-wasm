@@ -1,11 +1,19 @@
 ﻿using FSH.BlazorWebAssembly.Client.Components.EntityTable;
+using FSH.BlazorWebAssembly.Client.Components.Fund;
 using FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient;
+using FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient.Fund;
+using FSH.BlazorWebAssembly.Client.Infrastructure.Auth;
 using FSH.BlazorWebAssembly.Client.Infrastructure.Common;
+using FSH.BlazorWebAssembly.Client.Shared;
 using FSH.WebApi.Shared.Authorization;
 using Mapster;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
+using System.Net.Http.Headers;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.Catalog;
 
@@ -15,12 +23,25 @@ public partial class Natives
     protected INativesClient NativesClient { get; set; } = default!;
     [Inject]
     protected IRuralGovsClient RuralGovsClient { get; set; } = default!;
+    [CascadingParameter]
+    protected Task<AuthenticationState> AuthState { get; set; } = default!;
+    [Inject]
+    protected IAuthorizationService AuthService { get; set; } = default!;
 
     protected EntityServerTableContext<NativeDto, Guid, NativeViewModel> Context { get; set; } = default!;
 
-    private EntityTable<NativeDto, Guid, NativeViewModel> _table = default!;
 
-    protected override void OnInitialized() =>
+
+    private EntityTable<NativeDto, Guid, NativeViewModel> _table = default!;
+    [Parameter]
+    public string? id { get; set; }
+
+    private bool _canCreateNative;
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await AuthState;
+        _canCreateNative = await AuthService.HasPermissionAsync(state.User, FSHAction.Create, FSHResource.Natives);
+
         Context = new(
             entityName: L["Native"],
             entityNamePlural: L["Natives"],
@@ -36,7 +57,7 @@ public partial class Natives
                 new(prod => prod.RuralGovName, L["RuralGov"], "RuralGovName"),
                 new(prod => prod.Rate, L["Rate"], "Rate",Template: RateFieldTemplate),
                 new(prod => prod.Description, L["Description"], "Description")
-                
+
             },
             enableAdvancedSearch: true,
             idFunc: prod => prod.Id,
@@ -49,6 +70,7 @@ public partial class Natives
                 productFilter.MaximumRate = SearchMaximumRate;
 
                 var result = await NativesClient.SearchAsync(productFilter);
+                
                 return result.Adapt<PaginationResponse<NativeDto>>();
             },
             createFunc: async prod =>
@@ -83,7 +105,42 @@ public partial class Natives
                 return await NativesClient.ExportAsync(exportFilter);
             },
             deleteFunc: async id => await NativesClient.DeleteAsync(id));
+    }
+    private async Task CreateNaitive(NativeViewModel prod) 
+            {
+        if (!string.IsNullOrEmpty(prod.ImageInBytes))
+        {
+            prod.Image = new FileUploadRequest() { Data = prod.ImageInBytes, Extension = prod.ImageExtension ?? string.Empty, Name = $"{prod.Name}_{Guid.NewGuid():N}" };
+        }
 
+        await NativesClient.CreateAsync(prod.Adapt<CreateNativeRequest>());
+        prod.ImageInBytes = string.Empty;
+    }
+    private async Task CreateNativeOnLoad()
+    {
+        var result = await DialogService.ShowModalAsync<UpdateNativeDialog>(new()
+        {
+            { nameof(UpdateNativeDialog.nativeViewModel), new NativeViewModel() }
+        });
+
+        if (!result.Cancelled)
+        {
+            await _table.ReloadDataAsync();
+        }
+
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if ( !string.IsNullOrEmpty(id) && _canCreateNative)
+        {
+            Console.WriteLine("_table.InvokeModal(new NativeDto())");
+            await CreateNativeOnLoad();
+            //_table.InvokeModal()
+
+            //await _table.InvokeModal();
+        }
+         
+    }
     // Advanced Search
 
     private Guid _searchRuralGovId;
@@ -156,9 +213,3 @@ public partial class Natives
     }
 }
 
-public class NativeViewModel : UpdateNativeRequest
-{
-    public string? ImagePath { get; set; }
-    public string? ImageInBytes { get; set; }
-    public string? ImageExtension { get; set; }
-}

@@ -1,29 +1,10 @@
-﻿
-@page "/catalog/natives/{id?}"
-@inject NavigationManager NavigationHelper
-@attribute [MustHavePermission(FSHAction.View, FSHResource.Natives)]
-
+﻿@using FSH.BlazorWebAssembly.Client.Pages.Catalog;
+@inject INativesClient NativesClient
 @inject IStringLocalizer<Natives> L
 
-
-<FshTitle Title="@L["Natives"]" Description="@L["Manage Natives."]" />
-
-<EntityTable @ref="_table" TEntity="NativeDto" TId="Guid" TRequest="NativeViewModel" Context="@Context">
-
-    <AdvancedSearchContent>
-        <RuralGovAutocomplete @bind-Value="SearchRuralGovId" />
-        <MudSlider T="decimal" @bind-value="SearchMinimumRate" Min="0" Max="10" Step="1">@L["Minimum rate"]: @_searchMinimumRate.ToString()</MudSlider>
-        <MudSlider T="decimal" @bind-value="SearchMaximumRate" Min="0" Max="10" Step="1">@L["Maximum rate"]: @_searchMaximumRate.ToString()</MudSlider>
-    </AdvancedSearchContent>
-
-    <EditFormContent >
-        @if (!Context.AddEditModal.IsCreate)
-        {
-           @* <MudItem xs="12" md="6">
-                <MudTextField Value="context.Id" ReadOnly DisableUnderLine Label="@L[$"Native Id"]" />
-            </MudItem>*@
-        }
-        <MudItem xs="12" md="6">
+<AddEditModal RequestModel="nativeViewModel" SaveFunc="@createFunc" @ref="addeditModel" Title="@L["Create"]">
+    <MudGrid>
+    <MudItem xs="12" md="6">
             <MudTextField Label="@L["Name"]" For="@(() => context.Name)" @bind-Value="context.Name" />
         </MudItem>
         <MudItem xs="12" md="6">
@@ -49,7 +30,7 @@
         <MudItem xs="12" md="6">
             <MudTextField Label="@L["Rate"]" For="@(() => context.Rate)" @bind-Value="context.Rate" />
         </MudItem>
-        <MudItem xs="12" md="12">
+            <MudItem xs="12" md="12">
             
             <MudItem>
                 <div>
@@ -57,7 +38,7 @@
                         StartIcon="@Icons.Filled.CloudUpload" for="fileInput">
                         @L["Upload"]
                     </MudButton>
-                    @if(!Context.AddEditModal.IsCreate && !string.IsNullOrEmpty(context.ImagePath) && string.IsNullOrEmpty(context.ImageInBytes))
+                    @if( !string.IsNullOrEmpty(context.ImagePath) && string.IsNullOrEmpty(context.ImageInBytes))
                     {
                         <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Target="_blank"
                             StartIcon="@Icons.Filled.RemoveRedEye" Link="@(Config[ConfigNames.ApiBaseUrl] + @context.ImagePath)" Style="margin-left: 5px;" >
@@ -90,14 +71,58 @@
                 }
             </MudItem>
         </MudItem>
-    </EditFormContent>
-
-</EntityTable>
+        </MudGrid>
+</AddEditModal>
 
 @code {
-    private RenderFragment<NativeDto> RateFieldTemplate => rate => __builder =>
+    [Parameter]
+    [EditorRequired]
+    public NativeViewModel nativeViewModel { get; set; } = default!;
+    private AddEditModal<NativeViewModel> addeditModel = default!;
+    private async Task createFunc(NativeViewModel prod)
+    {
+        if (!string.IsNullOrEmpty(prod.ImageInBytes))
         {
-            <MudRating SelectedValue="@Convert.ToInt32(rate.Rate)" MaxValue="5" ReadOnly="true" />
-        };
+            prod.Image = new FileUploadRequest() { Data = prod.ImageInBytes, Extension = prod.ImageExtension ?? string.Empty, Name = $"{prod.Name}_{Guid.NewGuid():N}" };
+        }
 
+        await NativesClient.CreateAsync(prod.Adapt<CreateNativeRequest>());
+        prod.ImageInBytes = string.Empty;
+    }
+
+    // TODO : Make this as a shared service or something? Since it's used by Profile Component also for now, and literally any other component that will have image upload.
+    // The new service should ideally return $"data:{ApplicationConstants.StandardImageFormat};base64,{Convert.ToBase64String(buffer)}"
+    private async Task UploadFiles(InputFileChangeEventArgs e)
+    {
+        if (e.File != null)
+        {
+            string? extension = Path.GetExtension(e.File.Name);
+            if (!ApplicationConstants.SupportedImageFormats.Contains(extension.ToLower()))
+            {
+                Snackbar.Add("Image Format Not Supported.", Severity.Error);
+                return;
+            }
+
+            addeditModel.RequestModel.ImageExtension = extension;
+            var imageFile = await e.File.RequestImageFileAsync(ApplicationConstants.StandardImageFormat, ApplicationConstants.MaxImageWidth, ApplicationConstants.MaxImageHeight);
+            byte[]? buffer = new byte[imageFile.Size];
+            await imageFile.OpenReadStream(ApplicationConstants.MaxAllowedSize).ReadAsync(buffer);
+            addeditModel.RequestModel.ImageInBytes = $"data:{ApplicationConstants.StandardImageFormat};base64,{Convert.ToBase64String(buffer)}";
+            addeditModel.ForceRender();
+        }
+    }
+
+    public void ClearImageInBytes()
+    {
+        addeditModel.RequestModel.ImageInBytes = string.Empty;
+        addeditModel.ForceRender();
+    }
+
+    public void SetDeleteCurrentImageFlag()
+    {
+        addeditModel.RequestModel.ImageInBytes = string.Empty;
+        addeditModel.RequestModel.ImagePath = string.Empty;
+        addeditModel.RequestModel.DeleteCurrentImage = true;
+        addeditModel.ForceRender();
+    }
 }

@@ -44,6 +44,8 @@ public partial class EntityTable<TEntity, TId, TRequest>
     [Inject]
     protected IAuthorizationService AuthService { get; set; } = default!;
 
+    public  MudButton createButton { get; set; } = default!;
+
     private bool _canSearch;
     private bool _canCreate;
     private bool _canUpdate;
@@ -223,7 +225,7 @@ public partial class EntityTable<TEntity, TId, TRequest>
         return filter;
     }
 
-    private async Task InvokeModal(TEntity? entity = default)
+    public async Task InvokeModal(TEntity? entity = default)
     {
         bool isCreate = entity is null;
 

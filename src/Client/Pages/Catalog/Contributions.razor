@@ -58,7 +58,7 @@
 
         
         <MudItem xs="12" md="6" Class="d-flex flex-row">
-@*                <MudButton  hidden="@NativeFinded" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"></MudButton>*@
+                <MudButton id="addNative"  OnClick="goNativeAdd" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Style="display:none"></MudButton>
             <NativeAutocomplete  BindingValueChanged="(async (finded)=>await Finded(finded))" For="@(() => context.NativeId)" @bind-Value="context.NativeId" OffsetY="true">
                 
             </NativeAutocomplete>

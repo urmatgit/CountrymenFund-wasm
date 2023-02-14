@@ -9,12 +9,15 @@ using MudBlazor;
 using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json.Bson;
 using Microsoft.JSInterop;
+using System.Net.NetworkInformation;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.Catalog;
 
 public partial class Contributions
 {
-
+    [Inject]
+    protected IJSRuntime JsRuntime { get; set; }
     [Inject]
     protected IStringLocalizer<Contributions> L { get; set; }
     [Inject]
@@ -25,19 +28,19 @@ public partial class Contributions
     protected INativesClient NativesClient { get; set; } = default!;
     [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> UserAttributes { get; set; } = new Dictionary<string, object>();
 
-    private bool HideLabel { get; set; } = false;
-    private void Toggle()
-    {
-        HideLabel = !HideLabel;
-    }
-
-    private bool NativeFinded { get; set; }=  false;
-    private MudButton addButton;
+    
+    
+    
+    
     protected async Task Finded(bool finded)
     {
-        NativeFinded = finded;
         
+        var result=await JsRuntime.InvokeAsync<string>("ShowElement", "addNative",!finded);
         StateHasChanged(); 
+    }
+    private  void goNativeAdd()
+    {
+         Navigation.NavigateTo($"/catalog/natives/{Guid.Empty}");
     }
     protected EntityServerTableContext<ContributionDto, Guid, UpdateContributionRequest> Context { get; set; } = default!;
 
