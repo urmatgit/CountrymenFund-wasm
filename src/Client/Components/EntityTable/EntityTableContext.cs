@@ -131,7 +131,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     public EntityTableContext(
         List<EntityField<TEntity>> fields,
         Func<TEntity, TId>? idFunc,
-        Func<TEntity, string>? rowStyle = null,
+        Func<TEntity, string>? rowStyle ,
         Func<Task<TRequest>>? getDefaultsFunc,
         Func<TRequest, Task>? createFunc,
         Func<TId, Task<TRequest>>? getDetailsFunc,

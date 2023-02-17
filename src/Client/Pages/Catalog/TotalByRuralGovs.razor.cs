@@ -4,6 +4,7 @@ using FSH.WebApi.Shared.Authorization;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.Catalog;
 
@@ -43,7 +44,7 @@ public partial class TotalByRuralGovs
                 //new(prod => prod.Summa, L["Summa"], "Summa")
             },
             enableAdvancedSearch: false,
-
+            rowStyle: r=>r.Style,
             searchFunc: async filter =>
             {
                 var contributionFilter = filter.Adapt<GetStateByRuralGovRequest>();

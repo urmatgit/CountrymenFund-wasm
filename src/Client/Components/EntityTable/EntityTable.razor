@@ -107,7 +107,7 @@
                     {
                         continue;
                     }
-                    <MudTd DataLabel="@field.DisplayName" Style="@getStyle(field)">
+                    <MudTd DataLabel="@field.DisplayName" Style="@getStyle(field,context)">
                         @if (field.Template is not null)
                         {
                             @field.Template(context)

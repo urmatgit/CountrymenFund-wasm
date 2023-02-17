@@ -23,6 +23,7 @@ public class EntityClientTableContext<TEntity, TId, TRequest>
         Func<Task<List<TEntity>?>> loadDataFunc,
         Func<string?, TEntity, bool> searchFunc,
         Func<TEntity, TId>? idFunc = null,
+        Func<TEntity, string>? rowStyleFunc = null,
         Func<Task<TRequest>>? getDefaultsFunc = null,
         Func<TRequest, Task>? createFunc = null,
         Func<TId, Task<TRequest>>? getDetailsFunc = null,
@@ -43,6 +44,7 @@ public class EntityClientTableContext<TEntity, TId, TRequest>
         : base(
             fields,
             idFunc,
+            row
             getDefaultsFunc,
             createFunc,
             getDetailsFunc,
