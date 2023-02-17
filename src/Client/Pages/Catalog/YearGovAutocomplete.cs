@@ -17,24 +17,40 @@ public class YearGovAutocomplete : MudAutocomplete<Guid>
     private IYearsClient YearsClient { get; set; } = default!;
     [Inject]
     private ISnackbar Snackbar { get; set; } = default!;
+    [Parameter]
+    public string? DefaultText { get; set; }=default!;
     private List<YearDto> _ruralGovs = new();
 
 
-   
+    protected override async void OnInitialized()
+    {
+       await  SearchRuralGovs("");
+        var currentYearId = GetCurrentYearId();
+        if (currentYearId== null)
+            this.SelectOption(currentYearId.Value);
+        // if (_ruralGovs!=null && _ruralGovs.Count>0)
+        //     this.SelectOption(_ruralGovs.FirstOrDefault()!.Id);
+        // Console.WriteLine($"Initialized val {this.Text}");
+        // this.ForceRender(true);
+        base.OnInitialized();
+    }
     public override Task SetParametersAsync(ParameterView parameters)
     {
         Label = SL["Year"];
         Variant = Variant.Filled;
         Dense = true;
+        
         Margin = Margin.Dense;
         ResetValueOnEmptyText = true;
         SearchFunc = SearchRuralGovs;
         ToStringFunc = GetRuralGovName;
         Clearable = true;
+        
         return base.SetParametersAsync(parameters);
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+       
         if (firstRender && _value!=default
              && await ApiHelper.ExecuteCallGuardedAsync(()=>YearsClient.GetAsync(_value),Snackbar) is { } ruralGov)
         {

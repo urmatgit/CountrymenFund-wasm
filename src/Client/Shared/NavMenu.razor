@@ -62,6 +62,15 @@
                 </MudNavLink>
             }
         </MudNavGroup>
+
+          <MudNavGroup Title="@L["Reports"]" Expanded Icon="@Icons.Filled.Report">
+              @if (_canViewContributions)
+            {
+                <MudNavLink Href="/catalog/totalbyruralgovs" Icon="@Icons.Filled.Summarize" Class="fsh-nav-child">
+                    @LS["Total by rural government"]
+                </MudNavLink>
+            }
+          </MudNavGroup>
     }
     @if (CanViewAdministrationGroup)
     {

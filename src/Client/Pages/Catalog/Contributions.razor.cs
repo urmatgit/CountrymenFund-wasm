@@ -59,7 +59,7 @@ public partial class Contributions
                 new(prod => prod.Year, L["Year"], "Year"),
                 new(prod => prod.NativeFIO, L["FIO"], "NativeFIO"),
                 new(prod =>SH.GetString(prod.Month.ToString()), L["Month"], "Month"),
-                new(prod => prod.Summa, L["Summa"], "Summa"),
+                new(prod => prod.Summa, L["Summa"], "Summa",Type: typeof(decimal?)),
                 new(prod => prod.Date, L["Date"], "Date"),
                 new(prod => prod.Description, L["Description"], "Description"),
                 new(prod => prod.Rate, L["Rate"], "Rate",Template: RateFieldTemplate)

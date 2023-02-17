@@ -19,11 +19,14 @@
             <MudExpansionPanel @bind-IsExpanded="_advancedSearchExpanded"
                 Style="padding:10px!important; margin-bottom:10px!important;border-radius: var(--mud-default-borderradius) !important;"
                 Class="mud-elevation-25" Text="@L["Advanced Search"]">
-                <MudTextField @bind-Value="SearchString" Immediate="true"
+                @if (VisibleSearchText)
+                {
+                    <MudTextField @bind-Value="SearchString" Immediate="true" 
                     Placeholder="@($"{L["Search for"]} {Context.EntityNamePlural}")" Adornment="Adornment.Start"
                     AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"
-                    Style="flex:none!important;margin:0px!important" TextChanged="OnSearchStringChanged">
+                    Style="flex:none!important;margin:0px!important;" TextChanged="OnSearchStringChanged">
                 </MudTextField>
+                }
                 @if (Context.AdvancedSearchEnabled)
                 {
                     <div style="margin-top:10px!important">
@@ -41,7 +44,7 @@
         }
 
         <FshTable @ref="_table" Elevation="25" ServerData="@ServerReloadFunc" Items="@_entityList" Filter="LocalSearch"
-            Loading="@Loading" LoadingProgressColor="@Color.Secondary" ChildRowContent="@ChildRowContent">
+            Loading="@Loading" LoadingProgressColor="@Color.Secondary" ChildRowContent="@ChildRowContent" >
 
             <ToolBarContent>
                 <div class="justify-center mud-text-align-center">
@@ -91,17 +94,20 @@
                         }
                     }
                 }
-                <MudTh Style="text-align:right">@L["Actions"]</MudTh>
+                @if (HasActions){
+                    <MudTh Style="text-align:right">@L["Actions"]</MudTh>
+                }
             </HeaderContent>
 
-            <RowTemplate>
+            <RowTemplate >
+                
                 @foreach (var field in Context.Fields)
                 {
                     @if (field.DisplayName == "Id")
                     {
                         continue;
                     }
-                    <MudTd DataLabel="@field.DisplayName">
+                    <MudTd DataLabel="@field.DisplayName" Style="@getStyle(field)">
                         @if (field.Template is not null)
                         {
                             @field.Template(context)
@@ -110,16 +116,18 @@
                         {
                             <MudCheckBox Checked="@field.ValueFunc(context)" ReadOnly Color="Color.Secondary"></MudCheckBox>
                         }
-                        @*else if (field. DisplayName.ToLower() == "rate")
+                        else if (field.Type==typeof(decimal?))
                         {
-                            <MudRating SelectedValue="@Convert.ToInt32(@field.ValueFunc(context))" MaxValue="10" />
-                        }*@
+                            <MudHighlighter Text="@field.ValueFunc(context)?.ToString()" HighlightedText="@SearchString" />
+                            
+                        }
                         else
                         {
                             <MudHighlighter Text="@field.ValueFunc(context)?.ToString()" HighlightedText="@SearchString" />
                         }
                     </MudTd>
                 }
+                @if (HasActions){
                 <MudTd DataLabel="Actions" Style="text-align: right">
                     @if (ActionsContent is not null)
                     {
@@ -146,19 +154,23 @@
                     }
                     else
                     {
-                        <MudButton Variant="Variant.Filled" DisableElevation="true"
+                     @*   <MudButton Variant="Variant.Filled" DisableElevation="true"
                             StartIcon="@Icons.Material.Filled.DoNotTouch" IconColor="Color.Secondary" Size="Size.Small"
                         Color="Color.Surface">
                             @L["No Allowed Actions"]
-                        </MudButton>
+                        </MudButton>*@
                     }
                 </MudTd>
+                }
             </RowTemplate>
 
             <PagerContent>
                 <TablePager />
             </PagerContent>
-
+            <FooterContent>
+                @AdvancedFooterContent
+                 
+            </FooterContent>
         </FshTable>
 
     </ChildContent>

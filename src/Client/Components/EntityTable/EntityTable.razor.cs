@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
+using Microsoft.VisualBasic.FileIO;
 using MudBlazor;
+using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FSH.BlazorWebAssembly.Client.Components.EntityTable;
 
@@ -28,6 +31,8 @@ public partial class EntityTable<TEntity, TId, TRequest>
 
     [Parameter]
     public RenderFragment? AdvancedSearchContent { get; set; }
+    [Parameter]
+    public RenderFragment? AdvancedFooterContent { get; set; }
 
     [Parameter]
     public RenderFragment<TEntity>? ActionsContent { get; set; }
@@ -51,9 +56,17 @@ public partial class EntityTable<TEntity, TId, TRequest>
     private bool _canUpdate;
     private bool _canDelete;
     private bool _canExport;
-
-    private bool _advancedSearchExpanded;
-
+    
+    private bool _advancedSearchExpanded=false;
+    [Parameter]
+    public bool AdvancedSearchExpanded { get => _advancedSearchExpanded;
+        set
+        {
+            _advancedSearchExpanded = value;
+        }
+    }
+    [Parameter]
+    public bool VisibleSearchText { get; set; } = true;
     private MudTable<TEntity> _table = default!;
     private IEnumerable<TEntity>? _entityList;
     private int _totalItems;
@@ -62,9 +75,9 @@ public partial class EntityTable<TEntity, TId, TRequest>
     {
         var state = await AuthState;
         _canSearch = await CanDoActionAsync(Context.SearchAction, state);
-        _canCreate = await CanDoActionAsync(Context.CreateAction, state);
-        _canUpdate = await CanDoActionAsync(Context.UpdateAction, state);
-        _canDelete = await CanDoActionAsync(Context.DeleteAction, state);
+        _canCreate = await CanDoActionAsync(Context.CreateAction, state) && Context.CreateFunc!=null;
+        _canUpdate = await CanDoActionAsync(Context.UpdateAction, state) && Context.UpdateFunc!=null;
+        _canDelete = await CanDoActionAsync(Context.DeleteAction, state) && Context.DeleteFunc!=null;
         _canExport = await CanDoActionAsync(Context.ExportAction, state);
 
         await LocalLoadDataAsync();
@@ -108,7 +121,14 @@ public partial class EntityTable<TEntity, TId, TRequest>
 
         Loading = false;
     }
-
+    private string getStyle (EntityField<TEntity> field)
+    {
+        
+        if (field.Type == typeof(decimal?))
+            return "text-align:right;"  ;
+        else
+            return "text-align:left;";
+    }
     // Server Side paging/filtering
 
     private async Task OnSearchStringChanged(string? text = null)
@@ -295,7 +315,17 @@ public partial class EntityTable<TEntity, TId, TRequest>
             await ReloadDataAsync();
         }
     }
+    public  static   Func<TEntity, T2> ConvertResult<TEntity, T2>(Func<TEntity, object?> expr)
+    {
 
+        return o => (T2)expr(o);
+    }
+    public decimal GetSum(Func<TEntity,object?> func)
+    {
+        if (func != null && _entityList!=null)
+            return _entityList!.Sum(ConvertResult<TEntity, decimal>(func));
+        else return 0M;
+    }
     private async Task Delete(TEntity entity)
     {
         _ = Context.IdFunc ?? throw new InvalidOperationException("IdFunc can't be null!");

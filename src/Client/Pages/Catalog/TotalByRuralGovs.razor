@@ -1,0 +1,46 @@
+﻿@page "/catalog/totalbyruralgovs"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.Contributions)]
+@inject IStringLocalizer<SharedResource> L
+
+<FshTitle Title="@L["Total by rural government"]" Description="@L["Report"]" />
+
+<EntityTable @ref="_table" TEntity="TotalWithMonths" TId="Guid" TRequest="TotalWithMonths" Context="@Context" AdvancedSearchExpanded="true" VisibleSearchText="false">
+
+    <AdvancedSearchContent>
+        <MudGrid>
+            
+            <MudItem xs="12" md="4">
+                <YearGovAutocomplete @bind-Value="SearchYearId"  />
+            </MudItem>
+            
+            
+        </MudGrid>
+    </AdvancedSearchContent>
+
+  @*<AdvancedFooterContent >
+     
+                    <MudTFootRow>
+
+                        @foreach (var field in Context.Fields)
+                        {
+                            @if (field.DisplayName == "Id")
+                            {
+                                continue;
+                            }
+                            else if (field.Type == typeof(decimal?))
+                            {
+                    <MudTd DataLabel="@field.DisplayName"> @_table.GetSum(field.ValueFunc) </MudTd>
+                            }
+                            else
+                            {
+                    <MudTd DataLabel="@field.DisplayName" />
+                            }
+
+                        }
+                    </MudTFootRow>
+      </AdvancedFooterContent>*@
+
+</EntityTable>
+@code {
+    
+}

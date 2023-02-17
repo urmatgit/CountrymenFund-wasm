@@ -20,6 +20,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     /// A function that returns the Id of the entity. This is only needed when using the CRUD functionality.
     /// </summary>
     public Func<TEntity, TId>? IdFunc { get; }
+    public Func<TEntity, string>? RowStyleFunc { get; }
 
     /// <summary>
     /// A function that executes the GetDefaults method on the api (or supplies defaults locally) and returns
@@ -130,6 +131,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     public EntityTableContext(
         List<EntityField<TEntity>> fields,
         Func<TEntity, TId>? idFunc,
+        Func<TEntity, string>? rowStyle = null,
         Func<Task<TRequest>>? getDefaultsFunc,
         Func<TRequest, Task>? createFunc,
         Func<TId, Task<TRequest>>? getDetailsFunc,
@@ -153,6 +155,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
         EntityName = entityName;
         EntityNamePlural = entityNamePlural;
         IdFunc = idFunc;
+        RowStyleFunc=rowStyle;
         GetDefaultsFunc = getDefaultsFunc;
         CreateFunc = createFunc;
         GetDetailsFunc = getDetailsFunc;

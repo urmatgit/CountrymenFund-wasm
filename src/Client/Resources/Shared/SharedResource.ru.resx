@@ -213,11 +213,17 @@
   <data name="Reload" xml:space="preserve">
     <value>Обновить</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>Отчет</value>
+  </data>
   <data name="Search for" xml:space="preserve">
     <value>Пиоск</value>
   </data>
   <data name="September" xml:space="preserve">
     <value>Сентябрь</value>
+  </data>
+  <data name="Total by rural government" xml:space="preserve">
+    <value>Итого по сел. самоуправлениям</value>
   </data>
   <data name="Total Mass" xml:space="preserve">
     <value>Итого</value>

@@ -28,6 +28,7 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
         Func<BaseFilter, Task<FileResponse>>? exportFunc = null,
         bool enableAdvancedSearch = false,
         Func<TEntity, TId>? idFunc = null,
+        Func<TEntity, string>? rowStyle = null,
         Func<Task<TRequest>>? getDefaultsFunc = null,
         Func<TRequest, Task>? createFunc = null,
         Func<TId, Task<TRequest>>? getDetailsFunc = null,
@@ -51,6 +52,7 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
         : base(
             fields,
             idFunc,
+            rowStyle,
             getDefaultsFunc,
             createFunc,
             getDetailsFunc,

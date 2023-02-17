@@ -14,6 +14,7 @@ public class EntityTableGroupingContext<TEntity, TId, TRequest>
     public EntityTableGroupingContext(
         List<EntityField<TEntity>> fields,
         Func<TEntity, TId>? idFunc = null,
+        Func<TEntity, string>? rowStyle = null,
         Func<Task<TRequest>>? getDefaultsFunc = null,
         Func<TRequest, Task>? createFunc = null,
         Func<TId, Task<TRequest>>? getDetailsFunc = null,
@@ -38,6 +39,7 @@ public class EntityTableGroupingContext<TEntity, TId, TRequest>
         : base(
             fields,
             idFunc,
+            rowStyle,
             getDefaultsFunc,
             createFunc,
             getDetailsFunc,
