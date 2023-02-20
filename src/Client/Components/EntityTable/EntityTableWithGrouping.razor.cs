@@ -72,11 +72,12 @@ public partial class EntityTableWithGrouping<TEntity, TId, TRequest>
 
     private string getZeroVisible(EntityField<TEntity> field, TEntity entity)
     {
+        if (field == null || entity == null) return "";
         if (field.Type == typeof(decimal?) && Convert.ToDecimal(field.ValueFunc(entity)) == 0M)
         {
             return "";
         }
-        return field.ValueFunc(entity).ToString();
+        return field!.ValueFunc(entity)!.ToString();
 
     }
 

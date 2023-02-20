@@ -87,7 +87,7 @@
                 }
             </ToolBarContent>
             <ColGroup>
-                  <col style="width: 10px;" />
+                  <col style="width: 3px;" />
                 foreach (var field in Context.Fields)
                 {
                     <col />
@@ -135,9 +135,15 @@
                         {
                             <MudCheckBox Checked="@field.ValueFunc(context)" ReadOnly Color="Color.Secondary"></MudCheckBox>
                         }
-                        else
-                        {
+                        
+                    else if (field.Type == typeof(decimal?))
+                            {
+
                             <MudHighlighter Text="@getZeroVisible(field,context)" HighlightedText="@SearchString" />
+
+                            }
+                        else {
+                        <MudHighlighter Text="@field.ValueFunc(context)?.ToString()" HighlightedText="@SearchString" />
                         }
                     </MudTd>
                 }
