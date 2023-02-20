@@ -1,24 +1,26 @@
-﻿@page "/catalog/totalbyruralgovs"
+﻿@page "/catalog/totalbynatives"
 @attribute [MustHavePermission(FSHAction.View, FSHResource.Contributions)]
 @inject IStringLocalizer<SharedResource> L
 
 @*<FshTitle Title="@L["Total by rural government"]" Description="@L["Report"]" />*@
 
-<EntityTable @ref="_table" TEntity="TotalWithMonths" TId="Guid" TRequest="TotalWithMonths" Context="@Context" AdvancedSearchExpanded="true" VisibleSearchText="false">
+<EntityTableWithGrouping @ref="_table" TEntity="TotalByNative" TId="Guid" TRequest="TotalByNative" Context="@Context" AdvancedSearchExpanded="true" VisibleSearchText="false">
 
     <AdvancedSearchContent>
         <MudGrid>
-            
+
             <MudItem xs="12" md="4">
                 <YearGovAutocomplete @bind-Value="SearchYearId"  />
             </MudItem>
-            
-            
+           <MudItem xs="12" md="4">
+                <RuralGovAutocomplete   @bind-Value="SearchRuralGovId" OffsetY="true" />
+            </MudItem>
+
         </MudGrid>
     </AdvancedSearchContent>
 
-  
-</EntityTable>
+
+</EntityTableWithGrouping>
 @code {
-    
+
 }

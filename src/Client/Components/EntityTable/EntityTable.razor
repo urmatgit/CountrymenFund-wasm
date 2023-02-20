@@ -118,7 +118,8 @@
                         }
                         else if (field.Type==typeof(decimal?))
                         {
-                            <MudHighlighter Text="@field.ValueFunc(context)?.ToString()" HighlightedText="@SearchString" />
+
+                            <MudHighlighter Text="@getZeroVisible(field,context)"   HighlightedText="@SearchString" />
                             
                         }
                         else

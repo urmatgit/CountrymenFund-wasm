@@ -1,0 +1,19 @@
+﻿@page "/catalog/totals"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.Contributions)]
+@inject IStringLocalizer<SharedResource> L
+
+<FshTitle Title="@L["Report"]" Description="@L["Manage your Reports"]" />
+
+<MudTabs Elevation="25" Color="Color.Transparent" Rounded="true" PanelClass="mt-6">
+    <MudTabPanel Text="@L["Total by rural government"]">
+        <TotalByRuralGovs />
+    </MudTabPanel>
+
+    <MudTabPanel Text="@L["Total by natives"]">
+            <TotalByNatives />
+        </MudTabPanel>
+    
+</MudTabs>
+@code {
+
+}

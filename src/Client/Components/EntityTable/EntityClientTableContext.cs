@@ -44,7 +44,7 @@ public class EntityClientTableContext<TEntity, TId, TRequest>
         : base(
             fields,
             idFunc,
-            row
+            rowStyleFunc,
             getDefaultsFunc,
             createFunc,
             getDetailsFunc,

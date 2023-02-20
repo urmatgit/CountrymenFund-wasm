@@ -53,15 +53,41 @@ public partial class EntityTableWithGrouping<TEntity, TId, TRequest>
     private bool _canDelete;
     private bool _canExport;
 
-    private bool _advancedSearchExpanded;
 
+    private bool _advancedSearchExpanded = false;
+    [Parameter]
+    public bool AdvancedSearchExpanded
+    {
+        get => _advancedSearchExpanded;
+        set
+        {
+            _advancedSearchExpanded = value;
+        }
+    }
+    [Parameter]
+    public bool VisibleSearchText { get; set; } = true;
     private MudTable<TEntity> _table = default!;
     private IEnumerable<TEntity>? _entityList;
     private int _totalItems;
 
+    private string getZeroVisible(EntityField<TEntity> field, TEntity entity)
+    {
+        if (field.Type == typeof(decimal?) && Convert.ToDecimal(field.ValueFunc(entity)) == 0M)
+        {
+            return "";
+        }
+        return field.ValueFunc(entity).ToString();
 
-   
+    }
 
+    private string getStyle(EntityField<TEntity> field, TEntity entity)
+    {
+
+        if (field.Type == typeof(decimal?))
+            return "text-align:right;" + (Context.RowStyleFunc != null ? Context.RowStyleFunc(entity) : "");
+        else
+            return "text-align:left;" + (Context.RowStyleFunc != null ? Context.RowStyleFunc(entity) : "");
+    }
     protected override async Task OnInitializedAsync()
     {
         var state = await AuthState;

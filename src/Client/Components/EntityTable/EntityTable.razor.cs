@@ -121,13 +121,22 @@ public partial class EntityTable<TEntity, TId, TRequest>
 
         Loading = false;
     }
+    private string getZeroVisible(EntityField<TEntity> field, TEntity entity)
+    {
+        if (field.Type == typeof(decimal?) && Convert.ToDecimal(field.ValueFunc(entity)) == 0M)
+        {
+            return "";
+        }
+        return field.ValueFunc(entity).ToString();
+
+    }
     private string getStyle (EntityField<TEntity> field,TEntity entity)
     {
         
         if (field.Type == typeof(decimal?))
-            return "text-align:right;" + Context.RowStyleFunc!=null ? Context.RowStyleFunc(entity):"";
+            return "text-align:right;" + (Context.RowStyleFunc!=null ? Context.RowStyleFunc(entity):"");
         else
-            return "text-align:left;" + Context.RowStyleFunc != null ? Context.RowStyleFunc(entity) : ""; 
+            return "text-align:left;" + (Context.RowStyleFunc != null ? Context.RowStyleFunc(entity) : ""); 
     }
     // Server Side paging/filtering
 

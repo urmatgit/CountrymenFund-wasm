@@ -186,6 +186,9 @@
   <data name="Manage Years." xml:space="preserve">
     <value>Управление годами</value>
   </data>
+  <data name="Manage your Reports" xml:space="preserve">
+    <value>Управление отчетами</value>
+  </data>
   <data name="March" xml:space="preserve">
     <value>Март</value>
   </data>
@@ -216,17 +219,29 @@
   <data name="Report" xml:space="preserve">
     <value>Отчет</value>
   </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Отчеты</value>
+  </data>
   <data name="Search for" xml:space="preserve">
     <value>Пиоск</value>
   </data>
   <data name="September" xml:space="preserve">
     <value>Сентябрь</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="Total by natives" xml:space="preserve">
+    <value>Итого по соотечествинникам</value>
+  </data>
   <data name="Total by rural government" xml:space="preserve">
     <value>Итого по сел. самоуправлениям</value>
   </data>
   <data name="Total Mass" xml:space="preserve">
     <value>Итого</value>
+  </data>
+  <data name="Totals" xml:space="preserve">
+    <value>Итоги</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Обновить</value>

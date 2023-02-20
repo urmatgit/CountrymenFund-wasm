@@ -3,20 +3,21 @@ using FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient;
 using FSH.WebApi.Shared.Authorization;
 using Mapster;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using System.Security.Cryptography.X509Certificates;
+using static MudBlazor.CategoryTypes;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.Catalog;
 
-public partial class TotalByRuralGovs
+public partial class TotalByNatives
 {
+
     [Inject]
     protected IYearsClient YearsClient { get; set; } = default!;
     [Inject]
     protected ITotalsClient TotalsClient { get; set; } = default!;
-    protected EntityServerTableContext<TotalWithMonths, Guid, TotalWithMonths> Context { get; set; } = default!;
+    protected EntityServerTableContext<TotalByNative, Guid, TotalByNative> Context { get; set; } = default!;
 
-    private EntityTable<TotalWithMonths, Guid, TotalWithMonths> _table = default!;
+    private EntityTableWithGrouping<TotalByNative, Guid, TotalByNative> _table = default!;
+
     protected override async void OnInitialized()
     {
         Context = new(
@@ -26,7 +27,8 @@ public partial class TotalByRuralGovs
             fields: new()
             {
 
-                new(prod => prod.RuralGovName, L["RuralGov"], "RuralGovName"),
+                new(prod => prod.Fio, L["FIO"], "Fio"),
+                new(prod => prod.Village, L["Village"], "Village"),
                 new(prod => prod.Year, L["Year"], "Year"),
                 new(prod => prod.AllSumm, L["Total"], "AllSumm", Type : typeof(decimal?)),
                 new(prod => prod.January, L["January"], "January",Type: typeof(decimal?)),
@@ -46,18 +48,19 @@ public partial class TotalByRuralGovs
                 //new(prod => prod.Summa, L["Summa"], "Summa")
             },
             enableAdvancedSearch: false,
-            rowStyle: r=>r.Style,
+            rowStyle: r => r.Style,
             searchFunc: async filter =>
             {
-                var contributionFilter = filter.Adapt<GetStateByRuralGovRequest>();
+                var contributionFilter = filter.Adapt<GetTotalReportByNativesRequest>();
 
                 contributionFilter.YearId = SearchYearId == default ? null : SearchYearId;
+                contributionFilter.RuralGovId = SearchRuralGovId == default ? null : SearchRuralGovId;
+                var result = await TotalsClient.GetTotalByNativeAsync(contributionFilter);
 
-                var result = await TotalsClient.GetTotalRuralgovAsync(contributionFilter);
-
-                return result.Adapt<PaginationResponse<TotalWithMonths>>();
-            }
-             
+                return result.Adapt<PaginationResponse<TotalByNative>>();
+            },
+            GroupSeletor: (x) => x.RuralGovName,
+            groupSumSeletor: (x) => x.AllSumm
 
             //exportFunc: async filter =>
             //{
@@ -70,18 +73,20 @@ public partial class TotalByRuralGovs
             //},
 
             );
-        
+
 
     }
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    ////{
-    ////    var year = await YearsClient.Get2Async(DateTime.Now.Year);
-    ////    if (year is not null)
-    ////        SearchYearId = year.Id;
-        
-    ////    Console.WriteLine($"Inin year id {SearchYearId}");
-       
-   // }
+
+    private Guid _ruralGovId;
+    private Guid SearchRuralGovId
+    {
+        get => _ruralGovId;
+        set
+        {
+            _ruralGovId = value;
+            _ = _table.ReloadDataAsync();
+        }
+    }
     private Guid _searchYearId;
     private Guid SearchYearId
     {

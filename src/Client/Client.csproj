@@ -392,4 +392,8 @@
              the user gets redirected to authentication/login-failed with no error message. -->
         <TrimmerRootAssembly Include="Microsoft.Authentication.WebAssembly.Msal" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Pages\Catalog\TotalReports\" />
+    </ItemGroup>
 </Project>
