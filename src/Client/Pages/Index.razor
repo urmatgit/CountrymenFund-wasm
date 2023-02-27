@@ -6,13 +6,29 @@
 <MudContainer>
     <MudGrid>
         <MudItem xs="12" sm="12" md="12">
-            <MudCarousel Class="mud-width-full" Style="height:200px;" ShowArrows="true" ShowBullets="true" EnableSwipeGesture="true" AutoCycle="true" TData="object">
-                <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
+            <MudCarousel Class="mud-width-full" @ref="_carousel" ItemsSource="@mudCarouselItems" Style="@_height" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle" AutoCycleTime="_autocycleTime" TData="Slide">
+                <ItemTemplate>
+                    <div class="d-flex flex-column flex-column justify-center" style="height:100%">
+                        @if (!string.IsNullOrEmpty(context.ImagePath))
+                        {
+                            <img src="@context.ImagePath" width="100%" height="100%">
+                        }
+                        @if (!string.IsNullOrEmpty(context.Title))
+                        {
+                            <MudText Align="@Align.Center" Class="mx-auto">@context.Title</MudText>
+                        }
+                        @if (!string.IsNullOrEmpty(context.Description))
+                        {
+                            <MudText Align="@Align.Center" Class="mx-auto">@context.Description</MudText>
+                        }
+                    </div>
+                </ItemTemplate>
+               @* <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
                     <div class="d-flex" style="height:100%">
                         <MudText Class="mx-auto my-auto"  Align="Align.Center">Hello!!!</MudText>
                         <label class="mx-auto my-auto" >Test</label>
                         @*<MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />*@
-                    </div>
+@*                    </div>
                 </MudCarouselItem>
                 <MudCarouselItem Transition="Transition.Slide" Color="@Color.Secondary">
                     <div class="d-flex" style="height:100%">
@@ -23,7 +39,7 @@
                     <div class="d-flex" style="height:100%">
                         <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Color="@Color.Primary" Size="@Size.Large" />
                     </div>
-                </MudCarouselItem>
+                </MudCarouselItem>*@
             </MudCarousel>
         </MudItem>
         <MudItem xs="12" sm="12" md="12">
@@ -98,14 +114,5 @@
 </MudContainer>
 
 @code {
-    [CascadingParameter]
-    public Task<AuthenticationState> AuthState { get; set; } = default!;
-
-    public IEnumerable<Claim>? Claims { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthState;
-        Claims = authState.User.Claims;
-    }
+   
 }

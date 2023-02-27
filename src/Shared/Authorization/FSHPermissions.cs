@@ -13,6 +13,7 @@ public static class FSHAction
     public const string Generate = nameof(Generate);
     public const string Clean = nameof(Clean);
     public const string UpgradeSubscription = nameof(UpgradeSubscription);
+ 
 }
 
 public static class FSHResource
@@ -30,6 +31,8 @@ public static class FSHResource
     public const string Natives=nameof(Natives);
     public const string Years = nameof(Years);
     public const string Contributions = nameof(Contributions);
+    public const string Reports = nameof(Reports);
+
 }
 
 public static class FSHPermissions
@@ -96,6 +99,7 @@ public static class FSHPermissions
         new("Delete Contributions", FSHAction.Delete, FSHResource.Contributions),
         new("Export Contributions", FSHAction.Export, FSHResource.Contributions),
 
+        new("View Reports", FSHAction.View, FSHResource.Reports, IsBasic: true),
 
         new("View Tenants", FSHAction.View, FSHResource.Tenants, IsRoot: true),
         new("Create Tenants", FSHAction.Create, FSHResource.Tenants, IsRoot: true),
