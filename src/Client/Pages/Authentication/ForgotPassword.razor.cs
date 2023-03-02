@@ -14,9 +14,11 @@ public partial class ForgotPassword
 
     [Inject]
     private IUsersClient UsersClient { get; set; } = default!;
+    
 
     private string Tenant { get; set; } = MultitenancyConstants.Root.Id;
 
+    
     private async Task SubmitAsync()
     {
         BusySubmitting = true;

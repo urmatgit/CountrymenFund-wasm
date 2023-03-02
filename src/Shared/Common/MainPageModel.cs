@@ -23,6 +23,9 @@ public class TextBlock
 {
     public string Caption { get; set; }
     public string Text { get; set; }
+    public string? TitleImage { get; set; } = "";
+    public List<string> Images { get; set; } = new List<string>();
+        
 }
 public class CarouselModel
 {
@@ -45,9 +48,9 @@ public class Slide
 {
     
     //If  a slide type is an image, then value contain is a path to file
-    public string ImagePath { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
+    public string? ImagePath { get; set; }
+    public string? Title { get; set; }
+    public string? Description { get; set; }
     public SlideTransition Transition { get; set; } = SlideTransition.Slide;
 
 }

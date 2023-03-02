@@ -23,7 +23,7 @@ public class JwtAuthenticationHeaderHandler : DelegatingHandler
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
-            else
+            else if (_navigation.BaseUri!=_navigation.Uri) 
             {
                 _navigation.NavigateTo("/login");
             }

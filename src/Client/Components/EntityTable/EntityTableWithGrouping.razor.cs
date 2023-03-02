@@ -93,9 +93,9 @@ public partial class EntityTableWithGrouping<TEntity, TId, TRequest>
     {
         var state = await AuthState;
         _canSearch = await CanDoActionAsync(Context.SearchAction, state);
-        _canCreate = await CanDoActionAsync(Context.CreateAction, state);
-        _canUpdate = await CanDoActionAsync(Context.UpdateAction, state);
-        _canDelete = await CanDoActionAsync(Context.DeleteAction, state);
+        _canCreate = await CanDoActionAsync(Context.CreateAction, state) && Context.CreateFunc != null; ;
+        _canUpdate = await CanDoActionAsync(Context.UpdateAction, state) && Context.CreateFunc != null; ;
+        _canDelete = await CanDoActionAsync(Context.DeleteAction, state) && Context.CreateFunc != null; ;
         _canExport = await CanDoActionAsync(Context.ExportAction, state);
 
         await LocalLoadDataAsync();

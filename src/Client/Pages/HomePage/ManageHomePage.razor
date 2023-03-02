@@ -1,0 +1,74 @@
+﻿@page "/managehomepage"
+@attribute [MustHavePermission(FSHAction.Update, FSHResource.HomePage)]
+@inject IStringLocalizer<SharedResource> LS
+<EditForm Model="@_updateHomePageRequest" OnValidSubmit="SubmitAsync">
+    <MudCard Elevation="1">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <div class="fsh-left-text">
+                    <MudText Typo="Typo.h4" GutterBottom="true" style="margin-bottom:5px">
+                        @LS["Edit home page"]
+                    </MudText>
+
+                    <MudText>@LS["Edit home page for view on start page"]</MudText>
+                </div>
+                <br />
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <DataAnnotationsValidator />
+                <CustomValidation @ref="_customValidation" />
+                @if (_updateHomePageRequest is not null)
+                {
+                    if (_updateHomePageRequest.CarouselModel is not null && _updateHomePageRequest.CarouselModel.Slides?.Count>0)
+                    {
+                        <MudItem xs="12" md="6">
+                            <MudDropContainer T="DropItem" Items="_items" ItemsSelector="@((item,dropzone) => item.Selector == dropzone)"  ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
+                            <ChildContent>
+
+                                <MudList Clickable="true" Class="d-flex flex-column mud-height-full">
+                                    <MudListSubheader>@LS["Slides"]</MudListSubheader>
+                                        <MudDropZone T="DropItem" Identifier="1" Class="flex-grow-1" AllowReorder="true" />
+                                </MudList>
+
+                            </ChildContent>
+                            <ItemRenderer Context="lst">
+                                <MudListItem Text="@lst.Name" />
+                            </ItemRenderer>
+                        </MudDropContainer>
+                    </MudItem>
+                    }
+                    <MudItem xs="12" md="6">
+                        <MudText Typo="H5">@LS["Add slider"]</MudText>
+                        
+                    </MudItem>
+                    @if (_updateHomePageRequest.TextBlocs is not null)
+                    {
+                        @foreach (TextBlock block in _updateHomePageRequest!.TextBlocs)
+                        {
+                            <MudItem xs="12" md="12">
+                                <MudTextField T="string" Label="@LS["Caption"]" Variant="Variant.Outlined"
+                                  @bind-Value="block.Caption" For="@(() => block.Caption)"
+                                  InputType="InputType.Text" Adornment="Adornment.Start" />
+                                <MudTextField T="string" Label="@LS["Caption"]" Variant="Variant.Outlined" Lines="10"
+                                  @bind-Value="block.Text" For="@(() => block.Text)"
+                                  InputType="InputType.Text" Adornment="Adornment.Start" />
+                            </MudItem>
+                        }
+
+                    }
+
+                }
+            </MudGrid>
+        </MudCardContent>
+        <MudCardActions Class="pb-4 pl-4">
+            @if (_canEditHomePage)
+            {
+                <MudButton StartIcon="@Icons.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit" Disabled="BusySubmitting" Class="ml-auto">
+                    @LS["Save"]
+                </MudButton>
+            }
+        </MudCardActions>
+    </MudCard>
+</EditForm>

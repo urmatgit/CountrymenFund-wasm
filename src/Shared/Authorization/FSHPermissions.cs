@@ -13,6 +13,7 @@ public static class FSHAction
     public const string Generate = nameof(Generate);
     public const string Clean = nameof(Clean);
     public const string UpgradeSubscription = nameof(UpgradeSubscription);
+    
  
 }
 
@@ -32,6 +33,7 @@ public static class FSHResource
     public const string Years = nameof(Years);
     public const string Contributions = nameof(Contributions);
     public const string Reports = nameof(Reports);
+    public const string HomePage = nameof(HomePage);
 
 }
 
@@ -100,6 +102,9 @@ public static class FSHPermissions
         new("Export Contributions", FSHAction.Export, FSHResource.Contributions),
 
         new("View Reports", FSHAction.View, FSHResource.Reports, IsBasic: true),
+
+        new("View HomePage", FSHAction.View, FSHResource.HomePage, IsBasic: true),
+        new("Edit HomePage", FSHAction.Update, FSHResource.HomePage),
 
         new("View Tenants", FSHAction.View, FSHResource.Tenants, IsRoot: true),
         new("Create Tenants", FSHAction.Create, FSHResource.Tenants, IsRoot: true),

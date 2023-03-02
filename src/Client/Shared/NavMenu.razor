@@ -74,7 +74,12 @@
     }
     @if (CanViewAdministrationGroup)
     {
+        
         <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="ml-4 my-3">@L["Administration"]</MudText>
+        @if (_canEditHomePage)
+        {
+            <MudNavLink Href="/managehomepage" Icon="@Icons.Material.Filled.Home">@L["Home page manage"]</MudNavLink>
+        }
         @if (_canViewUsers)
         {
             <MudNavLink Match="NavLinkMatch.Prefix" Href="/users" Icon="@Icons.Material.Filled.PeopleAlt">@L["Users"]</MudNavLink>
@@ -87,5 +92,6 @@
         {
             <MudNavLink Href="/tenants" Icon="@Icons.Filled.GroupWork" Disabled="!_canViewTenants">@L["Tenants"]</MudNavLink>
         }
+        
     }
 </MudNavMenu>

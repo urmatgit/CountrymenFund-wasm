@@ -114,7 +114,11 @@
                         }
                     }
                 }
-                <MudTh Style="text-align:right">@L["Actions"]</MudTh>
+                @if (HasActions)
+                {
+                    <MudTh Style="text-align:right">@L["Actions"]</MudTh>
+                }
+                
             </HeaderContent>
             <GroupHeaderTemplate>
                 <MudTh Class="mud-table-cell-custom-group" colspan="@Context.Fields.Count">@($"{context.Key}")</MudTh>
@@ -147,12 +151,13 @@
                         }
                     </MudTd>
                 }
+                  @if (HasActions){
                 <MudTd DataLabel="Actions" Style="text-align: right">
                     @if (ActionsContent is not null)
                     {
                         @ActionsContent(context)
                     }
-                    else if (HasActions)
+                    else  
                     {
                         <MudMenu Label="@L["Actions"]" Variant="Variant.Filled" DisableElevation="true"
                              EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left"
@@ -180,6 +185,7 @@
                         </MudButton>
                     }
                 </MudTd>
+                }
             </RowTemplate>
             <GroupFooterTemplate>
                 <MudTh Class="mud-table-cell-custom-group mud-table-cell-custom-group-footer" colspan="5">@L["Total Mass"]: @context.Items.Sum(Context.GroupSumSeletor)</MudTh>
