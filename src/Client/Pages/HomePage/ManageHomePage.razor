@@ -24,24 +24,31 @@
                     if (_updateHomePageRequest.CarouselModel is not null && _updateHomePageRequest.CarouselModel.Slides?.Count>0)
                     {
                         <MudItem xs="12" md="6">
-                            <MudDropContainer T="DropItem" Items="_items" ItemsSelector="@((item,dropzone) => item.Selector == dropzone)"  ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
+                            <MudDropContainer @ref="_MudDropContainer" T="DropItem" Items="_items" ItemsSelector="@((item,dropzone) => item.Selector == dropzone)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
                             <ChildContent>
-
-                                <MudList Clickable="true" Class="d-flex flex-column mud-height-full">
-                                    <MudListSubheader>@LS["Slides"]</MudListSubheader>
+                                <MudPaper Class="ma-4 flex-grow-1">
+                                    <MudList @ref="_MudList" Clickable="true" Class="d-flex flex-column mud-height-full" SelectedValue="CurrentSlider" SelectedValueChanged="selectedValueChanged">
+                                    <MudListSubheader>@LS["Sliders"]</MudListSubheader>
                                         <MudDropZone T="DropItem" Identifier="1" Class="flex-grow-1" AllowReorder="true" />
                                 </MudList>
-
+                                </MudPaper>
                             </ChildContent>
                             <ItemRenderer Context="lst">
-                                <MudListItem Text="@lst.Name" />
+                                <MudListItem Text="@lst.Name" Value="@lst" />
                             </ItemRenderer>
                         </MudDropContainer>
                     </MudItem>
                     }
                     <MudItem xs="12" md="6">
-                        <MudText Typo="H5">@LS["Add slider"]</MudText>
-                        
+                        <MudButton    OnClick="goSliderAdd" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" ></MudButton>
+                        <MudTextField T="string" Label="@LS["Caption"]" Variant="Variant.Outlined" @bind-Value="CurrentSlider.Value!.Title" For="@(()=>CurrentSlider.Value!.Title)"
+                            InputType="InputType.Text"/>
+                        <MudTextField T="string" Label="@LS["Text"]" Lines="3" Variant="Variant.Outlined" @bind-Value="CurrentSlider.Value!.Description" For="@(()=>CurrentSlider.Value!.Description)"
+                                  InputType="InputType.Text" />
+
+                        <MudButton StartIcon="@Icons.Filled.Save"   Variant="Variant.Filled" Color="Color.Primary" OnClick="ConfirtSliderChange" Disabled="BusySubmitting" Class="ml-auto">
+                            @LS["Confirm"]
+                        </MudButton>
                     </MudItem>
                     @if (_updateHomePageRequest.TextBlocs is not null)
                     {

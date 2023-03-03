@@ -8,24 +8,32 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.HomePage;
 
-public class DropItem: Slide
+public class DropItem 
 {
 
+    public Slide Value { get; set; }
     public string Name { get
         {
-            return $"{Title} {ImagePath}";
-        }
-    }
+            return (Value != null ? $"{Value.Title} {Value.ImagePath}":"");
+        } }
     public string Selector { get; set; }
+    public DropItem()
+    {
+        Value = new Slide();
+    }
 }
 
 public partial class ManageHomePage
 {
+    private MudDropContainer<DropItem> _MudDropContainer=default!;
+    private MudList _MudList = default!;
     private  UpdateHomePageRequest _updateHomePageRequest = new();
+    private DropItem CurrentSlider = new();
     private CustomValidation? _customValidation;
     [CascadingParameter]
     protected Task<AuthenticationState> AuthState { get; set; } = default!;
@@ -49,8 +57,9 @@ public partial class ManageHomePage
 
             foreach(var sld in model.CarouselModel.Slides)
             {
-                var item=sld.Adapt<DropItem>();
+                var item=new DropItem();
                 item.Selector = "1";
+                item.Value= sld;
                 _items.Add(item);
             }
         }
@@ -58,15 +67,48 @@ public partial class ManageHomePage
         _canEditHomePage = await AuthService.HasPermissionAsync(state.User, FSHAction.Update, FSHResource.HomePage);
         StateHasChanged();
     }
+    private  void goSliderAdd()
+    {
+        CurrentSlider = new();
+        CurrentSlider.Selector = "1";
+        StateHasChanged();
+    }
+    private void ConfirtSliderChange(MouseEventArgs arg)
+    {
+        var tmpItems = _items.ToList();
+        if (!tmpItems.Any(i => i.Name == CurrentSlider.Name)){
+            tmpItems.Add(CurrentSlider);
+            
+        }
+        _items = tmpItems;
+        //StateHasChanged();
+        _MudDropContainer.Refresh();
+    }
+    private void selectedValueChanged(object selectValue)
+    {
+        var dropItem = (DropItem)selectValue;
+        if (dropItem != null)
+        {
+            CurrentSlider = dropItem;
+            StateHasChanged();
+        }
+
+    }
     private void ItemUpdated(MudItemDropInfo<DropItem> dropItem)
     {
 
         dropItem.Item.Selector = dropItem.DropzoneIdentifier;
+        //CurrentSlider = dropItem.Item.Value;
+        //StateHasChanged();
     }
     private async Task SubmitAsync()
     {
         BusySubmitting = true;
-        
+        _updateHomePageRequest.CarouselModel.Slides.Clear();
+        foreach (var item in _items)
+        {
+            _updateHomePageRequest.CarouselModel.Slides.Add(item.Value);
+        }
         var sucessMessage = await ApiHelper.ExecuteCallGuardedAsync(
             () => HomePageClient.PostAsync( _updateHomePageRequest),
             Snackbar,
