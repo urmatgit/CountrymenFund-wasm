@@ -75,14 +75,16 @@ public partial class ManageHomePage
     }
     private void ConfirtSliderChange(MouseEventArgs arg)
     {
-        var tmpItems = _items.ToList();
-        if (!tmpItems.Any(i => i.Name == CurrentSlider.Name)){
-            tmpItems.Add(CurrentSlider);
+      //  var tmpItems = _items.ToList();
+        if (!_items.Any(i => i.Name == CurrentSlider.Name)){
+            CurrentSlider.Selector = "1";
+            _items.Add(CurrentSlider);
             
         }
-        _items = tmpItems;
-        //StateHasChanged();
+        //_items = tmpItems;
+        StateHasChanged();
         _MudDropContainer.Refresh();
+        
     }
     private void selectedValueChanged(object selectValue)
     {
