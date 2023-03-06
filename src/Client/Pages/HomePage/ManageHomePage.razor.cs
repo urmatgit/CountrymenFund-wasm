@@ -1,6 +1,7 @@
 ﻿using FSH.BlazorWebAssembly.Client.Components.Common;
 using FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient;
 using FSH.BlazorWebAssembly.Client.Infrastructure.Auth;
+using FSH.BlazorWebAssembly.Client.Infrastructure.Common;
 using FSH.BlazorWebAssembly.Client.Shared;
 using FSH.WebApi.Shared.Authorization;
 using FSH.WebApi.Shared.Multitenancy;
@@ -8,6 +9,7 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 
@@ -66,6 +68,25 @@ public partial class ManageHomePage
         var state = await AuthState;
         _canEditHomePage = await AuthService.HasPermissionAsync(state.User, FSHAction.Update, FSHResource.HomePage);
         StateHasChanged();
+    }
+    private async Task UploadFiles(InputFileChangeEventArgs e)
+    {
+        if (e.File != null)
+        {
+            string? extension = Path.GetExtension(e.File.Name);
+            if (!ApplicationConstants.SupportedImageFormats.Contains(extension.ToLower()))
+            {
+                Snackbar.Add("Image Format Not Supported.", Severity.Error);
+                return;
+            }
+
+          
+            var imageFile = await e.File.RequestImageFileAsync(ApplicationConstants.StandardImageFormat, ApplicationConstants.MaxImageWidth, ApplicationConstants.MaxImageHeight);
+            byte[]? buffer = new byte[imageFile.Size];
+            await imageFile.OpenReadStream(ApplicationConstants.MaxAllowedSize).ReadAsync(buffer);
+            //Context.AddEditModal.RequestModel.ImageInBytes = $"data:{ApplicationConstants.StandardImageFormat};base64,{Convert.ToBase64String(buffer)}";
+            //Context.AddEditModal.ForceRender();
+        }
     }
     private  void goSliderAdd()
     {
