@@ -18,15 +18,17 @@ namespace FSH.BlazorWebAssembly.Client.Pages.HomePage;
 public class DropItem 
 {
 
-    public Slide Value { get; set; }
+    public SlideDto Value { get; set; }
     public string Name { get
         {
             return (Value != null ? $"{Value.Title} {Value.ImagePath}":"");
         } }
     public string Selector { get; set; }
+    public string? ImageInBytes { get; set; }
+    public string? ImageExtension { get; set; }
     public DropItem()
     {
-        Value = new Slide();
+        Value = new SlideDto();
     }
 }
 
@@ -57,7 +59,7 @@ public partial class ManageHomePage
         {
             _updateHomePageRequest=model.Adapt<UpdateHomePageRequest>();
 
-            foreach(var sld in model.CarouselModel.Slides)
+            foreach(var sld in model.Slides)
             {
                 var item=new DropItem();
                 item.Selector = "1";
@@ -68,6 +70,34 @@ public partial class ManageHomePage
         var state = await AuthState;
         _canEditHomePage = await AuthService.HasPermissionAsync(state.User, FSHAction.Update, FSHResource.HomePage);
         StateHasChanged();
+    }
+    private void DeleteCurrentImage()
+    {
+        if (CurrentSlider is not null)
+        {
+            UpdateItems(CurrentSlider.Name,"");
+            
+            CurrentSlider.Value.ImagePath = "";
+            CurrentSlider.ImageInBytes = string.Empty;
+
+            
+            StateHasChanged();
+            _MudDropContainer.Refresh();
+        }
+    }
+    private void UpdateItems(string name,string filepath)
+    {
+        var item = _items.FirstOrDefault(x => x.Name == name);
+        if (item != null)
+        {
+            if (string.IsNullOrEmpty(filepath))
+            {
+                item.ImageInBytes = string.Empty;
+                item.Value.ImagePath=string.Empty;
+            }
+            else 
+                item.Value.ImagePath = filepath;
+        }
     }
     private async Task UploadFiles(InputFileChangeEventArgs e)
     {
@@ -80,12 +110,15 @@ public partial class ManageHomePage
                 return;
             }
 
-          
+            CurrentSlider.ImageExtension = extension;
             var imageFile = await e.File.RequestImageFileAsync(ApplicationConstants.StandardImageFormat, ApplicationConstants.MaxImageWidth, ApplicationConstants.MaxImageHeight);
             byte[]? buffer = new byte[imageFile.Size];
             await imageFile.OpenReadStream(ApplicationConstants.MaxAllowedSize).ReadAsync(buffer);
-            //Context.AddEditModal.RequestModel.ImageInBytes = $"data:{ApplicationConstants.StandardImageFormat};base64,{Convert.ToBase64String(buffer)}";
-            //Context.AddEditModal.ForceRender();
+            CurrentSlider.ImageInBytes = $"data:{ApplicationConstants.StandardImageFormat};base64,{Convert.ToBase64String(buffer)}";
+            CurrentSlider.Value.ImagePath = e.File.Name;
+            //UpdateItems(CurrentSlider.Name,e.File.Name);
+            StateHasChanged();
+            _MudDropContainer.Refresh();
         }
     }
     private  void goSliderAdd()
@@ -96,11 +129,19 @@ public partial class ManageHomePage
     }
     private void ConfirtSliderChange(MouseEventArgs arg)
     {
-      //  var tmpItems = _items.ToList();
-        if (!_items.Any(i => i.Name == CurrentSlider.Name)){
+        //  var tmpItems = _items.ToList();
+        var finded = _items.FirstOrDefault(i => i.Value.Title == CurrentSlider.Value.Title);
+        if (finded is null){
             CurrentSlider.Selector = "1";
+            
             _items.Add(CurrentSlider);
             
+        }else
+        {
+            finded.Selector = "1";
+            finded.Value= CurrentSlider.Value;
+            finded.ImageInBytes = CurrentSlider.ImageInBytes;
+            finded.ImageExtension = CurrentSlider.ImageExtension;
         }
         //_items = tmpItems;
         StateHasChanged();
@@ -112,7 +153,20 @@ public partial class ManageHomePage
         var dropItem = (DropItem)selectValue;
         if (dropItem != null)
         {
-            CurrentSlider = dropItem;
+            CurrentSlider =new DropItem()
+            {
+                Value=new SlideDto()
+                {
+                    Title=dropItem.Value.Title,
+                    Description=dropItem.Value.Description,
+                    ImagePath=dropItem.Value.ImagePath,
+                    Transition = dropItem.Value.Transition
+                },
+                ImageInBytes=dropItem.ImageInBytes,
+                Selector=dropItem.Selector,
+                ImageExtension=dropItem.ImageExtension
+            };
+            
             StateHasChanged();
         }
 
@@ -127,10 +181,20 @@ public partial class ManageHomePage
     private async Task SubmitAsync()
     {
         BusySubmitting = true;
-        _updateHomePageRequest.CarouselModel.Slides.Clear();
+        _updateHomePageRequest.Slides.Clear();
         foreach (var item in _items)
         {
-            _updateHomePageRequest.CarouselModel.Slides.Add(item.Value);
+            var sliderDto = item.Value;
+            if (!string.IsNullOrEmpty(item.ImageInBytes))
+            {
+                sliderDto.Image = new FileUploadRequest()
+                {
+                    Data = item.ImageInBytes,
+                    Extension = item.ImageExtension,
+                    Name = item.Value.ImagePath
+                };
+            }
+            _updateHomePageRequest.Slides.Add(sliderDto);
         }
         var sucessMessage = await ApiHelper.ExecuteCallGuardedAsync(
             () => HomePageClient.PostAsync( _updateHomePageRequest),

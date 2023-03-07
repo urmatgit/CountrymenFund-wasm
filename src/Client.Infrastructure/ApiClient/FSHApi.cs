@@ -3986,7 +3986,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         /// </summary>
         /// <param name="tenant">Input your tenant Id to access this API</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<MainPageModel> GetAsync(string tenant);
+        System.Threading.Tasks.Task<MainPageModelDto> GetAsync(string tenant);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -3994,20 +3994,20 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         /// </summary>
         /// <param name="tenant">Input your tenant Id to access this API</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<MainPageModel> GetAsync(string tenant, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<MainPageModelDto> GetAsync(string tenant, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Update main home page.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<MainPageModel> PostAsync(UpdateHomePageRequest request);
+        System.Threading.Tasks.Task<MainPageModelDto> PostAsync(UpdateHomePageRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Update main home page.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<MainPageModel> PostAsync(UpdateHomePageRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<MainPageModelDto> PostAsync(UpdateHomePageRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -4043,7 +4043,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         /// </summary>
         /// <param name="tenant">Input your tenant Id to access this API</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<MainPageModel> GetAsync(string tenant)
+        public virtual System.Threading.Tasks.Task<MainPageModelDto> GetAsync(string tenant)
         {
             return GetAsync(tenant, System.Threading.CancellationToken.None);
         }
@@ -4054,7 +4054,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         /// </summary>
         /// <param name="tenant">Input your tenant Id to access this API</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<MainPageModel> GetAsync(string tenant, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<MainPageModelDto> GetAsync(string tenant, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/homepage");
@@ -4095,7 +4095,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<MainPageModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<MainPageModelDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -4140,7 +4140,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         /// Update main home page.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<MainPageModel> PostAsync(UpdateHomePageRequest request)
+        public virtual System.Threading.Tasks.Task<MainPageModelDto> PostAsync(UpdateHomePageRequest request)
         {
             return PostAsync(request, System.Threading.CancellationToken.None);
         }
@@ -4150,7 +4150,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         /// Update main home page.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<MainPageModel> PostAsync(UpdateHomePageRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<MainPageModelDto> PostAsync(UpdateHomePageRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -4193,7 +4193,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<MainPageModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<MainPageModelDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -10236,18 +10236,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class MainPageModel
-    {
-        [Newtonsoft.Json.JsonProperty("carouselModel", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CarouselModel CarouselModel { get; set; } = default!;
-
-        [Newtonsoft.Json.JsonProperty("textBlocs", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<TextBlock> TextBlocs { get; set; } = default!;
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class CarouselModel
+    public partial class MainPageModelDto
     {
         [Newtonsoft.Json.JsonProperty("autoCycle", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool AutoCycle { get; set; } = default!;
@@ -10259,13 +10248,33 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         [Newtonsoft.Json.JsonProperty("height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Height { get; set; } = default!;
 
+        [Newtonsoft.Json.JsonProperty("textBlocs", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<TextBlockDto> TextBlocs { get; set; } = default!;
+
         [Newtonsoft.Json.JsonProperty("slides", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Slide> Slides { get; set; } = default!;
+        public System.Collections.Generic.ICollection<SlideDto> Slides { get; set; } = default!;
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Slide
+    public partial class TextBlockDto
+    {
+        [Newtonsoft.Json.JsonProperty("caption", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Caption { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("text", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Text { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("titleImage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? TitleImage { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("images", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<string> Images { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SlideDto
     {
         [Newtonsoft.Json.JsonProperty("imagePath", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string? ImagePath { get; set; } = default!;
@@ -10278,6 +10287,9 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
 
         [Newtonsoft.Json.JsonProperty("transition", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public SlideTransition Transition { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("image", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public FileUploadRequest? Image { get; set; } = default!;
 
     }
 
@@ -10296,24 +10308,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TextBlock
-    {
-        [Newtonsoft.Json.JsonProperty("caption", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Caption { get; set; } = default!;
-
-        [Newtonsoft.Json.JsonProperty("text", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Text { get; set; } = default!;
-
-        [Newtonsoft.Json.JsonProperty("titleImage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string? TitleImage { get; set; } = default!;
-
-        [Newtonsoft.Json.JsonProperty("images", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<string> Images { get; set; } = default!;
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class UpdateHomePageRequest : MainPageModel
+    public partial class UpdateHomePageRequest : MainPageModelDto
     {
 
     }

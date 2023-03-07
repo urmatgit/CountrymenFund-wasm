@@ -19,7 +19,7 @@ public partial class Index
 
     public IEnumerable<Claim>? Claims { get; set; }
 
-    private MudCarousel<Slide> _carousel;
+    private MudCarousel<SlideDto> _carousel;
     private MudGrid _mugGrid;
     private bool _arrows = true;
     private bool _bullets = true;
@@ -28,8 +28,8 @@ public partial class Index
     private Transition _transition = Transition.Slide;
     private string _height = "height: 200px;";
     private TimeSpan _autocycleTime = TimeSpan.FromSeconds(5);
-    private List<Slide> mudCarouselItems= new List<Slide>();
-    private List<TextBlock> TextBlocks = new List<TextBlock>();
+    private List<SlideDto> mudCarouselItems= new List<SlideDto>();
+    private List<TextBlockDto> TextBlocks = new List<TextBlockDto>();
     private string Tenant { get; set; } = MultitenancyConstants.Root.Id;
     protected override async Task OnInitializedAsync()
     {
@@ -41,13 +41,13 @@ public partial class Index
         //var mainpageModel = await HomePageClient.GetAsync(Tenant);
         if (mainpageModel is not null)
         {
-            _autocycle = mainpageModel.CarouselModel.AutoCycle;
-            _height = $"height: {mainpageModel.CarouselModel.Height}px;";
-            if (mainpageModel.CarouselModel.AutoCycleTime is not null)
-                _autocycleTime = TimeSpan.Parse(mainpageModel.CarouselModel.AutoCycleTime);
-            if (mainpageModel.CarouselModel.Slides != null && mainpageModel.CarouselModel.Slides.Count > 0)
+            _autocycle = mainpageModel.AutoCycle;
+            _height = $"height: {mainpageModel.Height}px;";
+            if (mainpageModel.AutoCycleTime is not null)
+                _autocycleTime = TimeSpan.Parse(mainpageModel.AutoCycleTime);
+            if (mainpageModel.Slides != null && mainpageModel.Slides.Count > 0)
             {
-                mudCarouselItems = mainpageModel.CarouselModel.Slides.ToList();
+                mudCarouselItems = mainpageModel.Slides.ToList();
             }
             TextBlocks=mainpageModel.TextBlocs.ToList();
             StateHasChanged();

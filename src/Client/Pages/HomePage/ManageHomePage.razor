@@ -21,13 +21,13 @@
                 <CustomValidation @ref="_customValidation" />
                 @if (_updateHomePageRequest is not null)
                 {
-                    if (_updateHomePageRequest.CarouselModel is not null && _updateHomePageRequest.CarouselModel.Slides?.Count>0)
+                    if ( _updateHomePageRequest.Slides?.Count>0)
                     {
                         <MudItem xs="12" md="6">
                             <MudDropContainer @ref="_MudDropContainer" T="DropItem" Items="_items" ItemsSelector="@((item,dropzone) => item.Selector == dropzone)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
                             <ChildContent>
                                 <MudPaper Class="ma-4 flex-grow-1">
-                                    <MudList @ref="_MudList" Clickable="true" Class="d-flex flex-column mud-height-full" SelectedValue="CurrentSlider" SelectedValueChanged="selectedValueChanged">
+                                    <MudList @ref="_MudList" Clickable="true" Class="d-flex flex-column mud-height-full"   SelectedValueChanged="selectedValueChanged">
                                     <MudListSubheader>@LS["Sliders"]</MudListSubheader>
                                         <MudDropZone T="DropItem" Identifier="1" Class="flex-grow-1" AllowReorder="true" />
                                 </MudList>
@@ -49,29 +49,33 @@
                                   
                         </MudItem>
                          <MudItem>
-                            <div>
+                            <div style="margin-top: 4px">
                                 <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small"
                                        StartIcon="@Icons.Filled.CloudUpload" for="fileInput">
                                     @LS["Upload"]
                                 </MudButton>
-                                @*@if (!Context.AddEditModal.IsCreate && !string.IsNullOrEmpty(context.ImagePath) && string.IsNullOrEmpty(context.ImageInBytes))
+                                @if (!string.IsNullOrEmpty(CurrentSlider.Value.ImagePath))
                                 {
-                                    @*   <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Target="_blank"
+                                       @*<MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Target="_blank"
                                        StartIcon="@Icons.Filled.RemoveRedEye" Link="@(Config[ConfigNames.ApiBaseUrl] + @context.ImagePath)" Style="margin-left: 5px;">
                                         @LS["View"]
-                                    </MudButton>
+                                    </MudButton>*@
 
                                    <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Error" Size="Size.Small"
-                                       StartIcon="@Icons.Filled.Delete" OnClick="SetDeleteCurrentImageFlag" Style="margin-left: 5px;">
+                                       StartIcon="@Icons.Filled.Delete" OnClick="DeleteCurrentImage" Style="margin-left: 5px;">
                                         @LS["Delete"]
                                     </MudButton>
-                                }*@
+                                }
                                
                             </div>
                             <InputFile id="fileInput" hidden OnChange="UploadFiles" />
                         </MudItem>
-                        <MudItem Style="@($"height: {_updateHomePageRequest.CarouselModel.Height}px")">
-                            <MudAvatar Image="@(string.IsNullOrEmpty(CurrentSlider.Value.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + CurrentSlider.Value.ImagePath))" Square="true" Style="@($"height: auto; width: auto; max-height: {_updateHomePageRequest.CarouselModel.Height}px")"> </MudAvatar>
+                        <MudItem Style="@($"height: {_updateHomePageRequest.Height}px")">
+                            @if (!string.IsNullOrEmpty(CurrentSlider.ImageInBytes)){
+                                <MudAvatar Image="@CurrentSlider.ImageInBytes" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                            }else {
+                            <MudAvatar Image="@(string.IsNullOrEmpty(CurrentSlider.Value.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + CurrentSlider.Value.ImagePath))" Square="true" Style="@($"height: auto; width: auto; max-height: {_updateHomePageRequest.Height}px")"> </MudAvatar>
+                            }
                         </MudItem>
                     <MudItem xs="12" md="12" Style="margin-top:4px">
                             <MudButton StartIcon="@Icons.Filled.Save"   Variant="Variant.Filled" Color="Color.Primary" OnClick="ConfirtSliderChange" Disabled="BusySubmitting" Class="ml-auto">
@@ -82,7 +86,7 @@
                     
                     @if (_updateHomePageRequest.TextBlocs is not null)
                     {
-                        @foreach (TextBlock block in _updateHomePageRequest!.TextBlocs)
+                        @foreach (TextBlockDto block in _updateHomePageRequest!.TextBlocs)
                         {
                             <MudItem xs="12" md="12">
                                 <MudTextField T="string" Label="@LS["Caption"]" Variant="Variant.Outlined"

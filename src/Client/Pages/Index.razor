@@ -6,22 +6,24 @@
 <MudContainer>
     <MudGrid @ref="_mugGrid">
         <MudItem xs="12" sm="12" md="12">
-            <MudCarousel Class="mud-width-full" @ref="_carousel" ItemsSource="@mudCarouselItems" Style="@_height" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle" AutoCycleTime="_autocycleTime" TData="Slide">
+            <MudCarousel Class="mud-width-full" @ref="_carousel" ItemsSource="@mudCarouselItems" Style="@_height" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle" AutoCycleTime="_autocycleTime" TData="SlideDto">
                 <ItemTemplate>
-                    <div class="d-flex flex-column flex-column justify-center" style="height:100%">
+                    <div style="height:100%" class="d-flex flex-column justify-center">
                         @if (!string.IsNullOrEmpty(context.ImagePath))
                         {
                             @*<img src="@(Config[ConfigNames.ApiBaseUrl] + @context.ImagePath)" width="100%" height="100%">*@
-                            <MudAvatar Image="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                            <MudAvatar  Class="z-10 ma-n2" Image="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
                         }
+                        <div class="d-flex flex-column   justify-center">
                         @if (!string.IsNullOrEmpty(context.Title))
                         {
-                            <MudText Align="@Align.Center" Class="mx-auto">@context.Title</MudText>
+                            <MudText Align="@Align.Center" Class="mx-auto ">@context.Title</MudText>
                         }
                         @if (!string.IsNullOrEmpty(context.Description))
                         {
                             <MudText Align="@Align.Center" Class="mx-auto">@context.Description</MudText>
                         }
+                        </div>
                     </div>
                 </ItemTemplate>
                @* <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
@@ -43,7 +45,7 @@
                 </MudCarouselItem>*@
             </MudCarousel>
         </MudItem>
-        @foreach(TextBlock textBlock in TextBlocks)
+        @foreach(TextBlockDto textBlock in TextBlocks)
         {
             <MudItem xs="12" sm="12" md="12">
                 <MudText Align="Align.Center" Typo="Typo.h5" Class="smaller">@textBlock.Caption</MudText>
