@@ -27,7 +27,7 @@ public partial class NavMenu
     private bool _canViewYears;
     private bool _canViewContributions;
     private bool _canEditHomePage;
-    private bool CanViewAdministrationGroup => _canViewUsers || _canViewRoles || _canViewTenants;
+    private bool CanViewAdministrationGroup => _canViewUsers || _canViewRoles || _canViewTenants || _canEditHomePage;
 
     protected override async Task OnParametersSetAsync()
     {

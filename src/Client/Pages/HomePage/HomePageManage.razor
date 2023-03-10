@@ -1,0 +1,109 @@
+﻿@page "/homepagemanage"
+@attribute [MustHavePermission(FSHAction.Update, FSHResource.HomePage)]
+@inject IStringLocalizer<SharedResource> LS
+ 
+
+<MudContainer>
+    
+    <MudGrid @ref="_mugGrid">
+        <MudItem xs="12" sm="12" md="12">
+            @if (_canEditHomePage)
+            {
+                <MudButton StartIcon="@Icons.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Disabled="BusySubmitting" OnClick="SubmitAsync" Class="ml-auto">
+                    @LS["Save"]
+                </MudButton>
+            }
+            </MudItem>
+        <MudItem xs="12" sm="12" md="12">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">@LS["Manage slider"]</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="AddAsync">@LS["Add"]</MudButton>
+                        <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="UpdateAsync">@LS["Update"]</MudButton>
+                        <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Error" OnClick="@(async () => await DeleteAsync(_carousel.SelectedIndex))">@LS["Delete"]</MudButton>
+                    </CardHeaderActions>
+                </MudCardHeader>
+                 <MudCardContent>
+            <MudCarousel Class="mud-width-full" @ref="_carousel" @bind-SelectedIndex="selectedIndex" ItemsSource="@mudCarouselItems" Style="@_height" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle" AutoCycleTime="_autocycleTime" TData="SlideViewModel">
+                <ItemTemplate > 
+                    <div style="height:100%" class="d-flex flex-column justify-center">
+                        @if (!string.IsNullOrEmpty(context.ImagePath) || !string.IsNullOrEmpty(context.ImageInBytes))
+                        {
+                            @*<img src="@(Config[ConfigNames.ApiBaseUrl] + @context.ImagePath)" width="100%" height="100%">*@
+                            @if (!string.IsNullOrEmpty(context.ImageInBytes))
+                            {
+                                <MudAvatar Image="@context.ImageInBytes" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                            }else {
+                            <MudAvatar Class="z-10 ma-n2" Image="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                            }
+                        }
+                        <div class="d-flex flex-column   justify-center z-30" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);">
+                            @if (!string.IsNullOrEmpty(context.Title))
+                            {
+                                <MudText Align="@Align.Center" Class="mx-auto " Typo="Typo.subtitle1">@context.Title</MudText>
+                            }
+                            @if (!string.IsNullOrEmpty(context.Description))
+                            {
+                                <MudText Align="@Align.Center" Class="mx-auto " Typo="Typo.body1">@context.Description</MudText>
+                            }
+                        </div>
+                    </div>
+                </ItemTemplate>
+                
+            </MudCarousel>
+            <MudStack Row="true">
+                        <MudSlider TickMarks="true" Step="1" Value="@slideTimeSec" />
+            </MudStack>
+            <MudStack Row="true">
+                
+                <MudSwitch @bind-Checked="@_arrows" Color="Color.Primary">@LS["Show Arrows"]</MudSwitch>
+                <MudSwitch @bind-Checked="@_bullets" Color="Color.Primary">@LS["Show Bullets"]</MudSwitch>
+                <MudSwitch @bind-Checked="@_enableSwipeGesture" Color="Color.Primary">@LS["Enable Swap Gesture"]</MudSwitch>
+                <MudSwitch @bind-Checked="@_autocycle" Color="Color.Primary">@LS["Auto Cycle (Default: 5 secs)"]</MudSwitch>
+            </MudStack>
+             </MudCardContent>
+          
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="12">
+
+        </MudItem>
+        @foreach (TextBlockDto textBlock in TextBlocks)
+        {
+            <MudItem xs="12" sm="12" md="12">
+                <MudCard>
+
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            @if (textBlock.Images != null && textBlock.Images.Count > 0)
+                            {
+                                <MudCarousel Class="mud-width-full" ItemsSource="@textBlock.Images" Style="height:300px;" ShowArrows="true" ShowBullets="false" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="false" AutoCycleTime="_autocycleTime" TData="string">
+                                    <ItemTemplate>
+                                        <div style="height:100%" class="d-flex flex-column justify-center">
+                                            <MudImage Style="height: auto; width: auto; max-height: 100%" Elevation="25" Class="rounded-lg ma-4" ObjectFit="ObjectFit.ScaleDown" Src="@(string.IsNullOrEmpty(@context) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context))"> </MudImage>
+                                        </div>
+                                    </ItemTemplate>
+
+                                </MudCarousel>
+                            }
+                            <MudText Typo="Typo.h6">@textBlock.Caption</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudText>@textBlock.Text</MudText>
+                    </MudCardContent>
+                </MudCard>
+
+
+            </MudItem>
+        }
+         
+    </MudGrid>
+</MudContainer>
+
+@code {
+
+}

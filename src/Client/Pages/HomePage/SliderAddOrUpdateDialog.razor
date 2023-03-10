@@ -1,0 +1,113 @@
+﻿@inject IStringLocalizer<SharedResource> LS
+<AddEditModal RequestModel="sliderModel" SaveFunc="@createFunc" @ref="addeditModel" IsCreate="IsCreate" Title="@Caption">
+    <MudGrid>
+
+        <MudItem xs="12" md="6">
+            <MudTextField T="string" Label="@LS["Caption"]" Variant="Variant.Outlined" @bind-Value="context.Title" For="@(()=>context.Title)"
+                          InputType="InputType.Text" />
+            <MudTextField T="string" Label="@LS["Text"]" Lines="3" Variant="Variant.Outlined" @bind-Value="context.Description" For="@(()=>context.Description)"
+                          InputType="InputType.Text" />
+
+        </MudItem>
+        <MudItem xs="12" md="12">
+
+            <MudItem>
+                <div>
+                    <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small"
+                        StartIcon="@Icons.Filled.CloudUpload" for="fileInput">
+                        @LS["Upload"]
+                    </MudButton>
+                    @if (!string.IsNullOrEmpty(context.ImagePath) && string.IsNullOrEmpty(context.ImageInBytes))
+                    {
+                            <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Target="_blank"
+                            StartIcon="@Icons.Filled.RemoveRedEye" Link="@(Config[ConfigNames.ApiBaseUrl] + @context.ImagePath)" Style="margin-left: 5px;" >
+                            @LS["View"]
+                            </MudButton>
+
+                            <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Error" Size="Size.Small"
+                            StartIcon="@Icons.Filled.Delete" OnClick="SetDeleteCurrentImageFlag" Style="margin-left: 5px;" >
+                            @LS["Delete"]
+                            </MudButton>
+                    }
+                    @if (!string.IsNullOrEmpty(context.ImageInBytes))
+                    {
+                            <MudButton HtmlTag="label" DisableElevation OnClick="ClearImageInBytes" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Small" Target="_blank"
+                            StartIcon="@Icons.Filled.Clear" Style="margin-left: 5px;" >
+                            @LS["Clear"]
+                            </MudButton>
+                    }
+                </div>
+                <InputFile id="fileInput" hidden OnChange="UploadFiles" />
+            </MudItem>
+            <MudItem>
+                @if (!string.IsNullOrEmpty(context.ImageInBytes))
+                {
+                        <MudAvatar Image ="@context.ImageInBytes" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                }
+                else
+                {
+                        <MudAvatar Image="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                }
+            </MudItem>
+        </MudItem>
+
+
+
+    </MudGrid>
+</AddEditModal>
+
+@code {
+    [Parameter]
+    public bool IsCreate { get; set; }
+    [Parameter]
+    public string Caption { get; set; } = default!;
+    [Parameter]
+    [EditorRequired]
+    public SlideViewModel sliderModel { get; set; } = default!;
+    private AddEditModal<SlideViewModel> addeditModel = default!;
+    private async Task createFunc(SlideViewModel prod)
+    {
+        if (!string.IsNullOrEmpty(prod.ImageInBytes))
+        {
+            prod.Image = new FileUploadRequest() { Data = prod.ImageInBytes, Extension = prod.ImageExtension ?? string.Empty, Name = $"{Guid.NewGuid():N}" };
+        }
+
+        //await NativesClient.CreateAsync(prod.Adapt<CreateNativeRequest>());
+       // prod.ImageInBytes = string.Empty;
+    }
+
+      private async Task UploadFiles(InputFileChangeEventArgs e)
+    {
+        if (e.File != null)
+        {
+            string? extension = Path.GetExtension(e.File.Name);
+            if (!ApplicationConstants.SupportedImageFormats.Contains(extension.ToLower()))
+            {
+                Snackbar.Add("Image Format Not Supported.", Severity.Error);
+                return;
+            }
+
+            addeditModel.RequestModel.ImageExtension = extension;
+            var imageFile = await e.File.RequestImageFileAsync(ApplicationConstants.StandardImageFormat, ApplicationConstants.MaxImageWidth, ApplicationConstants.MaxImageHeight);
+            byte[]? buffer = new byte[imageFile.Size];
+            await imageFile.OpenReadStream(ApplicationConstants.MaxAllowedSize).ReadAsync(buffer);
+            addeditModel.RequestModel.ImageInBytes = $"data:{ApplicationConstants.StandardImageFormat};base64,{Convert.ToBase64String(buffer)}";
+            addeditModel.ForceRender();
+        }
+    }
+
+    public void ClearImageInBytes()
+    {
+        addeditModel.RequestModel.ImageInBytes = string.Empty;
+        addeditModel.ForceRender();
+    }
+
+    public void SetDeleteCurrentImageFlag()
+    {
+        addeditModel.RequestModel.ImageInBytes = string.Empty;
+        addeditModel.RequestModel.ImagePath = string.Empty;
+        //addeditModel.RequestModel.DeleteCurrentImage = true;
+        addeditModel.ForceRender();
+    }
+
+}

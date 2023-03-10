@@ -44,7 +44,7 @@ public partial class Index
             _autocycle = mainpageModel.AutoCycle;
             _height = $"height: {mainpageModel.Height}px;";
             if (mainpageModel.AutoCycleTime is not null)
-                _autocycleTime = TimeSpan.Parse(mainpageModel.AutoCycleTime);
+                _autocycleTime =  TimeSpan.FromSeconds(Convert.ToInt32(mainpageModel.AutoCycleTime));
             if (mainpageModel.Slides != null && mainpageModel.Slides.Count > 0)
             {
                 mudCarouselItems = mainpageModel.Slides.ToList();
