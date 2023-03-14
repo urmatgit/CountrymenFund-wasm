@@ -6,7 +6,7 @@
 <MudContainer>
     <MudGrid @ref="_mugGrid">
         <MudItem xs="12" sm="12" md="12">
-            <MudCarousel Class="mud-width-full" @ref="_carousel" ItemsSource="@mudCarouselItems" Style="@_height" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle" AutoCycleTime="_autocycleTime" TData="SlideDto">
+            <MudCarousel Class="mud-width-full" @ref="_carousel" ItemsSource="@mudCarouselItems" Style="@_height" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle" AutoCycleTime="_autocycleTime" TData="SliderDto">
                 <ItemTemplate>
                     <div style="height:100%" class="d-flex flex-column justify-center">
                         @if (!string.IsNullOrEmpty(context.ImagePath))
@@ -54,10 +54,10 @@
                         <CardHeaderContent>
                             @if (textBlock.Images != null && textBlock.Images.Count > 0)
                             {
-                                <MudCarousel Class="mud-width-full" ItemsSource="@textBlock.Images" Style="height:300px;" ShowArrows="true" ShowBullets="false" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="false" AutoCycleTime="_autocycleTime" TData="string">
+                                <MudCarousel Class="mud-width-full" ItemsSource="@textBlock.Images" Style="height:300px;" ShowArrows="true" ShowBullets="false" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="false" AutoCycleTime="_autocycleTime" TData="BlockImageDto">
                                     <ItemTemplate>
                                         <div style="height:100%" class="d-flex flex-column justify-center">
-                                        <MudImage Style="height: auto; width: auto; max-height: 100%" Elevation="25" Class="rounded-lg ma-4" ObjectFit="ObjectFit.ScaleDown" Src="@(string.IsNullOrEmpty(@context) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context))"> </MudImage>
+                                        <MudImage Style="height: auto; width: auto; max-height: 100%"  Class="rounded-lg ma-4" ObjectFit="ObjectFit.ScaleDown" Src="@(string.IsNullOrEmpty(@context.Name) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.Name))"> </MudImage>
                                         </div>
                                     </ItemTemplate>
 
@@ -67,7 +67,7 @@
                         </CardHeaderContent>
                     </MudCardHeader>
                     <MudCardContent>
-                        <MudText >@textBlock.Text</MudText>
+                        <MudText><p>@textBlock.Text</p> </MudText>
                     </MudCardContent>
                 </MudCard>
                 

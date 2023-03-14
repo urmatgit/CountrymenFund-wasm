@@ -21,7 +21,7 @@
                 <CustomValidation @ref="_customValidation" />
                 @if (_updateHomePageRequest is not null)
                 {
-                    if ( _updateHomePageRequest.Slides?.Count>0)
+                    if ( _updateHomePageRequest.Sliders?.Count>0)
                     {
                         <MudItem xs="12" md="6">
                             <MudDropContainer @ref="_MudDropContainer" T="DropItem" Items="_items" ItemsSelector="@((item,dropzone) => item.Selector == dropzone)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">

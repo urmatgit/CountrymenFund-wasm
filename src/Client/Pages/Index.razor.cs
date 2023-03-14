@@ -19,7 +19,7 @@ public partial class Index
 
     public IEnumerable<Claim>? Claims { get; set; }
 
-    private MudCarousel<SlideDto> _carousel;
+    private MudCarousel<SliderDto> _carousel;
     private MudGrid _mugGrid;
     private bool _arrows = true;
     private bool _bullets = true;
@@ -28,7 +28,7 @@ public partial class Index
     private Transition _transition = Transition.Slide;
     private string _height = "height: 200px;";
     private TimeSpan _autocycleTime = TimeSpan.FromSeconds(5);
-    private List<SlideDto> mudCarouselItems= new List<SlideDto>();
+    private List<SliderDto> mudCarouselItems= new List<SliderDto>();
     private List<TextBlockDto> TextBlocks = new List<TextBlockDto>();
     private string Tenant { get; set; } = MultitenancyConstants.Root.Id;
     protected override async Task OnInitializedAsync()
@@ -41,13 +41,16 @@ public partial class Index
         //var mainpageModel = await HomePageClient.GetAsync(Tenant);
         if (mainpageModel is not null)
         {
+            _arrows = mainpageModel.ShowArrows;
+            _bullets=mainpageModel.ShowBullets;
+            _enableSwipeGesture = mainpageModel.EnableSwapGesture;
             _autocycle = mainpageModel.AutoCycle;
             _height = $"height: {mainpageModel.Height}px;";
-            if (mainpageModel.AutoCycleTime is not null)
-                _autocycleTime =  TimeSpan.FromSeconds(Convert.ToInt32(mainpageModel.AutoCycleTime));
-            if (mainpageModel.Slides != null && mainpageModel.Slides.Count > 0)
+            if (mainpageModel.AutoCycleTime !=0)
+                _autocycleTime =  TimeSpan.FromSeconds(mainpageModel.AutoCycleTime);
+            if (mainpageModel.Sliders != null && mainpageModel.Sliders.Count > 0)
             {
-                mudCarouselItems = mainpageModel.Slides.ToList();
+                mudCarouselItems = mainpageModel.Sliders.ToList();
             }
             TextBlocks=mainpageModel.TextBlocs.ToList();
             StateHasChanged();

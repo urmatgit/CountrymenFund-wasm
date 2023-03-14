@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient.Fund;
-public class SlideViewModel: SlideDto
+public class SlideViewModel: SliderDto
 {
     //public string? ImagePath { get; set; }
     public string? ImageInBytes { get; set; }

@@ -15,11 +15,13 @@
             }
             </MudItem>
         <MudItem xs="12" sm="12" md="12">
+            <MudExpansionPanels>
+                  <MudExpansionPanel Class="mud-elevation-25" Text="@LS["Manage slider"]" >
+
+
             <MudCard>
                 <MudCardHeader>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.h6">@LS["Manage slider"]</MudText>
-                    </CardHeaderContent>
+                  
                     <CardHeaderActions>
                         <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="AddAsync">@LS["Add"]</MudButton>
                         <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="UpdateAsync">@LS["Update"]</MudButton>
@@ -55,7 +57,10 @@
                 
             </MudCarousel>
             <MudStack Row="true">
-                        <MudSlider TickMarks="true" Step="1" Value="@slideTimeSec" />
+
+
+                        <MudSlider TickMarks="true" Step="1" @bind-Value="@slideTimeSec" Max="60" Min="0" ValueLabel="true">@LS["Auto Cycle Time "]</MudSlider>
+                       
             </MudStack>
             <MudStack Row="true">
                 
@@ -67,23 +72,67 @@
              </MudCardContent>
           
             </MudCard>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
         </MudItem>
         <MudItem xs="12" sm="12" md="12">
 
         </MudItem>
+        <MudItem xs="12" sm="12" md="12">
+             <MudExpansionPanels>
+                  <MudExpansionPanel Class="mud-elevation-25" Text="@LS["Manage Text block"]" >
+            <MudCard>
+                <MudCardHeader>
+                    @*<CardHeaderContent>
+                        <MudText Typo="Typo.h6">@LS["Manage Text blocks"]</MudText>
+                    </CardHeaderContent>*@
+                            <CardHeaderActions>
+                                <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTextBlockAsync">@LS["Add"]</MudButton>
+                                
+                            </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                            
         @foreach (TextBlockDto textBlock in TextBlocks)
         {
+            <InputFile id="@($"fileInputBlock{textBlock.Id}")" hidden OnChange="@( async (e)=> await UploadFilesTextBlock(e,$"{textBlock.Id}"))" />
             <MudItem xs="12" sm="12" md="12">
+
                 <MudCard>
 
                     <MudCardHeader>
+                        <CardHeaderActions>
+                        <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(async()=> EditTextBlockAsync(textBlock))">@LS["Edit"]</MudButton>
+                        <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Error" OnClick="@(async () => await DeleteTextBlockAsync(textBlock))">@LS["Delete"]</MudButton>
+                                                <div>
+                                                    <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small"
+                                                           StartIcon="@Icons.Filled.CloudUpload" for="@($"fileInputBlock{textBlock.Id}")">
+                                                        @LS["Upload"]
+                                                    </MudButton>
+                                                    @if (textBlock.Images?.Count>0)
+                                                    {
+                                                        <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Error" Size="Size.Small"
+                                                           StartIcon="@Icons.Filled.Delete" OnClick="@(async ()=> DeleteCurrentImageFromBlock(textBlock))" Style="margin-left: 5px;">
+                                                            @LS["Delete"]
+                                                        </MudButton>
+                                                    }
+                                                   
+                                                </div>
+                    </CardHeaderActions>
                         <CardHeaderContent>
                             @if (textBlock.Images != null && textBlock.Images.Count > 0)
                             {
-                                <MudCarousel Class="mud-width-full" ItemsSource="@textBlock.Images" Style="height:300px;" ShowArrows="true" ShowBullets="false" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="false" AutoCycleTime="_autocycleTime" TData="string">
+                                <MudCarousel Class="mud-width-full" @bind-SelectedIndex="CurrentBlockImageIndex" ItemsSource="@textBlock.Images" Style="height:300px;" ShowArrows="true" ShowBullets="false" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="false" AutoCycleTime="_autocycleTime" TData="BlockImageDto">
                                     <ItemTemplate>
                                         <div style="height:100%" class="d-flex flex-column justify-center">
-                                            <MudImage Style="height: auto; width: auto; max-height: 100%" Elevation="25" Class="rounded-lg ma-4" ObjectFit="ObjectFit.ScaleDown" Src="@(string.IsNullOrEmpty(@context) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context))"> </MudImage>
+                                                                @if (!string.IsNullOrEmpty(context.ImageInBytes))
+                                                                {
+                                                                    <MudImage Style="height: auto; width: auto; max-height: 100%"  Class="rounded-lg ma-4" ObjectFit="ObjectFit.ScaleDown"
+                                                                    Src="@context.ImageInBytes"> </MudImage>
+
+                                                                }else {
+                                                                <MudImage Style="height: auto; width: auto; max-height: 100%"  Class="rounded-lg ma-4" ObjectFit="ObjectFit.ScaleDown" Src="@(string.IsNullOrEmpty(@context.Name) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.Name))"> </MudImage>
+                                                                }
                                         </div>
                                     </ItemTemplate>
 
@@ -91,15 +140,21 @@
                             }
                             <MudText Typo="Typo.h6">@textBlock.Caption</MudText>
                         </CardHeaderContent>
+                        
                     </MudCardHeader>
                     <MudCardContent>
-                        <MudText>@textBlock.Text</MudText>
+                                            <MudText><p>@textBlock.Text</p></MudText>
                     </MudCardContent>
                 </MudCard>
 
 
             </MudItem>
         }
+                </MudCardContent>
+                </MudCard>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        </MudItem>
          
     </MudGrid>
 </MudContainer>

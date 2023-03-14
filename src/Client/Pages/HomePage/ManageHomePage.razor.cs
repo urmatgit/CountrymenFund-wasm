@@ -18,7 +18,7 @@ namespace FSH.BlazorWebAssembly.Client.Pages.HomePage;
 public class DropItem 
 {
 
-    public SlideDto Value { get; set; }
+    public SliderDto Value { get; set; }
     public string Name { get
         {
             return (Value != null ? $"{Value.Title} {Value.ImagePath}":"");
@@ -28,7 +28,7 @@ public class DropItem
     public string? ImageExtension { get; set; }
     public DropItem()
     {
-        Value = new SlideDto();
+        Value = new SliderDto();
     }
 }
 
@@ -59,7 +59,7 @@ public partial class ManageHomePage
         {
             _updateHomePageRequest=model.Adapt<UpdateHomePageRequest>();
 
-            foreach(var sld in model.Slides)
+            foreach(var sld in model.Sliders)
             {
                 var item=new DropItem();
                 item.Selector = "1";
@@ -155,7 +155,7 @@ public partial class ManageHomePage
         {
             CurrentSlider =new DropItem()
             {
-                Value=new SlideDto()
+                Value=new SliderDto()
                 {
                     Title=dropItem.Value.Title,
                     Description=dropItem.Value.Description,
@@ -181,7 +181,7 @@ public partial class ManageHomePage
     private async Task SubmitAsync()
     {
         BusySubmitting = true;
-        _updateHomePageRequest.Slides.Clear();
+        _updateHomePageRequest.Sliders.Clear();
         foreach (var item in _items)
         {
             var sliderDto = item.Value;
@@ -194,7 +194,7 @@ public partial class ManageHomePage
                     Name = item.Value.ImagePath
                 };
             }
-            _updateHomePageRequest.Slides.Add(sliderDto);
+            _updateHomePageRequest.Sliders.Add(sliderDto);
         }
         var sucessMessage = await ApiHelper.ExecuteCallGuardedAsync(
             () => HomePageClient.PostAsync( _updateHomePageRequest),

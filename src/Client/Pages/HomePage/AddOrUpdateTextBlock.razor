@@ -1,0 +1,42 @@
+﻿@inject IStringLocalizer<SharedResource> LS
+<AddEditModal RequestModel="TextBlockModel" SaveFunc="@createFunc" @ref="addeditModel" IsCreate="IsCreate" Title="@Caption">
+    <MudGrid>
+
+        <MudItem xs="12" md="12">
+            <MudTextField T="string" Label="@LS["Caption"]" Variant="Variant.Outlined" @bind-Value="context.Caption" For="@(()=>context.Caption )"
+                          InputType="InputType.Text" />
+            <MudTextField T="string" Label="@LS["Text"]" Lines="5" Variant="Variant.Outlined" @bind-Value="context.Text" For="@(()=>context.Text)"
+                          InputType="InputType.Text" />
+
+        </MudItem>
+        
+       
+
+
+
+    </MudGrid>
+</AddEditModal>
+
+@code {
+     
+    [Parameter]
+    public bool IsCreate { get; set; }
+    [Parameter]
+    public string Caption { get; set; } = default!;
+    [Parameter]
+    [EditorRequired]
+    public TextBlockDto TextBlockModel { get; set; } = default!;
+    private AddEditModal<TextBlockDto> addeditModel = default!;
+    private async Task createFunc(TextBlockDto prod)
+    {
+       
+
+        //await NativesClient.CreateAsync(prod.Adapt<CreateNativeRequest>());
+        // prod.ImageInBytes = string.Empty;
+    }
+
+    
+
+     
+
+}
