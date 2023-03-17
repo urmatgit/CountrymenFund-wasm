@@ -56,18 +56,18 @@ public partial class TotalByRuralGovs
                 var result = await TotalsClient.GetTotalRuralgovAsync(contributionFilter);
 
                 return result.Adapt<PaginationResponse<TotalWithMonths>>();
+            },
+
+
+            exportFunc: async filter =>
+            {
+                var exportFilter = filter.Adapt<ExportTotalByRuralGovsRequest>();
+
+                exportFilter.YearId = SearchYearId == default ? null : SearchYearId;
+
+
+                return await TotalsClient.ExportByRuralGovsAsync(exportFilter);
             }
-             
-
-            //exportFunc: async filter =>
-            //{
-            //    var exportFilter = filter.Adapt<ExportContributionsRequest>();
-
-            //    exportFilter.YearId = SearchYearId == default ? null : SearchYearId;
-
-
-            //    return await ContributionsClient.ExportAsync(exportFilter);
-            //},
 
             );
         

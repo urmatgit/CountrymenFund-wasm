@@ -66,8 +66,7 @@ public partial class Natives
                 var productFilter = filter.Adapt<SearchNativesRequest>();
 
                 productFilter.RuralGovId = SearchRuralGovId == default ? null : SearchRuralGovId;
-                productFilter.MinimumRate = SearchMinimumRate;
-                productFilter.MaximumRate = SearchMaximumRate;
+                
 
                 var result = await NativesClient.SearchAsync(productFilter);
                 
@@ -99,8 +98,7 @@ public partial class Natives
                 var exportFilter = filter.Adapt<ExportNativesRequest>();
 
                 exportFilter.RuralGovId = SearchRuralGovId == default ? null : SearchRuralGovId;
-                exportFilter.MinimumRate = SearchMinimumRate;
-                exportFilter.MaximumRate = SearchMaximumRate;
+                
 
                 return await NativesClient.ExportAsync(exportFilter);
             },
@@ -154,27 +152,27 @@ public partial class Natives
         }
     }
 
-    private decimal _searchMinimumRate;
-    private decimal SearchMinimumRate
-    {
-        get => _searchMinimumRate;
-        set
-        {
-            _searchMinimumRate = value;
-            _ = _table.ReloadDataAsync();
-        }
-    }
+    //private decimal _searchMinimumRate;
+    //private decimal SearchMinimumRate
+    //{
+    //    get => _searchMinimumRate;
+    //    set
+    //    {
+    //        _searchMinimumRate = value;
+    //        _ = _table.ReloadDataAsync();
+    //    }
+    //}
 
-    private decimal _searchMaximumRate = 10;
-    private decimal SearchMaximumRate
-    {
-        get => _searchMaximumRate;
-        set
-        {
-            _searchMaximumRate = value;
-            _ = _table.ReloadDataAsync();
-        }
-    }
+    //private decimal _searchMaximumRate = 10;
+    //private decimal SearchMaximumRate
+    //{
+    //    get => _searchMaximumRate;
+    //    set
+    //    {
+    //        _searchMaximumRate = value;
+    //        _ = _table.ReloadDataAsync();
+    //    }
+    //}
 
     // TODO : Make this as a shared service or something? Since it's used by Profile Component also for now, and literally any other component that will have image upload.
     // The new service should ideally return $"data:{ApplicationConstants.StandardImageFormat};base64,{Convert.ToBase64String(buffer)}"

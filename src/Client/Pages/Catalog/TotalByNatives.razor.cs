@@ -60,17 +60,17 @@ public partial class TotalByNatives
                 return result.Adapt<PaginationResponse<TotalByNative>>();
             },
             GroupSeletor: (x) => x.RuralGovName,
-            groupSumSeletor: (x) => x.AllSumm
+            groupSumSeletor: (x) => x.AllSumm,
 
-            //exportFunc: async filter =>
-            //{
-            //    var exportFilter = filter.Adapt<ExportContributionsRequest>();
+            exportFunc: async filter =>
+            {
+                var exportFilter = filter.Adapt<ExportTotalByNativesRequest>();
 
-            //    exportFilter.YearId = SearchYearId == default ? null : SearchYearId;
+                exportFilter.YearId = SearchYearId == default ? null : SearchYearId;
 
 
-            //    return await ContributionsClient.ExportAsync(exportFilter);
-            //},
+                return await TotalsClient.ExportAsync(exportFilter);
+            }
 
             );
 

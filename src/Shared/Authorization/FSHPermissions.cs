@@ -102,6 +102,8 @@ public static class FSHPermissions
         new("Export Contributions", FSHAction.Export, FSHResource.Contributions),
 
         new("View Reports", FSHAction.View, FSHResource.Reports, IsBasic: true),
+              new("Search Reports", FSHAction.Search, FSHResource.Reports, IsBasic: true),
+        new("View Reports", FSHAction.Export, FSHResource.Reports),
 
         new("View HomePage", FSHAction.View, FSHResource.HomePage, IsBasic: true),
         new("Edit HomePage", FSHAction.Update, FSHResource.HomePage),

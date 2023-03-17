@@ -12,8 +12,7 @@
 
     <AdvancedSearchContent>
         <RuralGovAutocomplete @bind-Value="SearchRuralGovId" />
-        <MudSlider T="decimal" @bind-value="SearchMinimumRate" Min="0" Max="10" Step="1">@L["Minimum rate"]: @_searchMinimumRate.ToString()</MudSlider>
-        <MudSlider T="decimal" @bind-value="SearchMaximumRate" Min="0" Max="10" Step="1">@L["Maximum rate"]: @_searchMaximumRate.ToString()</MudSlider>
+        
     </AdvancedSearchContent>
 
     <EditFormContent >

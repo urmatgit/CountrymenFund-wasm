@@ -92,15 +92,20 @@ public partial class Contributions
                 await ContributionsClient.UpdateAsync(id, prod.Adapt<UpdateContributionRequest>());
 
             },
-            //exportFunc: async filter =>
-            //{
-            //    var exportFilter = filter.Adapt<ExportContributionsRequest>();
+            exportFunc: async filter =>
+            {
+                var exportFilter = filter.Adapt<ExportContributionsRequest>();
 
-            //    exportFilter.YearId = SearchYearId == default ? null : SearchYearId;
+                exportFilter.YearId = SearchYearId == default ? null : SearchYearId;
 
-
-            //    return await ContributionsClient.ExportAsync(exportFilter);
-            //},
+                
+                exportFilter.NativeId = SearchNativeId == default ? null : SearchNativeId;
+                exportFilter.Month = SearchMonth == default ? null : SearchMonth;
+                exportFilter.DateStart = SearchDateRange == default ? null : SearchDateRange.Start;
+                exportFilter.DateEnd = SearchDateRange == default ? null : SearchDateRange.End;
+                exportFilter.RuralGovId = SearchRuralGovId == default ? null : SearchRuralGovId;
+                return await ContributionsClient.ExportAsync(exportFilter);
+            },
             deleteFunc: async id => await ContributionsClient.DeleteAsync(id)
             , getDefaultsFunc: async () =>
             {

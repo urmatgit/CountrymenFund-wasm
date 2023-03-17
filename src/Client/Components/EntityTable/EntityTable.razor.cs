@@ -75,10 +75,10 @@ public partial class EntityTable<TEntity, TId, TRequest>
     {
         var state = await AuthState;
         _canSearch = await CanDoActionAsync(Context.SearchAction, state);
-        _canCreate = await CanDoActionAsync(Context.CreateAction, state) && Context.CreateFunc!=null;
-        _canUpdate = await CanDoActionAsync(Context.UpdateAction, state) && Context.UpdateFunc!=null;
-        _canDelete = await CanDoActionAsync(Context.DeleteAction, state) && Context.DeleteFunc!=null;
-        _canExport = await CanDoActionAsync(Context.ExportAction, state);
+        _canCreate = Context.CreateFunc != null && await CanDoActionAsync(Context.CreateAction, state) ;
+        _canUpdate = Context.UpdateFunc != null && await CanDoActionAsync(Context.UpdateAction, state) ;
+        _canDelete = Context.DeleteFunc != null && await CanDoActionAsync(Context.DeleteAction, state) ;
+        _canExport = Context.ExportAction != null && await CanDoActionAsync(Context.ExportAction, state);
 
         await LocalLoadDataAsync();
     }
