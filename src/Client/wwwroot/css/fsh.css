@@ -70,3 +70,9 @@
 .fsh-nav-child {
     padding-left: 10px !important;
 }
+.mud-table-bordered .mud-table-container .mud-table-root .mud-table-body .mud-table-row .mud-table-cell:not(:last-child) {
+    border-right: 1px solid var(--mud-palette-divider-light);
+}
+.mud-table-cell {
+    border-bottom: 1px solid var(--mud-palette-divider-light);
+}
