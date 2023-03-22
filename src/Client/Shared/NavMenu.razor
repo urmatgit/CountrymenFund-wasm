@@ -34,6 +34,13 @@
                     @L["Brands"]
                 </MudNavLink>
             }*@
+            
+            @if (_canViewFinSupports)
+            {
+                <MudNavLink Href="/catalog/finSupports" Icon="@Icons.Filled.LocationCity" Class="fsh-nav-child">
+                    @L["Financial supports"]
+                </MudNavLink>
+            }
             @if (_canViewRuralGovs)
             {
                 <MudNavLink Href="/catalog/ruralgovs" Icon="@Icons.Filled.LocationCity" Class="fsh-nav-child">

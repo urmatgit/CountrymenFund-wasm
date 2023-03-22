@@ -117,148 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Actions" xml:space="preserve">
-    <value>Действия</value>
+  <data name="Begin" xml:space="preserve">
+    <value>Начало</value>
   </data>
-  <data name="Advanced Search" xml:space="preserve">
-    <value>Расширенный поиск</value>
+  <data name="Complete" xml:space="preserve">
+    <value>Завершить</value>
   </data>
-  <data name="All Columns" xml:space="preserve">
-    <value>Все поля</value>
+  <data name="End" xml:space="preserve">
+    <value>Дата заверщение</value>
   </data>
-  <data name="April" xml:space="preserve">
-    <value>Апрель</value>
+  <data name="FinSupports" xml:space="preserve">
+    <value>Финансовая помощь</value>
   </data>
-  <data name="August" xml:space="preserve">
-    <value>Август</value>
+  <data name="FioManager" xml:space="preserve">
+    <value>Ответственный</value>
   </data>
-  <data name="Between" xml:space="preserve">
-    <value>Между</value>
-  </data>
-  <data name="Brand" xml:space="preserve">
-    <value>Brand</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Отмена</value>
-  </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>Confirm</value>
-  </data>
-  <data name="Contribution" xml:space="preserve">
-    <value>Взнос</value>
-  </data>
-  <data name="Contributions" xml:space="preserve">
-    <value>Взносы</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>Создать</value>
-  </data>
-  <data name="December" xml:space="preserve">
-    <value>Декабрь</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
-  <data name="Delete Confirmation" xml:space="preserve">
-    <value>Подтвержедние удаления</value>
-  </data>
-  <data name="Deleted" xml:space="preserve">
-    <value>Удален</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Описание</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Редактировать</value>
-  </data>
-  <data name="February" xml:space="preserve">
-    <value>Февраль</value>
-  </data>
-  <data name="January" xml:space="preserve">
-    <value>Январь</value>
-  </data>
-  <data name="July" xml:space="preserve">
-    <value>Июль</value>
-  </data>
-  <data name="June" xml:space="preserve">
-    <value>Июнь</value>
-  </data>
-  <data name="Manage Years." xml:space="preserve">
-    <value>Управление годами</value>
-  </data>
-  <data name="Manage your Reports" xml:space="preserve">
-    <value>Управление отчетами</value>
-  </data>
-  <data name="March" xml:space="preserve">
-    <value>Март</value>
-  </data>
-  <data name="May" xml:space="preserve">
-    <value>Май</value>
-  </data>
-  <data name="Month" xml:space="preserve">
-    <value>Месяц</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Название</value>
-  </data>
-  <data name="Native" xml:space="preserve">
-    <value>Уроженец</value>
-  </data>
-  <data name="November" xml:space="preserve">
-    <value>Ноябрь</value>
-  </data>
-  <data name="Oktober" xml:space="preserve">
-    <value>Октябрь</value>
-  </data>
-  <data name="Product" xml:space="preserve">
-    <value>Product</value>
-  </data>
-  <data name="Products" xml:space="preserve">
-    <value>Products</value>
-  </data>
-  <data name="Reload" xml:space="preserve">
-    <value>Обновить</value>
-  </data>
-  <data name="Report" xml:space="preserve">
-    <value>Отчет</value>
-  </data>
-  <data name="Reports" xml:space="preserve">
-    <value>Отчеты</value>
-  </data>
-  <data name="Search for" xml:space="preserve">
-    <value>Пиоск</value>
-  </data>
-  <data name="September" xml:space="preserve">
-    <value>Сентябрь</value>
-  </data>
-  <data name="Total" xml:space="preserve">
-    <value>Итого</value>
-  </data>
-  <data name="Total by natives" xml:space="preserve">
-    <value>Итого по соотечествинникам</value>
-  </data>
-  <data name="Total by rural government" xml:space="preserve">
-    <value>Итого по сел. самоуправлениям</value>
-  </data>
-  <data name="Total Mass" xml:space="preserve">
-    <value>Итого</value>
-  </data>
-  <data name="Totals" xml:space="preserve">
-    <value>Итоги</value>
-  </data>
-  <data name="Update" xml:space="preserve">
-    <value>Обновить</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>Пользователь</value>
-  </data>
-  <data name="Year" xml:space="preserve">
-    <value>Год</value>
-  </data>
-  <data name="Years" xml:space="preserve">
-    <value>Годы</value>
-  </data>
-  <data name="You're sure you want to delete {0} with id '{1}'?" xml:space="preserve">
-    <value>Вы уверены удалить запись {0} с id '{1}'?</value>
+  <data name="Manage FinSupports." xml:space="preserve">
+    <value>Управление фин. помощь</value>
   </data>
 </root>

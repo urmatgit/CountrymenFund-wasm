@@ -4,4 +4,7 @@
         <RootNamespace>FSH.WebApi.Shared</RootNamespace>
         <AssemblyName>FSH.WebApi.Shared</AssemblyName>
     </PropertyGroup>
+    <ItemGroup>
+      <Folder Include="Common\" />
+    </ItemGroup>
 </Project>

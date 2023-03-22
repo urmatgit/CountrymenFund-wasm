@@ -27,6 +27,7 @@ public partial class NavMenu
     private bool _canViewYears;
     private bool _canViewContributions;
     private bool _canEditHomePage;
+    private bool _canViewFinSupports;
     private bool CanViewAdministrationGroup => _canViewUsers || _canViewRoles || _canViewTenants || _canEditHomePage;
 
     protected override async Task OnParametersSetAsync()
@@ -45,5 +46,6 @@ public partial class NavMenu
         _canViewYears = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Years);
         _canViewContributions = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.Contributions);
         _canEditHomePage=await AuthService.HasPermissionAsync(user,FSHAction.Update,FSHResource.HomePage);
+        _canViewFinSupports = await AuthService.HasPermissionAsync(user, FSHAction.View, FSHResource.FinSupport);
     }
 }

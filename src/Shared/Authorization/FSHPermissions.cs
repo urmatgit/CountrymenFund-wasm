@@ -34,6 +34,8 @@ public static class FSHResource
     public const string Contributions = nameof(Contributions);
     public const string Reports = nameof(Reports);
     public const string HomePage = nameof(HomePage);
+    public const string FinSupport = nameof(FinSupport);
+    public const string FSContributions = nameof(FSContributions);
 
 }
 
@@ -87,6 +89,14 @@ public static class FSHPermissions
         new("Delete Natives", FSHAction.Delete, FSHResource.Natives),
         new("Export Natives", FSHAction.Export, FSHResource.Natives),
 
+          new("View FinSupport", FSHAction.View, FSHResource.FinSupport, IsBasic: true),
+        new("Search FinSupport", FSHAction.Search, FSHResource.FinSupport, IsBasic: true),
+        new("Create FinSupport", FSHAction.Create, FSHResource.FinSupport),
+        new("Update FinSupport", FSHAction.Update, FSHResource.FinSupport),
+        new("Delete FinSupport", FSHAction.Delete, FSHResource.FinSupport),
+        new("Export FinSupport", FSHAction.Export, FSHResource.FinSupport),
+
+
         new("View Years", FSHAction.View, FSHResource.Years, IsBasic: true),
         new("Search Years", FSHAction.Search, FSHResource.Years, IsBasic: true),
         new("Create Years", FSHAction.Create, FSHResource.Years),
@@ -101,11 +111,19 @@ public static class FSHPermissions
         new("Delete Contributions", FSHAction.Delete, FSHResource.Contributions),
         new("Export Contributions", FSHAction.Export, FSHResource.Contributions),
 
+        new("View FSContributions", FSHAction.View, FSHResource.FSContributions, IsBasic: true),
+        new("Search FSContributions", FSHAction.Search, FSHResource.FSContributions, IsBasic: true),
+        new("Create FSContributions", FSHAction.Create, FSHResource.FSContributions),
+        new("Update FSContributions", FSHAction.Update, FSHResource.FSContributions),
+        new("Delete FSContributions", FSHAction.Delete, FSHResource.FSContributions),
+        new("Export FSContributions", FSHAction.Export, FSHResource.FSContributions),
+
         new("View Reports", FSHAction.View, FSHResource.Reports, IsBasic: true),
-              new("Search Reports", FSHAction.Search, FSHResource.Reports, IsBasic: true),
+        new("Search Reports", FSHAction.Search, FSHResource.Reports, IsBasic: true),
         new("View Reports", FSHAction.Export, FSHResource.Reports),
 
         new("View HomePage", FSHAction.View, FSHResource.HomePage, IsBasic: true),
+
         new("Edit HomePage", FSHAction.Update, FSHResource.HomePage),
 
         new("View Tenants", FSHAction.View, FSHResource.Tenants, IsRoot: true),

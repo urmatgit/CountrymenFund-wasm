@@ -8,7 +8,7 @@ using FSH.BlazorWebAssembly.Client.Infrastructure.Auth;
 using FSH.BlazorWebAssembly.Client.Infrastructure.Common;
 using FSH.BlazorWebAssembly.Client.Shared;
 using FSH.WebApi.Shared.Authorization;
-using FSH.WebApi.Shared.Common;
+
 using FSH.WebApi.Shared.Multitenancy;
 using Mapster;
 using MediatR;

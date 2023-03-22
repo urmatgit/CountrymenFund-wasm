@@ -1,0 +1,102 @@
+﻿@page "/catalog/finSupports"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.FinSupport)]
+
+@inject IStringLocalizer<FinSupports> L
+@inject IStringLocalizer<SharedResource> LS
+@inject IFinSupportsClient FinSupportsClient
+
+<FshTitle Title="@L["FinSupports"]" Description="@L["Manage FinSupports."]" />
+
+<EntityTable TEntity="FinSupportDto" TId="Guid" TRequest="UpdateFinSupportRequest" Context="@Context">
+
+    <EditFormContent>
+        
+        <MudItem xs="12" md="6">
+            <MudTextField T="string" For="@(() => context.Name)" @bind-Value="context.Name" Label="@LS["Name"]" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <NativeAutocomplete For="@(() => context.NativeId)" @bind-Value="context.NativeId" OffsetY="true" />
+        </MudItem>
+
+        @if(!Context.AddEditModal.IsCreate){
+        <MudItem xs="12" md="6">
+                <MudDatePicker Label="@L["Begin"]" For="@(() => context.Begin)" @bind-Date="context.Begin" ReadOnly/>
+            </MudItem>
+        }else
+        {
+            <MudItem xs="12" md="6">
+                <MudDatePicker Label="@L["Begin"]" For="@(() => context.Begin)" @bind-Date="context.Begin"  />
+            </MudItem>
+        }
+        <MudItem xs="12" md="6" Class="d-flex flex-row align-center">
+            @if (!Context.AddEditModal.IsCreate && IsCompleted)
+            {
+                <MudSwitch @bind-Checked="@EndSwitch" Color="Color.Primary" Label="@L["Complated"]"  ReadOnly/>
+            }else
+            {
+                <MudSwitch @bind-Checked="@EndSwitch" Color="Color.Primary" Label="@L["Complate"]" />
+            }
+
+            <MudDatePicker Label="@L["End"]" For="@(() => context.End)" @bind-Date="context.End" ReadOnly />
+              
+        </MudItem>
+        
+        <MudItem xs="12" md="6">
+            <MudTextField For="@(() => context.Description)" @bind-Value="context.Description"
+                          Label="@LS["Description"]" />
+        </MudItem>
+
+    </EditFormContent>
+
+</EntityTable>
+
+@code
+{
+    protected EntityServerTableContext<FinSupportDto, Guid, UpdateFinSupportRequest> Context { get; set; } = default!;
+    private bool IsCompleted = false;
+    private bool EndSwitch{
+        get
+        {
+            return Context.AddEditModal.RequestModel.End is not null;
+
+        }
+        set
+        {
+            if (value)
+                Context.AddEditModal.RequestModel.End = DateTime.Now;
+            else
+                Context.AddEditModal.RequestModel.End = null;
+            Context.AddEditModal.ForceRender();
+
+        }
+    }
+    protected override async void OnInitialized() =>
+        Context = new(
+            entityName: L["FinSupport"],
+            entityNamePlural: L["FinSupports"],
+            entityResource: FSHResource.FinSupport,
+            fields: new()
+                {
+
+                new(finSupport => finSupport.Name, LS["Name"], "Name"),
+                new(finSupport => finSupport.FioManager, L["FioManager"], "FioManager"),
+                new(finSupport => finSupport.Begin, L["Begin"], "Begin"),
+                new(finSupport => finSupport.End, L["End"], "End"),
+                new(finSupport => finSupport.Description, LS["Description"], "Description"),
+                },
+            idFunc: finSupport => IdFunc(finSupport),
+            searchFunc: async filter => (await FinSupportsClient
+                .SearchAsync(filter.Adapt<SearchFinSupportsRequest>()))
+                .Adapt<PaginationResponse<FinSupportDto>>(),
+            createFunc: async finSupport => await FinSupportsClient.CreateAsync(finSupport.Adapt<CreateFinSupportRequest>()),
+            updateFunc: async (id, finSupport) => await FinSupportsClient.UpdateAsync(id, finSupport),
+            deleteFunc: async id => await FinSupportsClient.DeleteAsync(id),
+
+    exportAction: string.Empty);
+
+    private Guid IdFunc(FinSupportDto entity)
+    {
+        IsCompleted = entity.End is not null;
+        return entity.Id;
+    }
+}
