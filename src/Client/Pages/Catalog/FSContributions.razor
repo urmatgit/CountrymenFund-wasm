@@ -1,0 +1,42 @@
+﻿@page "/catalog/fscontributions"
+@attribute [MustHavePermission(FSHAction.View, FSHResource.FSContributions)]
+
+@inject IStringLocalizer<SharedResource> SH
+
+<FshTitle Title="@SH["Financial support contributions"]" Description="@SH["Manage Financial support contributions."]" />
+<EntityTableWithGrouping @ref="_table" TEntity="FSContributionDto" TId="Guid" TRequest="UpdateFSContributionRequest" Context="@Context" AdvancedSearchExpanded="true" VisibleSearchText="false">
+        <AdvancedSearchContent>
+            <MudGrid>
+            <MudItem xs="12" md="4">
+                <FinSupportAutocomplete @bind-Value="FinSupportId" />
+            </MudItem>
+            <MudItem xs="12" md="4">
+                <NativeAutocomplete @bind-Value="SearchNativeId" />
+            </MudItem>
+
+            </MudGrid>
+        </AdvancedSearchContent>
+        <EditFormContent>
+
+    <MudItem xs="12" md="6">
+            <FinSupportAutocomplete For="@(() => context.FinSupportId)" @bind-Value="context.FinSupportId" OffsetY="true" />
+    </MudItem>
+        <MudItem xs="12" md="6" Class="d-flex flex-row">
+            <MudButton id="addNative" OnClick="goNativeAdd" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Style="display:none"></MudButton>
+            <NativeAutocomplete BindingValueChanged="(async (finded)=>await Finded(finded))" For="@(() => context.NativeId)" @bind-Value="context.NativeId" OffsetY="true">
+
+            </NativeAutocomplete>
+        </MudItem>
+         <MudItem xs="12" md="6">
+            <MudDatePicker Label="@SH["Date"]" For="@(() => context.Date)" @bind-Date="context.Date" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField T="decimal" Label="@SH["Summa"]" For="@(() => context.Summa)" @bind-Value="context.Summa" />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField Label="@SH["Description"]" For="@(() => context.Description)"
+                          @bind-Value="context.Description" />
+        </MudItem>
+        </EditFormContent>
+
+    </EntityTableWithGrouping>

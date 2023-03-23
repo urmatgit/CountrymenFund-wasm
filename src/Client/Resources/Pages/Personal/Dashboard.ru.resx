@@ -195,4 +195,7 @@
   <data name="Sep" xml:space="preserve">
     <value>Сен</value>
   </data>
+  <data name="Total sum of financial support contributions" xml:space="preserve">
+    <value>Общая сумма взносов на финансовую поддержку</value>
+  </data>
 </root>

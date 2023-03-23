@@ -27,6 +27,8 @@ public partial class Dashboard
     public int ContributionCount { get; set; }
     [Parameter]
     public decimal ContributionSumma { get; set; }
+    [Parameter]
+    public decimal FSContributionSumma { get; set; }
 
     [Inject]
     private IDashboardClient DashboardClient { get; set; } = default!;
@@ -66,6 +68,7 @@ public partial class Dashboard
             NativeCount= statsDto.NativeCount;
             ContributionCount = statsDto.ContributionsCount;
             ContributionSumma = statsDto.ContributionSumma;
+            FSContributionSumma = statsDto.FsContributionSumma;
             foreach (var item in statsDto.DataEnterBarChart)
             {
                 _dataEnterBarChartSeries

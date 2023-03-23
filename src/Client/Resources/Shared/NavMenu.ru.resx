@@ -156,6 +156,12 @@
   <data name="Features" xml:space="preserve">
     <value>Функции</value>
   </data>
+  <data name="Financial support contributions" xml:space="preserve">
+    <value>Взносы на финансовую поддержку</value>
+  </data>
+  <data name="Financial supports" xml:space="preserve">
+    <value>Финансовая поддержка</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Домашняя</value>
   </data>

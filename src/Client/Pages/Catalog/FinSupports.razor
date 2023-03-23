@@ -7,10 +7,20 @@
 
 <FshTitle Title="@L["FinSupports"]" Description="@L["Manage FinSupports."]" />
 
-<EntityTable TEntity="FinSupportDto" TId="Guid" TRequest="UpdateFinSupportRequest" Context="@Context">
-
+<EntityTable @ref="_table" TEntity="FinSupportDto" TId="Guid" TRequest="UpdateFinSupportRequest" Context="@Context" AdvancedSearchExpanded="true">
+    <AdvancedSearchContent>
+        <MudGrid>
+            <MudItem xs="12" md="12">
+                <MudRadioGroup @bind-SelectedOption="@FltCompleted" T="int">
+                    <MudRadio Option="1" Color="Color.Primary" Dense="true">@LS["All"]</MudRadio>
+                    <MudRadio Option="2" Color="Color.Primary" Dense="true">@LS["Completed"]</MudRadio>
+                    <MudRadio Option="3" Color="Color.Secondary" Dense="true">@LS["Uncompleted"]</MudRadio>
+                </MudRadioGroup>
+            </MudItem>
+        </MudGrid>
+    </AdvancedSearchContent>
     <EditFormContent>
-        
+
         <MudItem xs="12" md="6">
             <MudTextField T="string" For="@(() => context.Name)" @bind-Value="context.Name" Label="@LS["Name"]" />
         </MudItem>
@@ -18,29 +28,32 @@
             <NativeAutocomplete For="@(() => context.NativeId)" @bind-Value="context.NativeId" OffsetY="true" />
         </MudItem>
 
-        @if(!Context.AddEditModal.IsCreate){
-        <MudItem xs="12" md="6">
-                <MudDatePicker Label="@L["Begin"]" For="@(() => context.Begin)" @bind-Date="context.Begin" ReadOnly/>
-            </MudItem>
-        }else
+        @if (!Context.AddEditModal.IsCreate)
         {
             <MudItem xs="12" md="6">
-                <MudDatePicker Label="@L["Begin"]" For="@(() => context.Begin)" @bind-Date="context.Begin"  />
+                <MudDatePicker Label="@L["Begin"]" For="@(() => context.Begin)" @bind-Date="context.Begin" ReadOnly />
+            </MudItem>
+        }
+        else
+        {
+            <MudItem xs="12" md="6">
+                <MudDatePicker Label="@L["Begin"]" For="@(() => context.Begin)" @bind-Date="context.Begin" />
             </MudItem>
         }
         <MudItem xs="12" md="6" Class="d-flex flex-row align-center">
             @if (!Context.AddEditModal.IsCreate && IsCompleted)
             {
-                <MudSwitch @bind-Checked="@EndSwitch" Color="Color.Primary" Label="@L["Complated"]"  ReadOnly/>
-            }else
+                <MudSwitch @bind-Checked="@EndSwitch" Color="Color.Primary" Label="@LS["Completed"]" ReadOnly />
+            }
+            else
             {
-                <MudSwitch @bind-Checked="@EndSwitch" Color="Color.Primary" Label="@L["Complate"]" />
+                <MudSwitch @bind-Checked="@EndSwitch" Color="Color.Primary" Label="@LS["Complete"]" />
             }
 
             <MudDatePicker Label="@L["End"]" For="@(() => context.End)" @bind-Date="context.End" ReadOnly />
-              
+
         </MudItem>
-        
+
         <MudItem xs="12" md="6">
             <MudTextField For="@(() => context.Description)" @bind-Value="context.Description"
                           Label="@LS["Description"]" />
@@ -53,8 +66,27 @@
 @code
 {
     protected EntityServerTableContext<FinSupportDto, Guid, UpdateFinSupportRequest> Context { get; set; } = default!;
+    private EntityTable<FinSupportDto, Guid, UpdateFinSupportRequest> _table = default!;
     private bool IsCompleted = false;
-    private bool EndSwitch{
+    /// <summary>
+    /// 1-All,2-Complted,3-non completed
+    /// </summary>
+    private int fltCompleted = 1;
+    public int FltCompleted
+    {
+        get
+        {
+            return fltCompleted;
+
+        }
+        set
+        {
+            fltCompleted = value;
+            _ = _table.ReloadDataAsync();
+        }
+    }
+    private bool EndSwitch
+    {
         get
         {
             return Context.AddEditModal.RequestModel.End is not null;
@@ -76,18 +108,28 @@
             entityNamePlural: L["FinSupports"],
             entityResource: FSHResource.FinSupport,
             fields: new()
-                {
+                    {
 
                 new(finSupport => finSupport.Name, LS["Name"], "Name"),
                 new(finSupport => finSupport.FioManager, L["FioManager"], "FioManager"),
                 new(finSupport => finSupport.Begin, L["Begin"], "Begin"),
                 new(finSupport => finSupport.End, L["End"], "End"),
                 new(finSupport => finSupport.Description, LS["Description"], "Description"),
-                },
+                    },
             idFunc: finSupport => IdFunc(finSupport),
-            searchFunc: async filter => (await FinSupportsClient
-                .SearchAsync(filter.Adapt<SearchFinSupportsRequest>()))
-                .Adapt<PaginationResponse<FinSupportDto>>(),
+            searchFunc: async filter =>
+            {
+                var finSupportfilter = filter.Adapt<SearchFinSupportsRequest>();
+                finSupportfilter.IsCompleted = fltCompleted switch
+                {
+                    
+                    2=>true,
+                    3=>false,
+                    _=>null
+                };
+                var result = await FinSupportsClient.SearchAsync(finSupportfilter);
+                return result.Adapt<PaginationResponse<FinSupportDto>>();
+            },
             createFunc: async finSupport => await FinSupportsClient.CreateAsync(finSupport.Adapt<CreateFinSupportRequest>()),
             updateFunc: async (id, finSupport) => await FinSupportsClient.UpdateAsync(id, finSupport),
             deleteFunc: async id => await FinSupportsClient.DeleteAsync(id),

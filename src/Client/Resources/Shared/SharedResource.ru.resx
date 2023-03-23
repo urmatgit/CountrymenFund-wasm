@@ -123,6 +123,9 @@
   <data name="Advanced Search" xml:space="preserve">
     <value>Расширенный поиск</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
   <data name="All Columns" xml:space="preserve">
     <value>Все поля</value>
   </data>
@@ -141,6 +144,12 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Завершенные</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
@@ -152,6 +161,9 @@
   </data>
   <data name="Create" xml:space="preserve">
     <value>Создать</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
   </data>
   <data name="December" xml:space="preserve">
     <value>Декабрь</value>
@@ -174,6 +186,21 @@
   <data name="February" xml:space="preserve">
     <value>Февраль</value>
   </data>
+  <data name="Financial support" xml:space="preserve">
+    <value>Финансовая поддержка</value>
+  </data>
+  <data name="Financial support contribution" xml:space="preserve">
+    <value>Взнос для финансовую поддержку</value>
+  </data>
+  <data name="Financial support contributions" xml:space="preserve">
+    <value>Взносы для финансовую поддержку</value>
+  </data>
+  <data name="Financial supports" xml:space="preserve">
+    <value>Финансовая поддержка</value>
+  </data>
+  <data name="FIO" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
   <data name="January" xml:space="preserve">
     <value>Январь</value>
   </data>
@@ -182,6 +209,9 @@
   </data>
   <data name="June" xml:space="preserve">
     <value>Июнь</value>
+  </data>
+  <data name="Manage Financial support contributions." xml:space="preserve">
+    <value>Управление взносами на финансовую поддержку.</value>
   </data>
   <data name="Manage Years." xml:space="preserve">
     <value>Управление годами</value>
@@ -231,6 +261,9 @@
   <data name="September" xml:space="preserve">
     <value>Сентябрь</value>
   </data>
+  <data name="Summa" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
   <data name="Total" xml:space="preserve">
     <value>Итого</value>
   </data>
@@ -245,6 +278,9 @@
   </data>
   <data name="Totals" xml:space="preserve">
     <value>Итоги</value>
+  </data>
+  <data name="Uncompleted" xml:space="preserve">
+    <value>Незавершенные</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Обновить</value>
