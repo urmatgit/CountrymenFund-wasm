@@ -1,11 +1,5 @@
 {
-  "Kestrel": {
-    "EndPoints": {
-      "Http": {
-        "Url": "http://localhost:5002"
-      }
-    }
-  },
+   
   "profiles": {
     "FSH.BlazorWebAssembly.Server": {
       "commandName": "Project",
