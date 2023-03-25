@@ -1,4 +1,11 @@
 {
+  "Kestrel": {
+    "EndPoints": {
+      "Http": {
+        "Url": "http://localhost:5002"
+      }
+    }
+  },
   "profiles": {
     "FSH.BlazorWebAssembly.Server": {
       "commandName": "Project",
@@ -18,6 +25,16 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:5002",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5002;https://localhost:5003"
+      },
+      "distributionName": ""
     }
   },
   "iisSettings": {
