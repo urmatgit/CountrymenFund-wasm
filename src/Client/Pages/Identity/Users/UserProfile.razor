@@ -25,7 +25,7 @@ else
                         <MudCardContent Class="pa-46" Style="padding:26px!important">
                             <MudGrid>
                                 <MudSwitch @bind-Checked="@_active" Color="Color.Primary" Label="@_localizer["Active?"]"></MudSwitch>
-                                <MudCheckBox ReadOnly @bind-Checked="@_emailConfirmed" Disabled Label="@_localizer["Email Confirmed?"]" Color="Color.Secondary">
+                                <MudCheckBox  @bind-Checked="@_emailConfirmed"  Label="@_localizer["Email Confirmed?"]" Color="Color.Secondary">
                                     </MudCheckBox>
                                 <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"
                             OnClick="ToggleUserStatus" ButtonType="ButtonType.Submit">@_localizer["Save Changes"]
