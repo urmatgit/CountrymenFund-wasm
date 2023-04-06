@@ -117,7 +117,7 @@ public partial class HomePageManage
             if (txtBlock != null)
             {
                 BlockImageDto blockImage =  new BlockImageDto();
-               
+                if (txtBlock.Images == null) txtBlock.Images = new List<BlockImageDto>();
                 txtBlock.Images.Add(blockImage);
                 CurrentBlockImageIndex = txtBlock.Images.Count-1;
                         

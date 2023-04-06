@@ -9,6 +9,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    app.UseHttpsRedirection();
 }
 else
 {
@@ -20,7 +21,7 @@ else
     });
 }
 
-//app.UseHttpsRedirection();
+
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 app.UseRouting();
