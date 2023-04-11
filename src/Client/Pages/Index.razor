@@ -5,33 +5,36 @@
 
 <MudContainer>
     <MudGrid @ref="_mugGrid">
+        @if (mudCarouselItems is not null && mudCarouselItems.Count > 0)
+        {
         <MudItem xs="12" sm="12" md="12">
-            <MudCarousel Class="mud-width-full" @ref="_carousel" ItemsSource="@mudCarouselItems" Style="@_height" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle" AutoCycleTime="_autocycleTime" TData="SliderDto">
-                <ItemTemplate>
-                    <div style="height:100%" class="d-flex flex-column justify-center">
-                        @if (!string.IsNullOrEmpty(context.ImagePath))
-                        {
-                            @*<img src="@(Config[ConfigNames.ApiBaseUrl] + @context.ImagePath)" width="100%" height="100%">*@
-                            <MudAvatar  Class="z-10 ma-n2" Image="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
-                        }
-                        <div class="d-flex flex-column   justify-center z-30" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);">
-                        @if (!string.IsNullOrEmpty(context.Title))
-                        {
-                            <MudText Align="@Align.Center" Class="mx-auto " Typo="Typo.subtitle1">@context.Title</MudText>
-                        }
-                        @if (!string.IsNullOrEmpty(context.Description))
-                        {
-                            <MudText Align="@Align.Center" Class="mx-auto " Typo="Typo.body1">@context.Description</MudText>
-                        }
+            
+                <MudCarousel Class="mud-width-full" @ref="_carousel" ItemsSource="@mudCarouselItems" Style="@_height" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle" AutoCycleTime="_autocycleTime" TData="SliderDto">
+                    <ItemTemplate>
+                        <div style="height:100%" class="d-flex flex-column justify-center">
+                            @if (!string.IsNullOrEmpty(context.ImagePath))
+                            {
+                                @*<img src="@(Config[ConfigNames.ApiBaseUrl] + @context.ImagePath)" width="100%" height="100%">*@
+                                <MudAvatar  Class="z-10 ma-n2" Image="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                            }
+                            <div class="d-flex flex-column   justify-center z-30" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);">
+                                @if (!string.IsNullOrEmpty(context.Title))
+                                {
+                                    <MudText Align="@Align.Center" Class="mx-auto " Typo="Typo.subtitle1">@context.Title</MudText>
+                                }
+                                @if (!string.IsNullOrEmpty(context.Description))
+                                {
+                                    <MudText Align="@Align.Center" Class="mx-auto " Typo="Typo.body1">@context.Description</MudText>
+                                }
+                            </div>
                         </div>
-                    </div>
-                </ItemTemplate>
-               @* <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
+                    </ItemTemplate>
+                    @* <MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
                     <div class="d-flex" style="height:100%">
                         <MudText Class="mx-auto my-auto"  Align="Align.Center">Hello!!!</MudText>
                         <label class="mx-auto my-auto" >Test</label>
                         @*<MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />*@
-@*                    </div>
+                    @*                    </div>
                 </MudCarouselItem>
                 <MudCarouselItem Transition="Transition.Slide" Color="@Color.Secondary">
                     <div class="d-flex" style="height:100%">
@@ -43,8 +46,10 @@
                         <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Color="@Color.Primary" Size="@Size.Large" />
                     </div>
                 </MudCarouselItem>*@
-            </MudCarousel>
-        </MudItem>
+                </MudCarousel>
+
+                </MudItem>
+            }
         @foreach(TextBlockDto textBlock in TextBlocks)
         {
             <MudItem xs="12" sm="12" md="12">

@@ -258,7 +258,8 @@ public partial class HomePageManage
         {
             mudCarouselItems.RemoveAt(index);
             await Task.Delay(1);
-            _carousel.MoveTo(System.Math.Max(index, mudCarouselItems.Count - 1));
+            if (mudCarouselItems.Count>0)
+                _carousel.MoveTo(System.Math.Max(index, mudCarouselItems.Count - 1));
         }
     }
 
