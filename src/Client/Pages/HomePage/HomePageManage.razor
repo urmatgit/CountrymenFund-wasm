@@ -147,7 +147,14 @@
                         
                     </MudCardHeader>
                     <MudCardContent>
-                                            <MudText><p>@textBlock.Text</p></MudText>
+                                            <MudText>
+                                                @foreach (var sub in textBlock.Text.Split("\n"))
+                                                {
+                                                    @sub
+                                                    <br />
+                                                }
+
+                                            </MudText>
                     </MudCardContent>
                 </MudCard>
 
