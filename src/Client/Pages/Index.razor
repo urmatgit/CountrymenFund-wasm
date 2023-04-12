@@ -15,7 +15,9 @@
                             @if (!string.IsNullOrEmpty(context.ImagePath))
                             {
                                 @*<img src="@(Config[ConfigNames.ApiBaseUrl] + @context.ImagePath)" width="100%" height="100%">*@
-                                <MudAvatar  Class="z-10 ma-n2" Image="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))" Square="true" Style="height: auto; width: auto; max-height: 100%"> </MudAvatar>
+                                <MudAvatar  Class="z-10 ma-n2"  Square="true" Style="height: auto; width: auto; max-height: 100%">
+                                    <MudImage ObjectFit="ObjectFit.Fill" Src="@(string.IsNullOrEmpty(@context.ImagePath) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.ImagePath))"/>
+                                    </MudAvatar>
                             }
                             <div class="d-flex flex-column   justify-center z-30" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);">
                                 @if (!string.IsNullOrEmpty(context.Title))

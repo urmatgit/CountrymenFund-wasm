@@ -6,16 +6,10 @@ public static class LocalizationConstants
 {
     public static readonly LanguageCode[] SupportedLanguages =
     {
-        new("en-US", "English"),
-        //new("fr-FR", "French"),
-        //new("km_KH", "Khmer"),
-        //new("de-DE", "German"),
-        //new("nl-NL", "Dutch - Netherlands"),
-        //new("es-ES", "Spanish"),
-        new("ru-RU", "Russian"),
-        new("kg-KG", "Kyrgyz")
-        //new("id-ID", "Indonesia"),
-        //new("it-IT", "Italian"),
-        //new("ar", "عربي", true)
+                new("kg-KG", "Kyrgyz"),
+                new("ru-RU", "Russian"),
+        new("en-US", "English")
+        
+
     };
 }

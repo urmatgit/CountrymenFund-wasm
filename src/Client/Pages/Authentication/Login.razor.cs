@@ -16,6 +16,7 @@ public partial class Login
     [Inject]
     public IAuthenticationService AuthService { get; set; } = default!;
 
+    private bool IsDebug = false;
     private CustomValidation? _customValidation;
 
     public bool BusySubmitting { get; set; }
@@ -28,6 +29,9 @@ public partial class Login
 
     protected override async Task OnInitializedAsync()
     {
+#if DEBUG
+        IsDebug = true;
+#endif
         if (AuthService.ProviderType == AuthProvider.AzureAd)
         {
             AuthService.NavigateToExternalLogin(Navigation.Uri);

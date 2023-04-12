@@ -40,9 +40,12 @@
             <MudButton ButtonType="ButtonType.Submit" Disabled="BusySubmitting" Variant="Variant.Filled"
                 Color="Color.Primary" Size="Size.Large" StartIcon="@Icons.Filled.Login" Style="width: 100%;">@L["Sign In"]</MudButton>
         </MudItem>
-        <MudItem xs="12">
-            <MudButton StartIcon="@Icons.Filled.Password" OnClick="FillAdministratorCredentials">@L["Fill Administrator Credentials"]</MudButton>
+        @if (IsDebug)
+            {
+                <MudItem xs="12">
+                    <MudButton StartIcon="@Icons.Filled.Password" OnClick="FillAdministratorCredentials">@L["Fill Administrator Credentials"]</MudButton>
         </MudItem>
+        }
     </MudGrid>
 </EditForm>
 </MudContainer>
