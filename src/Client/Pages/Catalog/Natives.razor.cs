@@ -55,7 +55,7 @@ public partial class Natives
                 new(prod => prod.BirthDate!.Value.ToString("MMM dd, yyyy"), L["BirthDate"], "BirthDate"),
                 new(prod => prod.Village, L["Village"], "Village"),
                 new(prod => prod.RuralGovName, L["RuralGov"], "RuralGovName"),
-                new(prod => prod.Rate, L["Rate"], "Rate",Template: RateFieldTemplate),
+                //new(prod => prod.Rate, L["Rate"], "Rate",Template: RateFieldTemplate),
                 new(prod => prod.Description, L["Description"], "Description")
 
             },

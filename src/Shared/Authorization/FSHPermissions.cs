@@ -36,6 +36,8 @@ public static class FSHResource
     public const string HomePage = nameof(HomePage);
     public const string FinSupport = nameof(FinSupport);
     public const string FSContributions = nameof(FSContributions);
+    public const string Logs=nameof(Logs);
+         
 
 }
 
@@ -43,6 +45,7 @@ public static class FSHPermissions
 {
     private static readonly FSHPermission[] _all = new FSHPermission[]
     {
+        new ("View Logs",FSHAction.View,FSHResource.Logs),
         new("View Dashboard", FSHAction.View, FSHResource.Dashboard),
         new("View Hangfire", FSHAction.View, FSHResource.Hangfire),
         new("View Users", FSHAction.View, FSHResource.Users),

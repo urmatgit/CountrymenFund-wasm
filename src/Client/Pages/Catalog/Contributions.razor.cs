@@ -61,8 +61,8 @@ public partial class Contributions
                 new(prod =>SH.GetString(prod.Month.ToString()), L["Month"], "Month"),
                 new(prod => prod.Summa, L["Summa"], "Summa",Type: typeof(decimal?)),
                 new(prod => prod.Date, L["Date"], "Date"),
-                new(prod => prod.Description, L["Description"], "Description"),
-                new(prod => prod.Rate, L["Rate"], "Rate",Template: RateFieldTemplate)
+                new(prod => prod.Description, L["Description"], "Description")
+                //new(prod => prod.Rate, L["Rate"], "Rate",Template: RateFieldTemplate)
             },
             enableAdvancedSearch: false,
             idFunc: prod => prod.Id,
