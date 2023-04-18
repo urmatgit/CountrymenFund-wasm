@@ -6,7 +6,7 @@
         <AssemblyName>FSH.BlazorWebAssembly.Client</AssemblyName>
         <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
         <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
-        
+        <StaticWebAssetsAdditionalPublishPropertiesToRemove>$(StaticWebAssetsAdditionalPublishPropertiesToRemove);SelfContained</StaticWebAssetsAdditionalPublishPropertiesToRemove>
     </PropertyGroup>
 
     <ItemGroup>
