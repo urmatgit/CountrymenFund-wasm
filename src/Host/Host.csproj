@@ -13,6 +13,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Client\Client.csproj" />
+        <GlobalPropertiesToRemove>SelfContained</GlobalPropertiesToRemove>
         <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
