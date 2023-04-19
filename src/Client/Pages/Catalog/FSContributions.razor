@@ -19,11 +19,11 @@
         <EditFormContent>
 
     <MudItem xs="12" md="6">
-            <FinSupportAutocomplete For="@(() => context.FinSupportId)" @bind-Value="context.FinSupportId" OffsetY="true" />
+            <FinSupportAutocomplete For="@(() => context.FinSupportId)" @bind-Value="context.FinSupportId" TransformOrigin="Origin.TopCenter" />
     </MudItem>
         <MudItem xs="12" md="6" Class="d-flex flex-row">
             <MudButton id="addNative" OnClick="goNativeAdd" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Style="display:none"></MudButton>
-            <NativeAutocomplete BindingValueChanged="(async (finded)=>await Finded(finded))" For="@(() => context.NativeId)" @bind-Value="context.NativeId" OffsetY="true">
+            <NativeAutocomplete BindingValueChanged="(async (finded)=>await Finded(finded))" For="@(() => context.NativeId)" @bind-Value="context.NativeId" TransformOrigin="Origin.TopCenter">
 
             </NativeAutocomplete>
         </MudItem>

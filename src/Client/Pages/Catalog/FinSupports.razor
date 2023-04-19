@@ -25,7 +25,7 @@
             <MudTextField T="string" For="@(() => context.Name)" @bind-Value="context.Name" Label="@LS["Name"]" />
         </MudItem>
         <MudItem xs="12" md="6">
-            <NativeAutocomplete For="@(() => context.NativeId)" @bind-Value="context.NativeId" OffsetY="true" />
+            <NativeAutocomplete For="@(() => context.NativeId)" @bind-Value="context.NativeId" TransformOrigin="Origin.TopCenter" />
         </MudItem>
 
         @if (!Context.AddEditModal.IsCreate)

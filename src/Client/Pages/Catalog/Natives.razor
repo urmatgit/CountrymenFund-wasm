@@ -43,7 +43,7 @@
                 @bind-Value="context.Description" />
         </MudItem>
         <MudItem xs="12" md="6">
-            <RuralGovAutocomplete For="@(() => context.RuralGovId)" @bind-Value="context.RuralGovId" OffsetY="true" />
+            <RuralGovAutocomplete For="@(() => context.RuralGovId)" @bind-Value="context.RuralGovId" TransformOrigin="Origin.TopCenter" />
         </MudItem>
        @* <MudItem xs="12" md="6">
             <MudTextField Label="@L["Rate"]" For="@(() => context.Rate)" @bind-Value="context.Rate" />
