@@ -76,3 +76,7 @@
 .mud-table-cell {
     border-bottom: 1px solid var(--mud-palette-divider-light);
 }
+.mainMudContainer{
+    padding-left: 6px;
+    padding-right: 6px;
+}
