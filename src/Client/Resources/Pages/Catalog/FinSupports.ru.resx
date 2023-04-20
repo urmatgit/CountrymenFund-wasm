@@ -135,4 +135,7 @@
   <data name="Manage FinSupports." xml:space="preserve">
     <value>Управление фин. помощь</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>Собрано</value>
+  </data>
 </root>
