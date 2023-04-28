@@ -38,6 +38,7 @@ public partial class Index
         var mainpageModel = await ApiHelper.ExecuteCallGuardedAsync(
             () => HomePageClient.GetAsync(Tenant),
             Snackbar);
+        
         //var mainpageModel = await HomePageClient.GetAsync(Tenant);
         if (mainpageModel is not null)
         {

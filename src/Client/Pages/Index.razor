@@ -36,7 +36,8 @@
 
                 </MudItem>
             }
-        @foreach(TextBlockDto textBlock in TextBlocks)
+            
+     @*   @foreach(TextBlockDto textBlock in TextBlocks)
         {
             <MudItem xs="12" sm="12" md="12">
                 <MudCard>
@@ -71,9 +72,10 @@
                 
 
             </MudItem>
-        }
+        }*@
         
     </MudGrid>
+    <NewsPost />
 </MudContainer>
 
 @code {
