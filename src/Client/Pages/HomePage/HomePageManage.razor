@@ -1,4 +1,5 @@
 ﻿@page "/homepagemanage"
+@using FSH.BlazorWebAssembly.Client.Pages.NewsPosts
 @attribute [MustHavePermission(FSHAction.Update, FSHResource.HomePage)]
 @inject IStringLocalizer<SharedResource> LS
  
@@ -84,7 +85,7 @@
         </MudItem>
         <MudItem xs="12" sm="12" md="12">
              <MudExpansionPanels>
-                  <MudExpansionPanel Class="mud-elevation-25" Text="@LS["Manage Text block"]" >
+                  <MudExpansionPanel Class="mud-elevation-25" Text="@LS["Manage news block"]" >
             <MudCard>
                 <MudCardHeader>
                     @*<CardHeaderContent>
@@ -96,8 +97,8 @@
                             </CardHeaderActions>
                 </MudCardHeader>
                 <MudCardContent>
-                            
-        @foreach (TextBlockDto textBlock in TextBlocks)
+                            <NewsPostList @ref="_newsPost" />
+       @* @foreach (TextBlockDto textBlock in TextBlocks)
         {
             <InputFile id="@($"fileInputBlock{textBlock.Id}")" hidden OnChange="@( async (e)=> await UploadFilesTextBlock(e,$"{textBlock.Id}"))" />
             <MudItem xs="12" sm="12" md="12">
@@ -160,7 +161,7 @@
 
 
             </MudItem>
-        }
+        }*@
                 </MudCardContent>
                 </MudCard>
                 </MudExpansionPanel>

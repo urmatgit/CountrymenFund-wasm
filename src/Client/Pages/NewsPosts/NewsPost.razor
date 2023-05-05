@@ -1,0 +1,41 @@
+﻿@page "/newspost/{id:guid}"
+@using FSH.WebApi.Shared.Multitenancy;
+<MudItem xs="12" sm="12" md="12">
+    <MudCard>
+
+        <MudCardHeader>
+            <CardHeaderContent>
+
+                <MudText Typo="Typo.h6">@item.Title</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent Class="ps-8">
+            <MudText>
+                @((MarkupString)item.Body)
+
+
+            </MudText>
+        </MudCardContent>
+    </MudCard>
+
+
+</MudItem>
+
+
+@code {
+    [Inject]
+    protected INewsPostClient NewsPostClient { get; set; } = default!;
+    private NewsPostDto item = default!;
+    private string Tenant { get; set; } = MultitenancyConstants.Root.Id;
+    [Parameter] public Guid id { get; set; }=default!;
+
+    protected override async Task OnParametersSetAsync()
+    {
+          item = await ApiHelper.ExecuteCallGuardedAsync(
+               () => NewsPostClient.GetAsync(id,Tenant),
+               Snackbar);
+
+        await base.OnParametersSetAsync();
+    }
+     
+}

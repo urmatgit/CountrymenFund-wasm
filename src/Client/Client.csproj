@@ -376,6 +376,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.5" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
         <PackageReference Include="MudBlazor" Version="6.2.2" />
     </ItemGroup>
 
@@ -397,6 +398,7 @@
 
     <ItemGroup>
       <Folder Include="Pages\Catalog\TotalReports\" />
+      <Folder Include="wwwroot\lib\ckeditor\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -404,5 +406,13 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Components\Common\InputRichText.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Components\Common\InputRichText.razor" />
     </ItemGroup>
 </Project>

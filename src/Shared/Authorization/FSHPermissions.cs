@@ -37,7 +37,9 @@ public static class FSHResource
     public const string FinSupport = nameof(FinSupport);
     public const string FSContributions = nameof(FSContributions);
     public const string Logs=nameof(Logs);
-         
+    public const string NewsPost = nameof(NewsPost);
+
+
 
 }
 
@@ -120,6 +122,15 @@ public static class FSHPermissions
         new("Update FSContributions", FSHAction.Update, FSHResource.FSContributions),
         new("Delete FSContributions", FSHAction.Delete, FSHResource.FSContributions),
         new("Export FSContributions", FSHAction.Export, FSHResource.FSContributions),
+
+
+        new("View FSContributions", FSHAction.View, FSHResource.NewsPost, IsBasic: true),
+        new("Search FSContributions", FSHAction.Search, FSHResource.NewsPost, IsBasic: true),
+        new("Create FSContributions", FSHAction.Create, FSHResource.NewsPost),
+        new("Update FSContributions", FSHAction.Update, FSHResource.NewsPost),
+        new("Delete FSContributions", FSHAction.Delete, FSHResource.NewsPost),
+        new("Export FSContributions", FSHAction.Export, FSHResource.NewsPost),
+
 
         new("View Reports", FSHAction.View, FSHResource.Reports, IsBasic: true),
         new("Search Reports", FSHAction.Search, FSHResource.Reports, IsBasic: true),

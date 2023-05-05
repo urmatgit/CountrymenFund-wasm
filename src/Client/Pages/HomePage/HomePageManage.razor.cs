@@ -6,6 +6,7 @@ using FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient;
 using FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient.Fund;
 using FSH.BlazorWebAssembly.Client.Infrastructure.Auth;
 using FSH.BlazorWebAssembly.Client.Infrastructure.Common;
+using FSH.BlazorWebAssembly.Client.Pages.NewsPosts;
 using FSH.BlazorWebAssembly.Client.Shared;
 using FSH.WebApi.Shared.Authorization;
 
@@ -37,6 +38,7 @@ public partial class HomePageManage
 
     private MudDropContainer<DropItem> _MudDropContainer = default!;
     private MudCarousel<SlideViewModel> _carousel;
+    private NewsPostList _newsPost;
     private MudGrid _mugGrid;
     private bool _arrows = true;
     private bool _bullets = true;
@@ -54,7 +56,7 @@ public partial class HomePageManage
     private string _height = "height: 200px;";
     
     private List<SlideViewModel> mudCarouselItems = new List<SlideViewModel>();
-    private List<TextBlockDto> TextBlocks = new List<TextBlockDto>();
+    private List<NewsPostDto> TextBlocks = new List<NewsPostDto>();
     private string Tenant { get; set; } = MultitenancyConstants.Root.Id;
     private bool _canEditHomePage;
 
@@ -90,7 +92,7 @@ public partial class HomePageManage
             {
                 mudCarouselItems = mainpageModel.Sliders.Select(x => x.Adapt<SlideViewModel>()).ToList();
             }
-            TextBlocks = mainpageModel.TextBlocs.ToList();
+           // TextBlocks = mainpageModel.TextBlocs.ToList();
             StateHasChanged();
         }
     }
@@ -117,9 +119,9 @@ public partial class HomePageManage
             if (txtBlock != null)
             {
                 BlockImageDto blockImage =  new BlockImageDto();
-                if (txtBlock.Images == null) txtBlock.Images = new List<BlockImageDto>();
-                txtBlock.Images.Add(blockImage);
-                CurrentBlockImageIndex = txtBlock.Images.Count-1;
+                if (txtBlock.Images == null) txtBlock.ImagesDto = new List<BlockImageDto>();
+                txtBlock.ImagesDto.Add(blockImage);
+                CurrentBlockImageIndex = txtBlock.ImagesDto.Count-1;
                         
                 blockImage.ImageExtension = extension;
                 var imageFile = await e.File.RequestImageFileAsync(ApplicationConstants.StandardImageFormat, ApplicationConstants.MaxImageWidth, ApplicationConstants.MaxImageHeight);
@@ -132,7 +134,7 @@ public partial class HomePageManage
             }
         }
     }
-    private async Task EditTextBlockAsync(TextBlockDto textBlockDto)
+    private async Task EditTextBlockAsync(NewsPostDto textBlockDto)
     {
         
         var model = await AddOrEditTextBlockAsync(textBlockDto, false);
@@ -143,13 +145,13 @@ public partial class HomePageManage
         }
     }
   
-    private async Task DeleteTextBlockAsync(TextBlockDto textBlockDto)
+    private async Task DeleteTextBlockAsync(NewsPostDto textBlockDto)
     {
         string deleteContent = LS["You're sure you want to delete {0} ?"];
         
         var parameters = new DialogParameters
         {
-            { nameof(DeleteConfirmation.ContentText), string.Format(deleteContent, textBlockDto.Caption) }
+            { nameof(DeleteConfirmation.ContentText), string.Format(deleteContent, textBlockDto.Title) }
         };
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
         var dialog = DialogService.Show<DeleteConfirmation>(LS["Delete"], parameters, options);
@@ -164,7 +166,7 @@ public partial class HomePageManage
     }
     private async Task AddTextBlockAsync()
     {
-        var textblock = new TextBlockDto()
+        var textblock = new NewsPostDto()
         {
             Id= Guid.NewGuid(),
         };
@@ -175,7 +177,7 @@ public partial class HomePageManage
 
         }
     }
-    private async Task<TextBlockDto> AddOrEditTextBlockAsync (TextBlockDto model, bool isCreate)
+    private async Task<NewsPostDto> AddOrEditTextBlockAsync (NewsPostDto model, bool isCreate)
     {
         string title = LS["Update"];
         if (isCreate)
@@ -287,25 +289,25 @@ public partial class HomePageManage
             mainpageModel.Sliders.Add(item.Adapt<SliderDto>());
         }
         mainpageModel.TextBlocs.Clear();
-        TextBlocks.ForEach(x => 
-        {
-            if (x.Images != null)
-            {
-                foreach (BlockImageDto image in x.Images?.Where(x=>!string.IsNullOrEmpty(x.ImageInBytes)))
-                {
+        //TextBlocks.ForEach(x => 
+        //{
+        //    if (x.Images != null)
+        //    {
+        //        foreach (BlockImageDto image in x.Images?.Where(x=>!string.IsNullOrEmpty(x.ImageInBytes)))
+        //        {
                     
-                        image.Image = new FileUploadRequest()
-                        {
-                            Name = image.Name,
-                            Data = image.ImageInBytes,
-                            Extension = image.ImageExtension
-                        };
+        //                image.Image = new FileUploadRequest()
+        //                {
+        //                    Name = image.Name,
+        //                    Data = image.ImageInBytes,
+        //                    Extension = image.ImageExtension
+        //                };
                     
-                    // image.ImageInBytes = null;
-                }
-            }
-        });
-        mainpageModel.TextBlocs = TextBlocks;
+        //            // image.ImageInBytes = null;
+        //        }
+        //    }
+        //});
+       //mainpageModel.TextBlocs = TextBlocks;
         
         var sucessMessage = await ApiHelper.ExecuteCallGuardedAsync(
             () => HomePageClient.PostAsync(mainpageModel.Adapt<UpdateHomePageRequest>()),

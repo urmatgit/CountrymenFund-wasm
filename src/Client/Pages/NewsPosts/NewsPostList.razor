@@ -1,0 +1,65 @@
+﻿@inject IStringLocalizer<SharedResource> LS
+@if (_loading)
+{
+    <MudCard>
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="300px"/>
+        <MudCardContent>
+            <MudSkeleton Width="30%" Height="42px;"/>
+            <MudSkeleton Width="80%"/>
+            <MudSkeleton Width="100%"/>
+        </MudCardContent>
+        <MudCardActions>
+            <MudSkeleton Width="64px" Height="40px" Class="ml-2"/>
+            <MudSkeleton Width="105px" Height="40px" Class="ml-3"/>
+        </MudCardActions>
+    </MudCard>
+} else if (NewsPostItems?.Data.Count>0)
+{
+    foreach (var item in NewsPostItems?.Data)
+    {
+        <MudItem xs="12" sm="12" md="12">
+            <MudCard>
+
+                <MudCardHeader>
+                    <CardHeaderContent>
+
+                        <MudLink Typo="Typo.h6"  Href=@($"/newspost/{item.Id}")> @item.Title</MudLink>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        @if (_canEditNewsPostPage)
+                        {
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default"  @ontouchstart="@( async ()=>{ await editNewsPost(item);})"  OnClick="@( async ()=>{ await editNewsPost(item);})" />
+                            @if (_canDeleteNewsPostPage)
+                            {
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" />
+                            }
+                        }
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent Class="ps-8">
+                    <MudText>
+                        @((MarkupString)item.Body)
+                        
+
+                    </MudText>
+                </MudCardContent>
+            </MudCard>
+
+
+        </MudItem>
+        // something
+    }
+    <div style="margin: 20px auto;text-align: center">
+          <MudPagination
+              Rectangular="true"
+              Variant="Variant.Filled"
+              Count="@(( NewsPostItems.TotalCount + PageSize-1) / PageSize)"
+              BoundaryCount="0"
+              MiddleCount="3"
+                   Selected="PageIndex"
+              SelectedChanged="ToPage"
+              
+              @ref="_mudPagination"/>
+      </div>
+
+}

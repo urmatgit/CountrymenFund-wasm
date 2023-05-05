@@ -1,5 +1,6 @@
 ﻿@page "/home"
 @page "/"
+@using FSH.BlazorWebAssembly.Client.Pages.NewsPosts
 @attribute [AllowAnonymous]
 @inject IStringLocalizer<Index> L
 
@@ -75,7 +76,7 @@
         }*@
         
     </MudGrid>
-    <NewsPost />
+    <NewsPostList />
 </MudContainer>
 
 @code {

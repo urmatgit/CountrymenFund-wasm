@@ -1,5 +1,5 @@
 ﻿@inject IStringLocalizer<SharedResource> LS
-<AddEditModal RequestModel="TextBlockModel" SaveFunc="@createFunc" @ref="addeditModel" IsCreate="IsCreate" Title="@Caption">
+<AddEditModal RequestModel="NewsPostModel" SaveFunc="@createFunc" @ref="addeditModel" IsCreate="IsCreate" Title="@Caption">
     <MudGrid>
 
         <MudItem xs="12" md="12">
@@ -9,7 +9,7 @@
                           InputType="InputType.Text" />*@
         </MudItem>
         <MudItem xs="12" md="12" >
-            <InputRichText @bind-Value="@context.Body" @bind-Value:event="oninput" UrlToPostImage="http://localhost:44301/api/qaiser/Upload" style="width:100%;height:200px;" />
+            <InputRichText @bind-Value="context.Body" UrlToPostImage="http://localhost:44301/api/qaiser/Upload" style="width:100%;height:200px;" />
         </MudItem>
         
        
@@ -27,8 +27,8 @@
     public string Caption { get; set; } = default!;
     [Parameter]
     [EditorRequired]
-    public NewsPostDto TextBlockModel { get; set; } = default!;
-    private AddEditModal<NewsPostDto> addeditModel = default!;
+    public UpdateNewsPostRequest NewsPostModel { get; set; } = default!;
+    private AddEditModal<UpdateNewsPostRequest> addeditModel = default!;
     private async Task createFunc(NewsPostDto prod)
     {
        
