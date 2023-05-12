@@ -1,15 +1,54 @@
-﻿@inject IStringLocalizer<SharedResource> LS
-<AddEditModal RequestModel="NewsPostModel" SaveFunc="@createFunc" @ref="addeditModel" IsCreate="IsCreate" Title="@Caption">
+﻿@*@using TinyMCE.Blazor*@
+@using WYSIWYGTextEditor
+@inject IStringLocalizer<SharedResource> LS
+<style>
+    /*SET THE DEFAULT FONT*/
+    #TestId {
+        font-family: "MS Gothic";
+        font-size: 18px;
+        height: 375px;
+    }
+
+    /*DEFINE ALL OF THE CUSTOM FONTS*/
+    .ql-font-MSGothic {
+        font-family: 'MS Gothic';
+    }
+
+    .ql-font-Bahnschrift {
+        font-family: 'Bahnschrift'
+    }
+
+    .ql-font-Impact {
+        font-family: 'Impact';
+    }
+
+    .ql-font-Courier {
+        font-family: 'Courier';
+    }
+
+    .ql-font-Comic {
+        font-family: 'Comic Sans MS';
+    }
+</style>
+
+<AddEditModal RequestModel="NewsPostModel" SaveFunc="_saveFunc" @ref="addeditModel" IsCreate="IsCreate" Title="@Caption">
     <MudGrid>
 
         <MudItem xs="12" md="12">
-            <MudTextField T="string" Label="@LS["Caption"]" Variant="Variant.Outlined" @bind-Value="context.Title" For="@(()=>context.Title )"
-                          InputType="InputType.Text" />
+            <MudTextField   Label="@LS["Caption"]" @bind-Value="context.Title" For="@(()=>context.Title )"
+                           />
+            
             @*<MudTextField T="string" Label="@LS["Text"]" Lines="5" Variant="Variant.Outlined" @bind-Value="context.Body" For="@(()=>context.Body)"
                           InputType="InputType.Text" />*@
+
         </MudItem>
         <MudItem xs="12" md="12" >
-            <InputRichText @bind-Value="context.Body" UrlToPostImage="http://localhost:44301/api/qaiser/Upload" style="width:100%;height:200px;" />
+            @*<Editor Field="() => context.Body" @bind-Value="context.Body" ValidationOnInput="@true" style="width:100%;height:200px;" />
+            <ValidationMessage For="() => context.Body" />*@
+            <TextEditor Toolbar="new Toolbar { ShowFullToolbar=true }" EditorContainerId="TestId" @ref="@MyEditor" 
+                        
+                        Placeholder=@LS["Enter non HTML format like centering..."]  >
+            </TextEditor>
         </MudItem>
         
        
@@ -20,7 +59,7 @@
 </AddEditModal>
 
 @code {
-     
+    TextEditor MyEditor;
     [Parameter]
     public bool IsCreate { get; set; }
     [Parameter]
@@ -28,13 +67,39 @@
     [Parameter]
     [EditorRequired]
     public UpdateNewsPostRequest NewsPostModel { get; set; } = default!;
-    private AddEditModal<UpdateNewsPostRequest> addeditModel = default!;
-    private async Task createFunc(NewsPostDto prod)
+    [Parameter]
+    [EditorRequired]
+    public Func<UpdateNewsPostRequest, Task> SaveFunc { get; set; } = default!;
+
+    public AddEditModal<UpdateNewsPostRequest> addeditModel = default!;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-       
+        if (!firstRender)
+            return;
+        bool loading = true;
+        while (loading)
+        {
+            try
+            {
+                await MyEditor.LoadHTMLContent(NewsPostModel.Body);
+                loading = false;
+            }
+            catch
+            {
+                await Task.Delay(10);
+                loading = true;
+            }
+
+        }
         
-        //await NativesClient.CreateAsync(prod.Adapt<CreateNativeRequest>());
-        // prod.ImageInBytes = string.Empty;
+        StateHasChanged();
+        //return base.OnAfterRenderAsync(firstRender);
+    }
+   
+    public async Task _saveFunc(UpdateNewsPostRequest updateNewsPost)
+    {
+        updateNewsPost.Body = await MyEditor.GetHTML();
+        await SaveFunc(updateNewsPost);
     }
 
     

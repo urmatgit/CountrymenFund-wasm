@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using FSH.BlazorWebAssembly.Client.Infrastructure.Auth;
 using FSH.BlazorWebAssembly.Client.Pages.HomePage;
 using Mapster;
+using FSH.BlazorWebAssembly.Client.Components.Dialogs;
+using System.Reflection;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.NewsPosts;
 
@@ -47,9 +49,11 @@ public partial class NewsPostList
     {
         var authState = await AuthState;
         Claims = authState.User.Claims;
-
-        _canEditNewsPostPage = await AuthService.HasPermissionAsync(authState.User, FSHAction.Update, FSHResource.NewsPost);
-        _canDeleteNewsPostPage = await AuthService.HasPermissionAsync(authState.User, FSHAction.Delete, FSHResource.NewsPost);
+        if (!Navigation.Uri.Equals(Navigation.BaseUri))
+        {
+            _canEditNewsPostPage = await AuthService.HasPermissionAsync(authState.User, FSHAction.Update, FSHResource.NewsPost);
+            _canDeleteNewsPostPage = await AuthService.HasPermissionAsync(authState.User, FSHAction.Delete, FSHResource.NewsPost);
+        }
         await LoadPosts();
 
     }
@@ -79,9 +83,38 @@ public partial class NewsPostList
         StateHasChanged();
     }
 
+    private async Task AddTextBlockAsync()
+    {
+        var newspost = new UpdateNewsPostRequest();
+
+        await AddOrEditNewsPostAsync(newspost, true);
+
+    }
     private async Task editNewsPost(NewsPostDto newsPostDto)
     {
         await AddOrEditNewsPostAsync(newsPostDto.Adapt<UpdateNewsPostRequest>(), false);
+    }
+    private async Task deleteNewsPost(NewsPostDto newsPostDto)
+    {
+        string deleteContent = LS["You're sure you want to delete {0} ?"];
+
+        var parameters = new DialogParameters
+        {
+            { nameof(DeleteConfirmation.ContentText), string.Format(deleteContent, newsPostDto.Title) }
+        };
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+        var dialog = DialogService.Show<DeleteConfirmation>(LS["Delete"], parameters, options);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            //NewsPostItems.Data.Remove(newsPostDto);
+            var retuslt = await ApiHelper.ExecuteCallGuardedAsync(
+            () => NewsPostClient.DeleteAsync(newsPostDto.Id ),
+             Snackbar);
+            await LoadPosts();
+            //await Task.Delay(1);
+
+        }
     }
     private async Task AddOrEditNewsPostAsync(UpdateNewsPostRequest model, bool isCreate)
     {
@@ -90,21 +123,32 @@ public partial class NewsPostList
         {
             title = LS["Create"];
         }
+        Func<UpdateNewsPostRequest, Task> saveFunc;
+        if (!isCreate)
+        {
+            
+            saveFunc= model =>NewsPostClient.UpdateAsync(model.Id, model);
+              
+        }
+        else
+        {
 
+            saveFunc = model => NewsPostClient.CreateAsync(model.Adapt<CreateNewsPostRequest>());
+            
+        }
         var result = await DialogService.ShowModalAsync<AddOrUpdateNewsPost>(new()
         {
             { nameof(AddOrUpdateNewsPost.IsCreate), isCreate },
             { nameof(AddOrUpdateNewsPost.NewsPostModel), model },
-            { nameof(AddOrUpdateNewsPost.Caption), title }
+            { nameof(AddOrUpdateNewsPost.Caption), title },
+            { nameof(AddOrUpdateNewsPost.SaveFunc), saveFunc }
+
 
         });
 
         if (!result.Cancelled)
         {
             
-            var retuslt = await ApiHelper.ExecuteCallGuardedAsync(
-              () => NewsPostClient.UpdateAsync(model.Id,model),
-              Snackbar);
             await LoadPosts();
         }
         

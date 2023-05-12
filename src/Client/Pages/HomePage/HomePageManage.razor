@@ -86,84 +86,8 @@
         <MudItem xs="12" sm="12" md="12">
              <MudExpansionPanels>
                   <MudExpansionPanel Class="mud-elevation-25" Text="@LS["Manage news block"]" >
-            <MudCard>
-                <MudCardHeader>
-                    @*<CardHeaderContent>
-                        <MudText Typo="Typo.h6">@LS["Manage Text blocks"]</MudText>
-                    </CardHeaderContent>*@
-                            <CardHeaderActions>
-                                <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTextBlockAsync">@LS["Add"]</MudButton>
-                                
-                            </CardHeaderActions>
-                </MudCardHeader>
-                <MudCardContent>
-                            <NewsPostList @ref="_newsPost" />
-       @* @foreach (TextBlockDto textBlock in TextBlocks)
-        {
-            <InputFile id="@($"fileInputBlock{textBlock.Id}")" hidden OnChange="@( async (e)=> await UploadFilesTextBlock(e,$"{textBlock.Id}"))" />
-            <MudItem xs="12" sm="12" md="12">
-
-                <MudCard>
-
-                    <MudCardHeader>
-                        <CardHeaderActions>
-                        <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(async()=> EditTextBlockAsync(textBlock))">@LS["Edit"]</MudButton>
-                        <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Error" OnClick="@(async () => await DeleteTextBlockAsync(textBlock))">@LS["Delete"]</MudButton>
-                                                <div>
-                                                    <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small"
-                                                           StartIcon="@Icons.Filled.CloudUpload" for="@($"fileInputBlock{textBlock.Id}")">
-                                                        @LS["Upload"]
-                                                    </MudButton>
-                                                    @if (textBlock.Images?.Count>0)
-                                                    {
-                                                        <MudButton HtmlTag="label" DisableElevation Variant="Variant.Filled" Color="Color.Error" Size="Size.Small"
-                                                           StartIcon="@Icons.Filled.Delete" OnClick="@(async ()=> DeleteCurrentImageFromBlock(textBlock))" Style="margin-left: 5px;">
-                                                            @LS["Delete"]
-                                                        </MudButton>
-                                                    }
-                                                   
-                                                </div>
-                    </CardHeaderActions>
-                        <CardHeaderContent>
-                            @if (textBlock.Images != null && textBlock.Images.Count > 0)
-                            {
-                                <MudCarousel Class="mud-width-full" @bind-SelectedIndex="CurrentBlockImageIndex" ItemsSource="@textBlock.Images" Style="height:300px;" ShowArrows="true" ShowBullets="false" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="false" AutoCycleTime="_autocycleTime" TData="BlockImageDto">
-                                    <ItemTemplate>
-                                        <div style="height:100%" class="d-flex flex-column justify-center">
-                                                                @if (!string.IsNullOrEmpty(context.ImageInBytes))
-                                                                {
-                                                                    <MudImage Style="height: auto; width: auto; max-height: 100%"  Class="rounded-lg ma-4" ObjectFit="ObjectFit.ScaleDown"
-                                                                    Src="@context.ImageInBytes"> </MudImage>
-
-                                                                }else {
-                                                                <MudImage Style="height: auto; width: auto; max-height: 100%"  Class="rounded-lg ma-4" ObjectFit="ObjectFit.ScaleDown" Src="@(string.IsNullOrEmpty(@context.Name) ? string.Empty : (Config[ConfigNames.ApiBaseUrl] + @context.Name))"> </MudImage>
-                                                                }
-                                        </div>
-                                    </ItemTemplate>
-
-                                </MudCarousel>
-                            }
-                            <MudText Typo="Typo.h6">@textBlock.Caption</MudText>
-                        </CardHeaderContent>
-                        
-                    </MudCardHeader>
-                    <MudCardContent>
-                                            <MudText>
-                                                @foreach (var sub in textBlock.Text.Split("\n"))
-                                                {
-                                                    @sub
-                                                    <br />
-                                                }
-
-                                            </MudText>
-                    </MudCardContent>
-                </MudCard>
-
-
-            </MudItem>
-        }*@
-                </MudCardContent>
-                </MudCard>
+                    <NewsPostList @ref="_newsPost" />
+            
                 </MudExpansionPanel>
             </MudExpansionPanels>
         </MudItem>

@@ -378,6 +378,7 @@
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
         <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
         <PackageReference Include="MudBlazor" Version="6.2.2" />
+        <PackageReference Include="WYSIWYGTextEditor" Version="1.0.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -398,7 +399,7 @@
 
     <ItemGroup>
       <Folder Include="Pages\Catalog\TotalReports\" />
-      <Folder Include="wwwroot\lib\ckeditor\" />
+      <Folder Include="wwwroot\lib\" />
     </ItemGroup>
 
     <ItemGroup>

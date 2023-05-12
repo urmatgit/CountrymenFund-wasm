@@ -116,22 +116,22 @@ public partial class HomePageManage
                 return;
             }
             var txtBlock = TextBlocks.FirstOrDefault(s => s.Id == Guid.Parse(id));
-            if (txtBlock != null)
-            {
-                BlockImageDto blockImage =  new BlockImageDto();
-                if (txtBlock.Images == null) txtBlock.ImagesDto = new List<BlockImageDto>();
-                txtBlock.ImagesDto.Add(blockImage);
-                CurrentBlockImageIndex = txtBlock.ImagesDto.Count-1;
+            //if (txtBlock != null)
+            //{
+            //    BlockImageDto blockImage =  new BlockImageDto();
+            //    if (txtBlock.Images == null) txtBlock.ImagesDto = new List<BlockImageDto>();
+            //    txtBlock.ImagesDto.Add(blockImage);
+            //    CurrentBlockImageIndex = txtBlock.ImagesDto.Count-1;
                         
-                blockImage.ImageExtension = extension;
-                var imageFile = await e.File.RequestImageFileAsync(ApplicationConstants.StandardImageFormat, ApplicationConstants.MaxImageWidth, ApplicationConstants.MaxImageHeight);
-                byte[]? buffer = new byte[imageFile.Size];
-                await imageFile.OpenReadStream(ApplicationConstants.MaxAllowedSize).ReadAsync(buffer);
+            //    blockImage.ImageExtension = extension;
+            //    var imageFile = await e.File.RequestImageFileAsync(ApplicationConstants.StandardImageFormat, ApplicationConstants.MaxImageWidth, ApplicationConstants.MaxImageHeight);
+            //    byte[]? buffer = new byte[imageFile.Size];
+            //    await imageFile.OpenReadStream(ApplicationConstants.MaxAllowedSize).ReadAsync(buffer);
 
-                blockImage.ImageInBytes = $"data:{ApplicationConstants.StandardImageFormat};base64,{Convert.ToBase64String(buffer)}";
-                blockImage.Name = e.File.Name;
-                StateHasChanged();
-            }
+            //    blockImage.ImageInBytes = $"data:{ApplicationConstants.StandardImageFormat};base64,{Convert.ToBase64String(buffer)}";
+            //    blockImage.Name = e.File.Name;
+            //    StateHasChanged();
+            //}
         }
     }
     private async Task EditTextBlockAsync(NewsPostDto textBlockDto)

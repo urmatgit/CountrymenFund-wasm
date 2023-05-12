@@ -13,53 +13,69 @@
             <MudSkeleton Width="105px" Height="40px" Class="ml-3"/>
         </MudCardActions>
     </MudCard>
-} else if (NewsPostItems?.Data.Count>0)
+} else 
 {
-    foreach (var item in NewsPostItems?.Data)
-    {
-        <MudItem xs="12" sm="12" md="12">
-            <MudCard>
+    <MudCard>
+        <MudCardHeader>
 
-                <MudCardHeader>
-                    <CardHeaderContent>
+            <CardHeaderActions>
+                @if (_canEditNewsPostPage)
+                {
+                    <MudButton Class="ma-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="AddTextBlockAsync">@LS["Add"]</MudButton>
+                }
 
-                        <MudLink Typo="Typo.h6"  Href=@($"/newspost/{item.Id}")> @item.Title</MudLink>
-                    </CardHeaderContent>
-                    <CardHeaderActions>
-                        @if (_canEditNewsPostPage)
-                        {
-                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default"  @ontouchstart="@( async ()=>{ await editNewsPost(item);})"  OnClick="@( async ()=>{ await editNewsPost(item);})" />
-                            @if (_canDeleteNewsPostPage)
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            @if (NewsPostItems?.Data.Count > 0)
+            {
+            foreach (var item in NewsPostItems?.Data)
+            {
+            <MudItem xs="12" sm="12" md="12">
+                <MudCard>
+
+                    <MudCardHeader>
+                        <CardHeaderContent>
+
+                            <MudLink Typo="Typo.h6" Href=@($"/newspost/{item.Id}")> @item.Title</MudLink>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            @if (_canEditNewsPostPage)
                             {
-                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default" @ontouchstart="@( async ()=>{ await editNewsPost(item);})" OnClick="@( async ()=>{ await editNewsPost(item);})" />
+                                @if (_canDeleteNewsPostPage)
+                                {
+                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" @ontouchstart="@( async ()=>{ await deleteNewsPost(item);})" OnClick="@( async ()=>{ await deleteNewsPost(item);})" />
+                                }
                             }
-                        }
-                    </CardHeaderActions>
-                </MudCardHeader>
-                <MudCardContent Class="ps-8">
-                    <MudText>
-                        @((MarkupString)item.Body)
-                        
-
-                    </MudText>
-                </MudCardContent>
-            </MudCard>
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent Class="ps-8">
+                        <MudText>
+                            @((MarkupString)item.Body)
 
 
-        </MudItem>
-        // something
-    }
-    <div style="margin: 20px auto;text-align: center">
-          <MudPagination
-              Rectangular="true"
-              Variant="Variant.Filled"
-              Count="@(( NewsPostItems.TotalCount + PageSize-1) / PageSize)"
-              BoundaryCount="0"
-              MiddleCount="3"
-                   Selected="PageIndex"
-              SelectedChanged="ToPage"
-              
-              @ref="_mudPagination"/>
-      </div>
+                        </MudText>
+                    </MudCardContent>
+                </MudCard>
+
+
+            </MudItem>
+            
+            }
+            <div style="margin: 20px auto;text-align: center">
+                <MudPagination Rectangular="true"
+                           Variant="Variant.Filled"
+                           Count="@(( NewsPostItems.TotalCount + PageSize-1) / PageSize)"
+                           BoundaryCount="0"
+                           MiddleCount="3"
+                           Selected="PageIndex"
+                           SelectedChanged="ToPage"
+                           @ref="_mudPagination" />
+            </div>
+            }
+        </MudCardContent>
+    </MudCard>
+  
 
 }
