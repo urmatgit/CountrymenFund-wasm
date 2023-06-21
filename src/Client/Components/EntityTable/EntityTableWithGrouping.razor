@@ -72,6 +72,12 @@
                                OnClick="(() => ExportAsync())" StartIcon="@Icons.Material.Filled.ImportExport"
                                Style="margin-left: 5px;" IconColor="Color.Surface">@L["Export"]</MudButton>
                     }
+                    @if (_canImport)
+                    {
+                        <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Tertiary"
+                               OnClick="@(InvokeImportModal)" StartIcon="@Icons.Material.Filled.ImportExport"
+                               Style="margin-left: 5px;" IconColor="Color.Surface">@L["Import"]</MudButton>
+                    }
                     <MudButton DisableElevation Variant="Variant.Filled" OnClick="ReloadDataAsync"
                                StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface" Color="Color.Secondary"
                                Style="margin-left: 5px;">@L["Reload"]</MudButton>

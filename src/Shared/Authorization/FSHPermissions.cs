@@ -10,6 +10,7 @@ public static class FSHAction
     public const string Update = nameof(Update);
     public const string Delete = nameof(Delete);
     public const string Export = nameof(Export);
+    public const string Import = nameof(Import);
     public const string Generate = nameof(Generate);
     public const string Clean = nameof(Clean);
     public const string UpgradeSubscription = nameof(UpgradeSubscription);
@@ -38,6 +39,7 @@ public static class FSHResource
     public const string FSContributions = nameof(FSContributions);
     public const string Logs=nameof(Logs);
     public const string NewsPost = nameof(NewsPost);
+    
 
 
 
@@ -62,8 +64,10 @@ public static class FSHPermissions
         new("Create Roles", FSHAction.Create, FSHResource.Roles),
         new("Update Roles", FSHAction.Update, FSHResource.Roles),
         new("Delete Roles", FSHAction.Delete, FSHResource.Roles),
+        new("Import Roles", FSHAction.Import, FSHResource.Roles),
         new("View RoleClaims", FSHAction.View, FSHResource.RoleClaims),
         new("Update RoleClaims", FSHAction.Update, FSHResource.RoleClaims),
+        
 
         new("View Products", FSHAction.View, FSHResource.Products, IsBasic: true),
         new("Search Products", FSHAction.Search, FSHResource.Products, IsBasic: true),
@@ -86,6 +90,7 @@ public static class FSHPermissions
         new("Update RuralGovs", FSHAction.Update, FSHResource.RuralGovs),
         new("Delete RuralGovs", FSHAction.Delete, FSHResource.RuralGovs),
         new("Clean RuralGovs", FSHAction.Clean, FSHResource.RuralGovs),
+        new("Import RuralGovs", FSHAction.Import, FSHResource.RuralGovs),
 
          new("View Natives", FSHAction.View, FSHResource.Natives, IsBasic: true),
         new("Search Natives", FSHAction.Search, FSHResource.Natives, IsBasic: true),
@@ -93,6 +98,7 @@ public static class FSHPermissions
         new("Update Natives", FSHAction.Update, FSHResource.Natives),
         new("Delete Natives", FSHAction.Delete, FSHResource.Natives),
         new("Export Natives", FSHAction.Export, FSHResource.Natives),
+        new("Import Native", FSHAction.Import, FSHResource.Natives),
 
           new("View FinSupport", FSHAction.View, FSHResource.FinSupport, IsBasic: true),
         new("Search FinSupport", FSHAction.Search, FSHResource.FinSupport, IsBasic: true),
@@ -100,6 +106,7 @@ public static class FSHPermissions
         new("Update FinSupport", FSHAction.Update, FSHResource.FinSupport),
         new("Delete FinSupport", FSHAction.Delete, FSHResource.FinSupport),
         new("Export FinSupport", FSHAction.Export, FSHResource.FinSupport),
+        new("Import FinSupport", FSHAction.Import, FSHResource.FinSupport),
 
 
         new("View Years", FSHAction.View, FSHResource.Years, IsBasic: true),
@@ -108,6 +115,7 @@ public static class FSHPermissions
         new("Update Years", FSHAction.Update, FSHResource.Years),
         new("Delete Years", FSHAction.Delete, FSHResource.Years),
         new("Export Years", FSHAction.Export, FSHResource.Years),
+        new("Import Years", FSHAction.Import, FSHResource.Years),
 
         new("View Contributions", FSHAction.View, FSHResource.Contributions, IsBasic: true),
         new("Search Contributions", FSHAction.Search, FSHResource.Contributions, IsBasic: true),
@@ -115,6 +123,7 @@ public static class FSHPermissions
         new("Update Contributions", FSHAction.Update, FSHResource.Contributions),
         new("Delete Contributions", FSHAction.Delete, FSHResource.Contributions),
         new("Export Contributions", FSHAction.Export, FSHResource.Contributions),
+        new("Import Contributions", FSHAction.Import, FSHResource.Contributions),
 
         new("View FSContributions", FSHAction.View, FSHResource.FSContributions, IsBasic: true),
         new("Search FSContributions", FSHAction.Search, FSHResource.FSContributions, IsBasic: true),
@@ -122,14 +131,16 @@ public static class FSHPermissions
         new("Update FSContributions", FSHAction.Update, FSHResource.FSContributions),
         new("Delete FSContributions", FSHAction.Delete, FSHResource.FSContributions),
         new("Export FSContributions", FSHAction.Export, FSHResource.FSContributions),
+        new("Import FSContributions", FSHAction.Import, FSHResource.FSContributions),
 
 
-        new("View FSContributions", FSHAction.View, FSHResource.NewsPost, IsBasic: true),
-        new("Search FSContributions", FSHAction.Search, FSHResource.NewsPost, IsBasic: true),
-        new("Create FSContributions", FSHAction.Create, FSHResource.NewsPost),
-        new("Update FSContributions", FSHAction.Update, FSHResource.NewsPost),
-        new("Delete FSContributions", FSHAction.Delete, FSHResource.NewsPost),
-        new("Export FSContributions", FSHAction.Export, FSHResource.NewsPost),
+        new("View NewsPost", FSHAction.View, FSHResource.NewsPost, IsBasic: true),
+        new("Search NewsPost", FSHAction.Search, FSHResource.NewsPost, IsBasic: true),
+        new("Create NewsPost", FSHAction.Create, FSHResource.NewsPost),
+        new("Update NewsPost", FSHAction.Update, FSHResource.NewsPost),
+        new("Delete NewsPost", FSHAction.Delete, FSHResource.NewsPost),
+        new("Export NewsPost", FSHAction.Export, FSHResource.NewsPost),
+        new("Import NewsPost", FSHAction.Import, FSHResource.NewsPost),
 
 
         new("View Reports", FSHAction.View, FSHResource.Reports, IsBasic: true),

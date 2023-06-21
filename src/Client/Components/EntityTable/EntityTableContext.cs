@@ -1,4 +1,5 @@
-﻿using FSH.WebApi.Shared.Authorization;
+﻿using FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient;
+using FSH.WebApi.Shared.Authorization;
 using MudBlazor;
 
 namespace FSH.BlazorWebAssembly.Client.Components.EntityTable;
@@ -108,6 +109,12 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     public string ExportAction { get; }
 
     /// <summary>
+    /// The permission name of the import permission. This is FSHAction.Import by default.
+    /// </summary>
+    public string ImportAction { get; }
+    public Func<Task>? ImportFormInitializedFunc { get; }
+
+    /// <summary>
     /// Use this if you want to run initialization during OnInitialized of the AddEdit form.
     /// </summary>
     public Func<Task>? EditFormInitializedFunc { get; }
@@ -145,7 +152,9 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
         string? updateAction,
         string? deleteAction,
         string? exportAction,
+        string? importAction,
         Func<Task>? editFormInitializedFunc,
+         Func<Task>? importFormInitializedFunc,
         Func<bool>? hasExtraActionsFunc,
         Func<TEntity, bool>? canUpdateEntityFunc,
         Func<TEntity, bool>? canDeleteEntityFunc)
@@ -166,7 +175,9 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
         UpdateAction = updateAction ?? FSHAction.Update;
         DeleteAction = deleteAction ?? FSHAction.Delete;
         ExportAction = exportAction ?? FSHAction.Export;
+        ImportAction = importAction ?? FSHAction.Import;
         EditFormInitializedFunc = editFormInitializedFunc;
+        ImportFormInitializedFunc = importFormInitializedFunc;
         HasExtraActionsFunc = hasExtraActionsFunc;
         CanUpdateEntityFunc = canUpdateEntityFunc;
         CanDeleteEntityFunc = canDeleteEntityFunc;
@@ -181,6 +192,15 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     public IAddEditModal<TRequest> AddEditModal =>
         _addEditModalRef?.Dialog as IAddEditModal<TRequest>
         ?? throw new InvalidOperationException("AddEditModal is only available when the modal is shown.");
+
+    // Import modal
+    private IDialogReference? _importModalRef;
+    internal void SetImportModalRef(IDialogReference dialog) =>
+        _importModalRef = dialog;
+
+    public IImportModal<FileUploadRequest> ImportModal =>
+        _importModalRef?.Dialog as IImportModal<FileUploadRequest>
+        ?? throw new InvalidOperationException("ImportModal is only available when the modal is shown.");
 
     // Shortcuts
     public EntityClientTableContext<TEntity, TId, TRequest>? ClientContext => this as EntityClientTableContext<TEntity, TId, TRequest>;

@@ -56,7 +56,8 @@ public partial class EntityTable<TEntity, TId, TRequest>
     private bool _canUpdate;
     private bool _canDelete;
     private bool _canExport;
-    
+    private bool _canImport;
+
     private bool _advancedSearchExpanded=false;
     [Parameter]
     public bool AdvancedSearchExpanded { get => _advancedSearchExpanded;
@@ -79,6 +80,7 @@ public partial class EntityTable<TEntity, TId, TRequest>
         _canUpdate = Context.UpdateFunc != null && await CanDoActionAsync(Context.UpdateAction, state) ;
         _canDelete = Context.DeleteFunc != null && await CanDoActionAsync(Context.DeleteAction, state) ;
         _canExport = Context.ExportAction != null && await CanDoActionAsync(Context.ExportAction, state);
+        _canImport = Context.ImportAction !=null && await CanDoActionAsync(Context.ImportAction, state);
 
         await LocalLoadDataAsync();
     }
@@ -179,7 +181,7 @@ public partial class EntityTable<TEntity, TId, TRequest>
 
         return new TableData<TEntity> { TotalItems = _totalItems, Items = _entityList };
     }
-
+     
     private async Task ExportAsync()
     {
         if (!Loading && Context.ServerContext is not null)
@@ -358,5 +360,45 @@ public partial class EntityTable<TEntity, TId, TRequest>
 
             await ReloadDataAsync();
         } 
+    }
+
+    // developing
+    private async Task ImportAsync(FileUploadRequest request)
+    {
+        Loading = true;
+
+        if (await ApiHelper.ExecuteCallGuardedAsync(
+                () => Context.ServerContext.ImportFunc(request), Snackbar)
+            is { } result)
+        {
+
+        }
+
+        Loading = false;
+    }
+
+    private async Task InvokeImportModal()
+    {
+        var parameters = new DialogParameters
+            {
+                { nameof(ImportModal.ModelName), Context.EntityName },
+                { nameof(ImportModal.OnInitializedFunc), Context.ImportFormInitializedFunc },
+            };
+
+        Func<FileUploadRequest, Task> importFunc = ImportAsync;
+
+        parameters.Add(nameof(ImportModal.ImportFunc), importFunc);
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+
+        var dialog = DialogService.Show<ImportModal>(@L["Import"], parameters, options);
+
+        Context.SetImportModalRef(dialog);
+
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            await ReloadDataAsync();
+        }
     }
 }

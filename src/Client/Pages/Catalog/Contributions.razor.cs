@@ -11,6 +11,7 @@ using Newtonsoft.Json.Bson;
 using Microsoft.JSInterop;
 using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.WebUtilities;
+using MediatR.Courier;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.Catalog;
 
@@ -105,6 +106,11 @@ public partial class Contributions
                 exportFilter.DateEnd = SearchDateRange == default ? null : SearchDateRange.End;
                 exportFilter.RuralGovId = SearchRuralGovId == default ? null : SearchRuralGovId;
                 return await ContributionsClient.ExportAsync(exportFilter);
+            },
+            importFunc: async FileUploadRequest =>
+            {
+                var request = new ImportRuralGovReques() { ExcelFile = FileUploadRequest };
+                await ContributionsClient.ImportAsync(request);
             },
             deleteFunc: async id => await ContributionsClient.DeleteAsync(id)
             , getDefaultsFunc: async () =>

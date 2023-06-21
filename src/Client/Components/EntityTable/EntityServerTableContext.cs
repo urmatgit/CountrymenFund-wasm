@@ -20,12 +20,18 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
     /// </summary>
     public Func<BaseFilter, Task<FileResponse>>? ExportFunc { get; }
 
+    /// <summary>
+    /// A function that import the specified data from the API.
+    /// </summary>
+    public Func<FileUploadRequest, Task>? ImportFunc { get; }
+
     public bool EnableAdvancedSearch { get; }
 
     public EntityServerTableContext(
         List<EntityField<TEntity>> fields,
         Func<PaginationFilter, Task<PaginationResponse<TEntity>>> searchFunc,
         Func<BaseFilter, Task<FileResponse>>? exportFunc = null,
+          Func<FileUploadRequest, Task>? importFunc = null,
         bool enableAdvancedSearch = false,
         Func<TEntity, TId>? idFunc = null,
         Func<TEntity, string>? rowStyle = null,
@@ -42,7 +48,9 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
         string? updateAction = null,
         string? deleteAction = null,
         string? exportAction = null,
+        string? importAction=null,
         Func<Task>? editFormInitializedFunc = null,
+          Func<Task>? importFormInitializedFunc = null,
         Func<bool>? hasExtraActionsFunc = null,
         Func<TEntity, bool>? canUpdateEntityFunc = null,
         Func<TEntity, bool>? canDeleteEntityFunc = null,
@@ -66,7 +74,9 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
             updateAction,
             deleteAction,
             exportAction,
+            importAction,
             editFormInitializedFunc,
+            importFormInitializedFunc,
             hasExtraActionsFunc,
             canUpdateEntityFunc,
             canDeleteEntityFunc,
@@ -76,6 +86,7 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
     {
         SearchFunc = searchFunc;
         ExportFunc = exportFunc;
+        ImportFunc = importFunc;
         EnableAdvancedSearch = enableAdvancedSearch;
     }
 }
