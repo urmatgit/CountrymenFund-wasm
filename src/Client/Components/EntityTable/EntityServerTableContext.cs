@@ -23,7 +23,7 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
     /// <summary>
     /// A function that import the specified data from the API.
     /// </summary>
-    public Func<FileUploadRequest, Task>? ImportFunc { get; }
+    public Func<ImportRequestDto, Task>? ImportFunc { get; }
 
     public bool EnableAdvancedSearch { get; }
 
@@ -31,7 +31,7 @@ public class EntityServerTableContext<TEntity, TId, TRequest>
         List<EntityField<TEntity>> fields,
         Func<PaginationFilter, Task<PaginationResponse<TEntity>>> searchFunc,
         Func<BaseFilter, Task<FileResponse>>? exportFunc = null,
-          Func<FileUploadRequest, Task>? importFunc = null,
+          Func<ImportRequestDto, Task>? importFunc = null,
         bool enableAdvancedSearch = false,
         Func<TEntity, TId>? idFunc = null,
         Func<TEntity, string>? rowStyle = null,

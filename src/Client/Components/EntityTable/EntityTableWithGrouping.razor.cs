@@ -41,6 +41,8 @@ public partial class EntityTableWithGrouping<TEntity, TId, TRequest>
 
     [Parameter]
     public RenderFragment<TRequest>? EditFormContent { get; set; }
+    [Parameter]
+    public RenderFragment<ImportRequestDto>? ImportFormContent { get; set; }
 
     [CascadingParameter]
     protected Task<AuthenticationState> AuthState { get; set; } = default!;
@@ -352,7 +354,7 @@ public partial class EntityTableWithGrouping<TEntity, TId, TRequest>
         }
     }
     // developing
-    private async Task ImportAsync(FileUploadRequest request)
+    private async Task ImportAsync(ImportRequestDto request)
     {
         Loading = true;
         try
@@ -372,10 +374,11 @@ public partial class EntityTableWithGrouping<TEntity, TId, TRequest>
         var parameters = new DialogParameters
             {
                 { nameof(ImportModal.ModelName), Context.EntityName },
-                { nameof(ImportModal.OnInitializedFunc), Context.ImportFormInitializedFunc },
+                { nameof(ImportModal.ChildContent),ImportFormContent},
+                { nameof(ImportModal .OnInitializedFunc), Context.ImportFormInitializedFunc },
             };
 
-        Func<FileUploadRequest, Task> importFunc = ImportAsync;
+        Func<ImportRequestDto, Task> importFunc = ImportAsync;
 
         parameters.Add(nameof(ImportModal.ImportFunc), importFunc);
         var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };

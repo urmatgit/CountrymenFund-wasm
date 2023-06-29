@@ -37,7 +37,11 @@
             </MudItem>
         </MudGrid>
     </AdvancedSearchContent>
-
+    <ImportFormContent>
+        <MudItem xs="12" md="6">
+            <YearGovAutocomplete For="@(() => context.Value)" @bind-Value="context.Value" TransformOrigin="Origin.TopRight" />
+        </MudItem>
+    </ImportFormContent>
     <EditFormContent>
         @*@if (!Context.AddEditModal.IsCreate)
         {

@@ -2,14 +2,17 @@
 using FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient;
 using FSH.BlazorWebAssembly.Client.Infrastructure.Common;
 using FSH.BlazorWebAssembly.Client.Shared;
+using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using System.Diagnostics;
 
+
+
 namespace FSH.BlazorWebAssembly.Client.Components.EntityTable;
 
-public partial class ImportModal
+public partial class ImportModal 
 {
     [Parameter]
     public string? ModelName { get; set; } = string.Empty;
@@ -19,10 +22,16 @@ public partial class ImportModal
 
     [Parameter]
     public FileUploadRequest UploadModel { get; set; } = new();
+    [Parameter]
+    public ImportRequestDto ImportRequestDto { get; set; } = new();
+    
+    [Parameter]
+    [EditorRequired]
+    public RenderFragment<ImportRequestDto> ChildContent { get; set; } = default!;
 
     [Parameter]
     [EditorRequired]
-    public Func<FileUploadRequest, Task> ImportFunc { get; set; } = default!;
+    public Func<ImportRequestDto, Task> ImportFunc { get; set; } = default!;
 
     // public string? SuccessMessage { get; set; }
     private CustomValidation? _customValidation;
@@ -51,7 +60,7 @@ public partial class ImportModal
         // }
 
         if (await ApiHelper.ExecuteCallGuardedAsync(
-           () => ImportFunc(UploadModel), Snackbar))
+           () => ImportFunc(ImportRequestDto), Snackbar))
         {
             _uploading = false;
             MudDialog.Close();
@@ -86,13 +95,18 @@ public partial class ImportModal
             byte[]? buffer = new byte[_file.Size];
             await _file.OpenReadStream(_file.Size).ReadAsync(buffer);
             string? base64String = $"data:{ApplicationConstants.StandardExcelFormat};base64,{Convert.ToBase64String(buffer)}";
-
+            
             UploadModel = new FileUploadRequest
             {
                 Name = _file.Name,
                 Extension = extension,
                 Data = base64String,
             };
+            ImportRequestDto.fileUploadRequest = UploadModel;
+            
         }
     }
+
+    public void ForceRender() => StateHasChanged();
+    
 }

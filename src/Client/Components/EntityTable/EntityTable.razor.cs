@@ -363,7 +363,7 @@ public partial class EntityTable<TEntity, TId, TRequest>
     }
 
     // developing
-    private async Task ImportAsync(FileUploadRequest request)
+    private async Task ImportAsync(ImportRequestDto request)
     {
         Loading = true;
 
@@ -381,16 +381,16 @@ public partial class EntityTable<TEntity, TId, TRequest>
     {
         var parameters = new DialogParameters
             {
-                { nameof(ImportModal.ModelName), Context.EntityName },
-                { nameof(ImportModal.OnInitializedFunc), Context.ImportFormInitializedFunc },
+                { nameof(ImportModal .ModelName), Context.EntityName },
+                { nameof(ImportModal .OnInitializedFunc), Context.ImportFormInitializedFunc },
             };
 
-        Func<FileUploadRequest, Task> importFunc = ImportAsync;
+        Func<ImportRequestDto, Task> importFunc = ImportAsync;
 
-        parameters.Add(nameof(ImportModal.ImportFunc), importFunc);
+        parameters.Add(nameof(ImportModal .ImportFunc), importFunc);
         var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
 
-        var dialog = DialogService.Show<ImportModal>(@L["Import"], parameters, options);
+        var dialog = DialogService.Show<ImportModal >(@L["Import"], parameters, options);
 
         Context.SetImportModalRef(dialog);
 

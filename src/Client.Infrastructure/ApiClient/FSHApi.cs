@@ -6309,14 +6309,14 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         /// Import a datas.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<int> ImportAsync(ImportRuralGovReques request);
+        System.Threading.Tasks.Task<int> ImportAsync(ImportContributionRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Import a datas.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<int> ImportAsync(ImportRuralGovReques request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<int> ImportAsync(ImportContributionRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -7019,7 +7019,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         /// Import a datas.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<int> ImportAsync(ImportRuralGovReques request)
+        public virtual System.Threading.Tasks.Task<int> ImportAsync(ImportContributionRequest request)
         {
             return ImportAsync(request, System.Threading.CancellationToken.None);
         }
@@ -7029,7 +7029,7 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         /// Import a datas.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<int> ImportAsync(ImportRuralGovReques request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<int> ImportAsync(ImportContributionRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -14304,13 +14304,24 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ImportRuralGovReques
+    public partial class ImportContributionRequest : ImportRequestOfInteger
+    {
+        [Newtonsoft.Json.JsonProperty("ruralGovId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid RuralGovId { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid Year { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ImportRequestOfInteger
     {
         [Newtonsoft.Json.JsonProperty("excelFile", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public FileUploadRequest ExcelFile { get; set; } = default!;
 
-        [Newtonsoft.Json.JsonProperty("sheetName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string SheetName { get; set; } = default!;
+        [Newtonsoft.Json.JsonProperty("sheetName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? SheetName { get; set; } = default!;
 
     }
 

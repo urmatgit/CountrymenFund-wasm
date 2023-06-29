@@ -12,6 +12,7 @@ using Microsoft.JSInterop;
 using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.WebUtilities;
 using MediatR.Courier;
+using System.Xml.Serialization;
 
 namespace FSH.BlazorWebAssembly.Client.Pages.Catalog;
 
@@ -109,7 +110,7 @@ public partial class Contributions
             },
             importFunc: async FileUploadRequest =>
             {
-                var request = new ImportRuralGovReques() { ExcelFile = FileUploadRequest };
+                var request = new ImportContributionRequest() { ExcelFile = FileUploadRequest.fileUploadRequest,Year=FileUploadRequest.Value };
                 await ContributionsClient.ImportAsync(request);
             },
             deleteFunc: async id => await ContributionsClient.DeleteAsync(id)
