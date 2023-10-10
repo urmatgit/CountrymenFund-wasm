@@ -8,7 +8,7 @@
       },
       "dotnetRunMessages": true,
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-      "applicationUrl": "http://194.190.152.99:8080;https://194.190.152.99"
+      "applicationUrl": "http://localhost:5000;https://localhost:5003"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -23,10 +23,10 @@
   "Kestrel": {
     "Endpoints": {
       "Http": {
-        "Url": "http://194.190.152.99:8080"
+        "Url": "http://localhost:5000"
       },
       "Https": {
-        "Url": "https://194.190.152.99"
+        "Url": "https://localhost:5003"
       }
     }
   },
@@ -34,7 +34,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:21716",
+      "applicationUrl": "http://localhost:5000",
       "sslPort": 44331
     }
   }
