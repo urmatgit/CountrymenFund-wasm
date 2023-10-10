@@ -9,19 +9,18 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
-    app.UseHttpsRedirection();
 }
 else
 {
     app.UseExceptionHandler("/Error");
-   // app.UseHsts();
-    app.UseForwardedHeaders(new ForwardedHeadersOptions
-    {
-        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-    });
+    app.UseHsts();
+    //app.UseForwardedHeaders(new ForwardedHeadersOptions
+    //{
+    //    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+    //});
 }
 
-
+app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 app.UseRouting();
