@@ -21,7 +21,7 @@
         <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.5" />
         <PackageReference Include="MudBlazor" Version="6.2.2" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="NSwag.MSBuild" Version="13.18.2">
+        <PackageReference Include="NSwag.MSBuild" Version="13.20.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -39,7 +39,7 @@
     </ItemGroup>
 
     <Target Name="NSwag">
-        <Exec WorkingDirectory="$(ProjectDir)\ApiClient" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net60) run nswag.json /variables:Configuration=$(Configuration)" />
+        <Exec WorkingDirectory="$(ProjectDir)\ApiClient" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net70) run nswag.json /variables:Configuration=$(Configuration)" />
     </Target>
 
 </Project>
