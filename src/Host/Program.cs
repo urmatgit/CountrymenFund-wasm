@@ -38,14 +38,16 @@ else
     
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
-app.UseCors("CorsPolicy");
+
 app.UseRouting();
 
 app.MapRazorPages();
 app.MapControllers();
+app.UseCors("CorsPolicy");
+
 app.MapFallbackToFile("index.html");
 
 app.Run();
