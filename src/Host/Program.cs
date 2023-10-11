@@ -8,13 +8,17 @@ builder.Services.AddRazorPages();
 var allowOrigins = builder.Configuration.GetValue<string>("AllowOrigins");
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy", builder =>
-    {
-        builder.WithOrigins(allowOrigins)
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-          .AllowCredentials();
-    });
+options.AddPolicy("CorsPolicy", builder =>
+{
+    builder.WithOrigins(allowOrigins)
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin()
+      .AllowCredentials();
+
+});
+    
+    
     options.AddPolicy("AllowHeaders", builder =>
     {
         builder.WithOrigins(allowOrigins)
