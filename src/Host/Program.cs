@@ -35,10 +35,10 @@ else
 {
     app.UseExceptionHandler("/Error");
   //  app.UseHsts();
-    app.UseForwardedHeaders(new ForwardedHeadersOptions
-    {
-        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto 
-    });
+    //app.UseForwardedHeaders(new ForwardedHeadersOptions
+    //{
+    //    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto 
+    //});
     
 }
 
