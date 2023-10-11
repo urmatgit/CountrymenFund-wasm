@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error");
-    app.UseHsts();
+  //  app.UseHsts();
     app.UseForwardedHeaders(new ForwardedHeadersOptions
     {
         ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto 
@@ -47,7 +47,6 @@ app.UseRouting();
 app.MapRazorPages();
 app.MapControllers();
 app.UseCors("CorsPolicy");
-
 app.MapFallbackToFile("index.html");
 
 app.Run();
