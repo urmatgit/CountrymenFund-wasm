@@ -11,9 +11,10 @@ builder.Services.AddCors(options =>
     
     options.AddPolicy("CorsPolicy", builder =>
     
-        builder.WithOrigins(allowOrigins)
+        builder //WithOrigins(allowOrigins)
         .AllowAnyHeader()
         .AllowAnyMethod()
+        .SetIsOriginAllowed(_=>true)
         //.AllowAnyOrigin()
       .AllowCredentials()
 
@@ -36,7 +37,7 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error");
-    //  app.UseHsts();
+      app.UseHsts();
     //app.UseForwardedHeaders(new ForwardedHeadersOptions
     //{
     //    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto 
@@ -44,7 +45,7 @@ else
 
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
