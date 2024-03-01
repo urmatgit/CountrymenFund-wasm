@@ -100,6 +100,7 @@ public static class FSHPermissions
         new("Update Natives", FSHAction.Update, FSHResource.Natives),
         new("Delete Natives", FSHAction.Delete, FSHResource.Natives),
         new("Export Natives", FSHAction.Export, FSHResource.Natives),
+        new("Generate Natives", FSHAction.Generate, FSHResource.Natives),
         new("Import Native", FSHAction.Import, FSHResource.Natives),
 
           new("View FinSupport", FSHAction.View, FSHResource.FinSupport, IsBasic: true),

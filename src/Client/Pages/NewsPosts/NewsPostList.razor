@@ -15,7 +15,7 @@
     </MudCard>
 } else 
 {
-    <MudCard>
+    <MudCard >
         <MudCardHeader>
 
             <CardHeaderActions>
@@ -32,7 +32,7 @@
             foreach (var item in NewsPostItems?.Data)
             {
             <MudItem xs="12" sm="12" md="12">
-                <MudCard>
+                        <MudCard Outlined="true">
 
                     <MudCardHeader>
                         <CardHeaderContent>
@@ -46,8 +46,16 @@
                                 @if (_canDeleteNewsPostPage)
                                 {
                                     <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" @ontouchstart="@( async ()=>{ await deleteNewsPost(item);})" OnClick="@( async ()=>{ await deleteNewsPost(item);})" />
-                                }
-                            }
+                                        }
+                                    }
+                                    @* else
+                                    {
+                                        <MudCardActions>
+                                            <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
+                                            <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
+                                        </MudCardActions>
+                                    } *@
+
                         </CardHeaderActions>
                     </MudCardHeader>
                     <MudCardContent Class="ps-8">
