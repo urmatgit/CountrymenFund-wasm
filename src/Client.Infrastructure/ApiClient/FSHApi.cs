@@ -14146,6 +14146,9 @@ namespace FSH.BlazorWebAssembly.Client.Infrastructure.ApiClient
         [Newtonsoft.Json.JsonProperty("dataEnterSumBarChart", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<ChartSeries> DataEnterSumBarChart { get; set; } = default!;
 
+        [Newtonsoft.Json.JsonProperty("dataEnterSumBarFinSupportChart", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<ChartSeries> DataEnterSumBarFinSupportChart { get; set; } = default!;
+
         [Newtonsoft.Json.JsonProperty("productByBrandTypePieChart", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.IDictionary<string, double>? ProductByBrandTypePieChart { get; set; } = default!;
 

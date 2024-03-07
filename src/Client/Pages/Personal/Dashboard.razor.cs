@@ -38,6 +38,7 @@ public partial class Dashboard
     private readonly string[] _dataEnterBarChartXAxisLabels = DateTimeFormatInfo.CurrentInfo.AbbreviatedMonthNames;
     private readonly List<MudBlazor.ChartSeries> _dataEnterBarChartSeries = new();
     private readonly List<MudBlazor.ChartSeries> _dataEnterSumBarChartSeries = new();
+    private readonly List<MudBlazor.ChartSeries> _dataEnterSumBarFunSupportChartSeries = new();
     private bool _loaded;
 
     protected override async Task OnInitializedAsync()
@@ -81,6 +82,12 @@ public partial class Dashboard
                 _dataEnterSumBarChartSeries
                     .RemoveAll(x => x.Name.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
                 _dataEnterSumBarChartSeries.Add(new MudBlazor.ChartSeries { Name = item.Name, Data = item.Data?.ToArray() });
+            }
+            foreach (var item in statsDto.DataEnterSumBarFinSupportChart)
+            {
+                _dataEnterSumBarFunSupportChartSeries
+                    .RemoveAll(x => x.Name.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
+                _dataEnterSumBarFunSupportChartSeries.Add(new MudBlazor.ChartSeries { Name = item.Name, Data = item.Data?.ToArray() });
             }
         }
     }
